@@ -1,18 +1,6 @@
-#include "raylib.h"
-
-const int screenWidth = 800;
-const int screenHeight = 450;
+#include "ProgramManager.h"
 
 int main() {
-	InitWindow(screenWidth, screenHeight, "Raylib Asteroids!");
-
-	while (!WindowShouldClose()) {
-
-		BeginDrawing();
-			ClearBackground(BLACK);
-		EndDrawing();
-	}
-
-	CloseWindow();
+	StartProgram();
 	return 0;
 }
