@@ -157,11 +157,13 @@
     <ClCompile Include="src\Game\Spaceship.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ProgramManager.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Game\Spaceship.h" />
     <ClInclude Include="src\ProgramManager.h" />
+    <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
