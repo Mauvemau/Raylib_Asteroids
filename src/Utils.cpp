@@ -1,6 +1,14 @@
 #include "Utils.h"
 
 namespace Utils {
+	float Modulo(Vector2 vec) {
+		return sqrtf((vec.x * vec.x) + (vec.y * vec.y));
+	}
+
+	float RadiansToDegrees(float rad) {
+		return (rad * (180.0 / m_pi));
+	}
+
 	Vector2 GetTargetVector(Vector2 origin, Vector2 target) {
 		Vector2 targetVector = {
 			(target.x - origin.x),
@@ -20,7 +28,7 @@ namespace Utils {
 		Vector2 targetVector = GetTargetVector(origin, target);
 
 		float targetAng = atan2(targetVector.x, -targetVector.y);
-		targetAng = targetAng * (180.0 / M_PI);
+		targetAng = RadiansToDegrees(targetAng);
 		return targetAng;
 	}
 }
