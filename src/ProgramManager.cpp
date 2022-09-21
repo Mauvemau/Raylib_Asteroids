@@ -3,8 +3,8 @@
 #include "ProgramManager.h"
 #include "Game/Game.h"
 
-const int screenWidth = 800;
-const int screenHeight = 450;
+const int screenWidth = 1024;
+const int screenHeight = 768;
 
 void CloseProgram();
 void UpdateProgram();
@@ -21,7 +21,8 @@ void UpdateProgram() {
 }
 
 void InitProgram() {
-	InitWindow(screenWidth, screenHeight, "Raylib Asteroids!");
+	InitWindow(screenWidth, screenHeight, "Raylib Asteroids");
+	SetTargetFPS(200);
 	Game::Init();
 }
 

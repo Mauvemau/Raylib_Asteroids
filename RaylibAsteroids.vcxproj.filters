@@ -36,6 +36,9 @@
     <ClCompile Include="src\Game\Spaceship.cpp">
       <Filter>Archivos de recursos\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\CollisionManager.cpp">
+      <Filter>Archivos de recursos\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ProgramManager.h">
@@ -48,6 +51,9 @@
       <Filter>Archivos de encabezado\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Game.h">
+      <Filter>Archivos de encabezado\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\CollisionManager.h">
       <Filter>Archivos de encabezado\Game</Filter>
     </ClInclude>
   </ItemGroup>
