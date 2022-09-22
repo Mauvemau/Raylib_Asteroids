@@ -6,6 +6,8 @@ namespace Buttons {
 	void CenterButton(Button& button);
 	bool IsCursorInside(Button button);
 
+	// --
+
 	void CenterButton(Button& button) {
 		button.pos.x -= (button.size.x * .5);
 		button.pos.y -= (button.size.y * .5);
@@ -14,6 +16,8 @@ namespace Buttons {
 	bool IsCursorInside(Button button) {
 		return Collisions::Vector2RectCollision(GetMousePosition(), button.pos, button.size);
 	}
+
+	// Global
 
 	void Draw(Button button) {
 		if (button.hovered) {

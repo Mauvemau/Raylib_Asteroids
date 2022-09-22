@@ -6,6 +6,7 @@ struct Ship {
 	Vector2 size; // The width and height.
 	Vector2 acceleration; // Direction in which to move the spaceship.
 	float rotation; // The current rotation of the sprite.
+	float maxAccel; // The maximum acceleration.
 };
 
 namespace Spaceship {
@@ -15,5 +16,5 @@ namespace Spaceship {
 	void Update(Ship& ship);
 	Ship Create();
 	void Init(Ship& ship); // Sobrecarga, asigna a valores default.
-	void Init(Ship& ship, Vector2 pos);
+	void Init(Ship& ship, Vector2 pos, float maxAccel);
 }

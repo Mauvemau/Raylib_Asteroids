@@ -45,11 +45,14 @@
     <ClCompile Include="src\Game\CollisionManager.cpp">
       <Filter>Archivos de recursos\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menu\MainMenucpp.cpp">
+    <ClCompile Include="src\Menu\MainMenu.cpp">
       <Filter>Archivos de recursos\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\Menu\Button.cpp">
       <Filter>Archivos de recursos\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Asteroid.cpp">
+      <Filter>Archivos de recursos\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="src\Menu\Button.h">
       <Filter>Archivos de encabezado\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Asteroid.h">
+      <Filter>Archivos de encabezado\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

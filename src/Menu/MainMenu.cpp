@@ -11,6 +11,9 @@ namespace MainMenu {
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
 	void InitButtons();
+	void Draw();
+
+	// --
 
 	const char* GetButtonName(Options option) {
 		switch (option)
@@ -25,6 +28,7 @@ namespace MainMenu {
 			return "Exit";
 			break;
 		default:
+			std::cout << "Invalid Option! [MainMenu.cpp - GetButtonname()]\n";
 			break;
 		}
 	}
@@ -41,6 +45,7 @@ namespace MainMenu {
 			SetGameShouldClose(true);
 			break;
 		default:
+			std::cout << "Invalid Option! [MainMenu.cpp - SelectOption()]\n";
 			break;
 		}
 	}
@@ -67,6 +72,8 @@ namespace MainMenu {
 
 		EndDrawing();
 	}
+
+	// Global
 
 	void Update() {
 		for (int i = 0; i < amountButtons; i++) {

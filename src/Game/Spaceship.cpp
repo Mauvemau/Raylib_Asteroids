@@ -2,18 +2,33 @@
 #include "Utils.h"
 #include "CollisionManager.h" // Para manejar las colisiones.
 
-/*
-TODO:
-Arreglar velocidad de movimiento dependiendo del framerate.
-*/
-
 namespace Spaceship {
 	void Move(Ship& ship);
+	void LimitAcceleration(Ship& ship);
+
+	// --
 
 	void Move(Ship& ship) {
-		ship.pos.x += ship.acceleration.x * GetFrameTime();
-		ship.pos.y += ship.acceleration.y * GetFrameTime();
+		ship.pos.x += (ship.acceleration.x * GetFrameTime()) * 380.0f;
+		ship.pos.y += (ship.acceleration.y * GetFrameTime()) * 380.0f;
 	}
+
+	void LimitAcceleration(Ship& ship) {
+		if (ship.acceleration.x > ship.maxAccel) {
+			ship.acceleration.x = ship.maxAccel;
+		}
+		if (ship.acceleration.x < -ship.maxAccel) {
+			ship.acceleration.x = -ship.maxAccel;
+		}
+		if (ship.acceleration.y > ship.maxAccel) {
+			ship.acceleration.y = ship.maxAccel;
+		}
+		if (ship.acceleration.y < -ship.maxAccel) {
+			ship.acceleration.y = -ship.maxAccel;
+		}
+	}
+
+	// Global
 
 	void Accelerate(Ship& ship, Vector2 target) {
 		Vector2 vectorDir = Utils::GetTargetVector(ship.pos, target);
@@ -21,8 +36,9 @@ namespace Spaceship {
 		normalizedDir.x = (vectorDir.x / Utils::Modulo(vectorDir));
 		normalizedDir.y = (vectorDir.y / Utils::Modulo(vectorDir));
 
-		ship.acceleration.x += normalizedDir.x;
-		ship.acceleration.y += normalizedDir.y;
+		ship.acceleration.x += normalizedDir.x * GetFrameTime();
+		ship.acceleration.y += normalizedDir.y * GetFrameTime();
+		LimitAcceleration(ship);
 	}
 
 	void Rotate(Ship& ship, float ang) {
@@ -48,14 +64,17 @@ namespace Spaceship {
 		ship.size = { 0, 0 };
 		ship.acceleration = { 0, 0 };
 		ship.rotation = 0;
+		ship.maxAccel = 0;
 		return ship;
 	}
 
 	void Init(Ship& ship) {
 		ship.pos = { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .5) };
 		ship.size = { (float)(GetScreenWidth() * .02), (float)(GetScreenHeight() * .08) };
+		ship.maxAccel = 1.0f;
 	}
-	void Init(Ship& ship, Vector2 pos) {
+	void Init(Ship& ship, Vector2 pos, float maxAccel) {
 		ship.pos = pos;
+		ship.maxAccel = maxAccel;
 	}
 }

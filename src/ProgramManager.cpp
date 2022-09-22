@@ -18,6 +18,8 @@ void CloseProgram();
 void UpdateProgram();
 void InitProgram();
 
+// --
+
 void InitRespectiveStatus(ProgramStatus status) {
 	switch (status)
 	{
@@ -56,10 +58,11 @@ void UpdateProgram() {
 
 void InitProgram() {
 	InitWindow(screenWidth, screenHeight, "Raylib Asteroids");
-	SetTargetFPS(200);
 	SetProgramStatus(ProgramStatus::MAINMENU);
 
 }
+
+// Global
 
 void SetGameShouldClose(bool value) {
 	gameShouldClose = value;
