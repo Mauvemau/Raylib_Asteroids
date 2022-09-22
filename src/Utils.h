@@ -5,6 +5,7 @@
 const float m_pi = 3.14159265358979323846;
 
 namespace Utils {
+	void DrawCenteredText(const char* text, Vector2 pos, int fontSize, Color color);
 	float Modulo(Vector2 vec);
 	float RadiansToDegrees(float rad);
 	Vector2 GetTargetVector(Vector2 origin, Vector2 target); // Returns a vector between two vectors.

@@ -1,6 +1,11 @@
 #include "Utils.h"
 
 namespace Utils {
+	void DrawCenteredText(const char* text, Vector2 pos, int fontSize, Color color) {
+		int textWide = MeasureText(text, fontSize);
+		DrawText(text, (pos.x) - (textWide * .5), (pos.y) - (fontSize * .5), fontSize, color);
+	}
+
 	float Modulo(Vector2 vec) {
 		return sqrtf((vec.x * vec.x) + (vec.y * vec.y));
 	}

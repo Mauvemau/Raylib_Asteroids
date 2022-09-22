@@ -19,6 +19,12 @@
     <Filter Include="Archivos de encabezado\Game">
       <UniqueIdentifier>{454fc5dd-5d23-41ab-814c-f08dd8cffcf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Menu">
+      <UniqueIdentifier>{6836e6a9-6a9e-4302-adaf-c7cb94f01bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Menu">
+      <UniqueIdentifier>{fc77479f-e1ff-4425-8b8f-f46b2537ccc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -39,6 +45,12 @@
     <ClCompile Include="src\Game\CollisionManager.cpp">
       <Filter>Archivos de recursos\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Menu\MainMenucpp.cpp">
+      <Filter>Archivos de recursos\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu\Button.cpp">
+      <Filter>Archivos de recursos\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ProgramManager.h">
@@ -55,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\CollisionManager.h">
       <Filter>Archivos de encabezado\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu\MainMenu.h">
+      <Filter>Archivos de encabezado\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu\Button.h">
+      <Filter>Archivos de encabezado\Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

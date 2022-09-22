@@ -14,6 +14,10 @@ namespace Collisions {
 			pos.y = 0;
 	}
 
+	bool Vector2RectCollision(Vector2 v, Vector2 rectPos, Vector2 rectSize) {
+		return (v.x > rectPos.x && v.x < (rectPos.x + rectSize.x) && v.y > rectPos.y && v.y < (rectPos.y + rectSize.y));
+	}
+
 	void Update(Ship& ship) {
 		CheckBounds(ship.pos);
 	}
