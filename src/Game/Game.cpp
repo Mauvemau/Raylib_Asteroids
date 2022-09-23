@@ -3,6 +3,7 @@
 #include "Spaceship.h"
 #include "Game/Asteroid.h"
 #include "Menu/PauseMenu.h" // Extension, menu de pausa.
+#include "Menu/Hud.h" // Hud del juego.
 
 #include <iostream>
 
@@ -53,7 +54,9 @@ namespace Game {
 		Asteroids::Draw(asteroid2);
 		Asteroids::Draw(asteroid3);
 
-		if (paused)
+		if (!paused)
+			Hud::Draw();
+		else
 			Pause::Draw();
 
 		EndDrawing();
@@ -74,6 +77,8 @@ namespace Game {
 			Asteroids::Update(asteroid1);
 			Asteroids::Update(asteroid2);
 			Asteroids::Update(asteroid3);
+
+			Hud::Update();
 		}
 		else {
 			Pause::Update();
@@ -83,7 +88,9 @@ namespace Game {
 	}
 
 	void Init() {
+		Hud::Init();
 		Pause::Init();
+
 		ship = Spaceship::Create();
 		Spaceship::Init(ship);
 		
