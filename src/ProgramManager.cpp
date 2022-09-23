@@ -58,8 +58,8 @@ void UpdateProgram() {
 
 void InitProgram() {
 	InitWindow(screenWidth, screenHeight, "Raylib Asteroids");
+	SetExitKey(KEY_NULL); // No queremos que la ventana se cierre con escape.
 	SetProgramStatus(ProgramStatus::MAINMENU);
-
 }
 
 // Global

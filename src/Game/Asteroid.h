@@ -18,6 +18,7 @@ namespace Asteroids {
 	void Draw(Asteroid asteroid);
 	void Update(Asteroid& asteroid);
 	Asteroid Create();
-	void Init(Asteroid& asteroid); // Sobrecarga, crea un asteroide grande en una posicion, direccion y velocidad random.
+	void Init(Asteroid& asteroid); // Sobrecarga, crea un asteroide random, direccion y velocidad random.
+	void Init(Asteroid& asteroid, AsteroidType type); // Sobrecarga, crea un asteroide de un tipo en una posicion, direccion y velocidad random.
 	void Init(Asteroid& asteroid, Vector2 pos, AsteroidType type, float direction, float speed);
 }

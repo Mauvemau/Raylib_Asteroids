@@ -5,10 +5,37 @@
 
 namespace Asteroids {
 	
+	Vector2 GetRandomSpawnPosition();
+	float GetSpeed(AsteroidType type);
 	float GetSize(AsteroidType type);
 	void Move(Asteroid& asteroid);
 
 	// --
+
+	Vector2 GetRandomSpawnPosition() {
+		return { 0, 0 };
+	}
+
+	float GetSpeed(AsteroidType type) {
+		float speed;
+		switch (type)
+		{
+		case AsteroidType::BIG:
+			speed = (float)GetRandomValue(25, 125);
+			break;
+		case AsteroidType::MEDIUM:
+			speed = (float)GetRandomValue(50, 150);
+			break;
+		case AsteroidType::SMALL:
+			speed = (float)GetRandomValue(75, 175);
+			break;
+		default:
+			std::cout << "Invalid type! [Asteroid.cpp - GetSpeed()]\n";
+			speed = (float)GetRandomValue(25, 125);
+			break;
+		}
+		return speed;
+	}
 
 	float GetSize(AsteroidType type) {
 		float size;
@@ -21,11 +48,11 @@ namespace Asteroids {
 			size = .025f;
 			break;
 		case AsteroidType::SMALL:
-			size = .05f;
+			size = .01f;
 			break;
 		default:
 			std::cout << "Invalid type! [Asteroid.cpp - GetSize()]\n";
-			size = .2f;
+			size = .05f;
 			break;
 		}
 		return (float)(GetScreenWidth() * size);
@@ -57,9 +84,18 @@ namespace Asteroids {
 	}
 
 	void Init(Asteroid& asteroid) {
-		asteroid.radius = GetSize(AsteroidType::BIG);
+		AsteroidType type = (AsteroidType)GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL);
+		asteroid.pos = GetRandomSpawnPosition();
 		asteroid.direction = (float)GetRandomValue(0, 360);
-		asteroid.speed = (float)GetRandomValue(25, 125);
+		asteroid.radius = GetSize(type);
+		asteroid.speed = GetSpeed(type);
+	}
+
+	void Init(Asteroid& asteroid, AsteroidType type) {
+		asteroid.pos = GetRandomSpawnPosition();
+		asteroid.direction = (float)GetRandomValue(0, 360);
+		asteroid.radius = GetSize(type);
+		asteroid.speed = GetSpeed(type);
 	}
 
 	void Init(Asteroid& asteroid, Vector2 pos, AsteroidType type, float direction, float speed) {

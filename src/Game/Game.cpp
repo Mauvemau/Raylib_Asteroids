@@ -2,12 +2,14 @@
 #include "Game.h"
 #include "Spaceship.h"
 #include "Game/Asteroid.h"
+#include "Menu/PauseMenu.h" // Extension, menu de pausa.
 
 #include <iostream>
 
 namespace Game {
 	Ship ship;
-	Vector2 positionToMove;
+
+	bool paused;
 
 	// Placeholder
 	Asteroid asteroid1;
@@ -28,11 +30,17 @@ namespace Game {
 			Spaceship::Rotate(ship, Utils::CalculateRotationAngle(ship.pos, GetMousePosition()));
 
 		// Acceleration
-		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT) &&
+			GetMouseX() < GetScreenWidth() && GetMouseX() > 0 &&
+			GetMouseY() < GetScreenHeight() && GetMouseY > 0)
 			Spaceship::Accelerate(ship, GetMousePosition());
 
 		// Shooting
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT));
+
+		// Pausing
+		if (IsKeyPressed(KEY_ESCAPE))
+			SetPaused(true);
 	}
 
 	void Draw() {
@@ -45,32 +53,47 @@ namespace Game {
 		Asteroids::Draw(asteroid2);
 		Asteroids::Draw(asteroid3);
 
+		if (paused)
+			Pause::Draw();
+
 		EndDrawing();
 	}
 
 	// Global
 
+	void SetPaused(bool val) {
+		paused = val;
+	}
+
 	void Update() {
-		ManageInput();
+		if (!paused) {
+			ManageInput();
 
-		Spaceship::Update(ship);
+			Spaceship::Update(ship);
 
-		Asteroids::Update(asteroid1);
-		Asteroids::Update(asteroid2);
-		Asteroids::Update(asteroid3);
+			Asteroids::Update(asteroid1);
+			Asteroids::Update(asteroid2);
+			Asteroids::Update(asteroid3);
+		}
+		else {
+			Pause::Update();
+		}
 
 		Draw();
 	}
 
 	void Init() {
+		Pause::Init();
 		ship = Spaceship::Create();
 		Spaceship::Init(ship);
+		
+		paused = false;
 
 		asteroid1 = Asteroids::Create();
-		Asteroids::Init(asteroid1);
+		Asteroids::Init(asteroid1, AsteroidType::BIG);
 		asteroid2 = Asteroids::Create();
-		Asteroids::Init(asteroid2);
+		Asteroids::Init(asteroid2, AsteroidType::MEDIUM);
 		asteroid3 = Asteroids::Create();
-		Asteroids::Init(asteroid3);
+		Asteroids::Init(asteroid3, AsteroidType::SMALL);
 	}
 }

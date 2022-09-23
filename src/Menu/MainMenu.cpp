@@ -29,6 +29,7 @@ namespace MainMenu {
 			break;
 		default:
 			std::cout << "Invalid Option! [MainMenu.cpp - GetButtonname()]\n";
+			return "Error";
 			break;
 		}
 	}

@@ -154,22 +154,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\Asteroid.cpp" />
+    <ClCompile Include="src\Game\AsteroidManager.cpp" />
     <ClCompile Include="src\Game\CollisionManager.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\Game\Spaceship.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu\Button.cpp" />
     <ClCompile Include="src\Menu\MainMenu.cpp" />
+    <ClCompile Include="src\Menu\PauseMenu.cpp" />
     <ClCompile Include="src\ProgramManager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Asteroid.h" />
+    <ClInclude Include="src\Game\AsteroidManager.h" />
     <ClInclude Include="src\Game\CollisionManager.h" />
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Game\Spaceship.h" />
     <ClInclude Include="src\Menu\Button.h" />
     <ClInclude Include="src\Menu\MainMenu.h" />
+    <ClInclude Include="src\Menu\PauseMenu.h" />
     <ClInclude Include="src\ProgramManager.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
