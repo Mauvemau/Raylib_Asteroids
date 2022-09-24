@@ -1,6 +1,8 @@
 #pragma once
 #include "raylib.h"
 
+#include <iostream>
+
 enum class AsteroidType {
 	BIG,
 	MEDIUM,
@@ -9,14 +11,17 @@ enum class AsteroidType {
 
 struct Asteroid {
 	Vector2 pos;
-	float radius;
+	AsteroidType type;
 	float direction;
 	float speed;
 };
 
 namespace Asteroids {
+	std::string GetTypeString(AsteroidType type);
+	float GetSize(AsteroidType type);
+
 	void Draw(Asteroid asteroid);
-	void Update(Asteroid& asteroid);
+	void Update(Asteroid& asteroid, int id);
 	Asteroid Create();
 	void Init(Asteroid& asteroid); // Sobrecarga, crea un asteroide random, direccion y velocidad random.
 	void Init(Asteroid& asteroid, AsteroidType type); // Sobrecarga, crea un asteroide de un tipo en una posicion, direccion y velocidad random.

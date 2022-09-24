@@ -5,10 +5,10 @@
 
 namespace AstManager {
 	const int maxBig = 20;
-	const int maxMed = 40;
-	const int maxSmall = 80;
 	Asteroid bigAsteroids[maxBig];
+	const int maxMed = 40;
 	Asteroid medAsteroids[maxMed];
+	const int maxSmall = 80;
 	Asteroid smallAsteroids[maxSmall];
 
 	int activeBig;
@@ -115,13 +115,13 @@ namespace AstManager {
 
 	void Update() {
 		for (int i = 0; i < activeBig; i++) {
-			Asteroids::Update(bigAsteroids[i]);
+			Asteroids::Update(bigAsteroids[i], i);
 		}
 		for (int i = 0; i < activeMed; i++) {
-			Asteroids::Update(medAsteroids[i]);
+			Asteroids::Update(medAsteroids[i], i);
 		}
 		for (int i = 0; i < activeSmall; i++) {
-			Asteroids::Update(smallAsteroids[i]);
+			Asteroids::Update(smallAsteroids[i], i);
 		}
 	}
 

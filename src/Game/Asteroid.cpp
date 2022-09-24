@@ -1,8 +1,6 @@
 #include "Asteroid.h"
 #include "CollisionManager.h" // Para manejar las colisiones.
 
-#include <iostream>
-
 namespace Asteroids {
 	
 	Vector2 GetRandomSpawnPosition();
@@ -37,6 +35,33 @@ namespace Asteroids {
 		return speed;
 	}
 
+	void Move(Asteroid& asteroid) {
+		asteroid.pos.x += asteroid.speed * cosf(asteroid.direction) * GetFrameTime();
+		asteroid.pos.y += asteroid.speed * sinf(asteroid.direction) * GetFrameTime();
+	}
+
+	// Global
+	std::string GetTypeString(AsteroidType type) {
+		std::string name;
+		switch (type)
+		{
+		case AsteroidType::BIG:
+			name = "Big";
+			break;
+		case AsteroidType::MEDIUM:
+			name = "Medium";
+			break;
+		case AsteroidType::SMALL:
+			name = "Small";
+			break;
+		default:
+			std::cout << "Invalid type! [Asteroid.cpp - GetSize()]\n";
+			name = "Wtf";
+			break;
+		}
+		return name;
+	}
+
 	float GetSize(AsteroidType type) {
 		float size;
 		switch (type)
@@ -58,49 +83,41 @@ namespace Asteroids {
 		return (float)(GetScreenWidth() * size);
 	}
 
-	void Move(Asteroid& asteroid) {
-		asteroid.pos.x += asteroid.speed * cosf(asteroid.direction) * GetFrameTime();
-		asteroid.pos.y += asteroid.speed * sinf(asteroid.direction) * GetFrameTime();
-	}
-
-	// Global
-
 	void Draw(Asteroid asteroid) {
-		DrawCircle(asteroid.pos.x, asteroid.pos.y, asteroid.radius, ORANGE);
+		DrawCircle(asteroid.pos.x, asteroid.pos.y, GetSize(asteroid.type), ORANGE);
 	}
 
-	void Update(Asteroid& asteroid) {
+	void Update(Asteroid& asteroid, int id) {
 		Move(asteroid);
-		Collisions::Update(asteroid);
+		Collisions::Update(asteroid, id);
 	}
 
 	Asteroid Create() {
 		Asteroid asteroid;
 		asteroid.pos = { 0, 0 };
-		asteroid.radius = 0;
+		asteroid.type = AsteroidType::BIG;
 		asteroid.direction = 0;
 		asteroid.speed = 0;
 		return asteroid;
 	}
 
 	void Init(Asteroid& asteroid) {
-		AsteroidType type = (AsteroidType)GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL);
+		asteroid.type = (AsteroidType)GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL);
 		asteroid.pos = GetRandomSpawnPosition();
 		asteroid.direction = (float)GetRandomValue(0, 360);
-		asteroid.radius = GetSize(type);
-		asteroid.speed = GetSpeed(type);
+		asteroid.speed = GetSpeed(asteroid.type);
 	}
 
 	void Init(Asteroid& asteroid, AsteroidType type) {
+		asteroid.type = type;
 		asteroid.pos = GetRandomSpawnPosition();
 		asteroid.direction = (float)GetRandomValue(0, 360);
-		asteroid.radius = GetSize(type);
-		asteroid.speed = GetSpeed(type);
+		asteroid.speed = GetSpeed(asteroid.type);
 	}
 
 	void Init(Asteroid& asteroid, Vector2 pos, AsteroidType type, float direction, float speed) {
+		asteroid.type = type;
 		asteroid.pos = pos;
-		asteroid.radius = GetSize(type);
 		asteroid.direction = direction;
 		asteroid.speed = speed;
 	}

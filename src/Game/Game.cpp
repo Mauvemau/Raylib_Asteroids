@@ -1,6 +1,5 @@
 #include "Utils.h"
 #include "Game.h"
-#include "Spaceship.h"
 #include "AsteroidManager.h"
 
 #include "Menu/PauseMenu.h" // Extension, menu de pausa.
@@ -8,8 +7,9 @@
 
 #include <iostream>
 
+Ship ship;
+
 namespace Game {
-	Ship ship;
 
 	bool paused;
 
@@ -60,6 +60,10 @@ namespace Game {
 
 	// Global
 
+	Ship GetPlayer() {
+		return ship;
+	}
+
 	void SetPaused(bool val) {
 		paused = val;
 	}
@@ -93,6 +97,6 @@ namespace Game {
 		Spaceship::Init(ship);
 		// Asteroids
 		AstManager::Init();
-
+		AstManager::ActivateAsteroid(AsteroidType::BIG);
 	}
 }

@@ -30,6 +30,10 @@ namespace Spaceship {
 
 	// Global
 
+	float GetCollisionRadius(Ship ship) {
+		return (float)(ship.size.x * .5);
+	}
+
 	void Accelerate(Ship& ship, Vector2 target) {
 		Vector2 vectorDir = Utils::GetTargetVector(ship.pos, target);
 		Vector2 normalizedDir;
@@ -51,6 +55,10 @@ namespace Spaceship {
 			{ (float)(ship.size.x  * .5), (float)(ship.size.y * .5) }, 
 			ship.rotation, 
 			RED);
+
+		#ifdef _DEBUG
+		DrawCircle(ship.pos.x, ship.pos.y, GetCollisionRadius(ship), Fade(GREEN, 50));
+		#endif
 	}
 
 	void Update(Ship& ship) {

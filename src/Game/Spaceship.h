@@ -10,8 +10,11 @@ struct Ship {
 };
 
 namespace Spaceship {
+	float GetCollisionRadius(Ship ship);
+
 	void Accelerate(Ship& ship, Vector2 target);
 	void Rotate(Ship& ship, float ang);
+
 	void Draw(Ship ship);
 	void Update(Ship& ship);
 	Ship Create();
