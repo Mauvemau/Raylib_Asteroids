@@ -1,5 +1,6 @@
 #include "AsteroidManager.h"
 
+#include <algorithm>
 #include <iostream>
 
 namespace AstManager {
@@ -14,26 +15,34 @@ namespace AstManager {
 	int activeMed;
 	int activeSmall;
 
-	void SortArray(Asteroid arr[], int id);
-
-	// --
-
-	void SortArray(Asteroid arr[], int id) {
-
-	}
-
 	// Global
 
 	void DeActivateAsteroid(AsteroidType type, int id) {
 		switch (type)
 		{
 		case AsteroidType::BIG:
+			if (id < activeBig) {
+				bigAsteroids[id] = bigAsteroids[activeBig-1];
+				activeBig--;
+				std::cout << "Destroyed Big Asteroid! (" << activeBig << " active)\n";
+			}
 			break;
 		case AsteroidType::MEDIUM:
+			if (id < activeMed) {
+				medAsteroids[id] = medAsteroids[activeMed-1];
+				activeMed--;
+				std::cout << "Destroyed Medium Asteroid! (" << activeMed << " active)\n";
+			}
 			break;
 		case AsteroidType::SMALL:
+			if (id < activeSmall) {
+				smallAsteroids[id] = smallAsteroids[activeSmall-1];
+				activeSmall--;
+				std::cout << "Destroyed Small Asteroid! (" << activeSmall << " active)\n";
+			}
 			break;
 		default:
+			std::cout << "Invalid type! [AsteroidManager.cpp - DeActivateAsteroid()]\n";
 			break;
 		}
 	}
@@ -42,16 +51,25 @@ namespace AstManager {
 		switch (type)
 		{
 		case AsteroidType::BIG:
-			Asteroids::Init(bigAsteroids[activeBig], AsteroidType::BIG);
-			activeBig++;
+			if (activeBig < maxBig) {
+				Asteroids::Init(bigAsteroids[activeBig], AsteroidType::BIG);
+				activeBig++;
+				std::cout << "Created Big Asteroid! (" << activeBig << " active)\n";
+			}
 			break;
 		case AsteroidType::MEDIUM:
-			Asteroids::Init(medAsteroids[activeMed], AsteroidType::MEDIUM);
-			activeMed++;
+			if (activeMed < maxMed) {
+				Asteroids::Init(medAsteroids[activeMed], AsteroidType::MEDIUM);
+				activeMed++;
+				std::cout << "Created Medium Asteroid! (" << activeMed << " active)\n";
+			}
 			break;
 		case AsteroidType::SMALL:
-			Asteroids::Init(smallAsteroids[activeSmall], AsteroidType::SMALL);
-			activeSmall++;
+			if (activeSmall < maxSmall) {
+				Asteroids::Init(smallAsteroids[activeSmall], AsteroidType::SMALL);
+				activeSmall++;
+				std::cout << "Created Small Asteroid! (" << activeSmall << " active)\n";;
+			}
 			break;
 		default:
 			std::cout << "Invalid type! [AsteroidManager.cpp - ActivateAsteroid()]\n";
@@ -65,14 +83,17 @@ namespace AstManager {
 		case AsteroidType::BIG:
 			Asteroids::Init(bigAsteroids[activeBig], pos,  AsteroidType::BIG, direction, speed);
 			activeBig++;
+			std::cout << "Created Big Asteroid! (" << activeBig << " active)\n";
 			break;
 		case AsteroidType::MEDIUM:
 			Asteroids::Init(medAsteroids[activeMed], pos, AsteroidType::MEDIUM, direction, speed);
 			activeMed++;
+			std::cout << "Created Medium Asteroid! (" << activeMed << " active)\n";
 			break;
 		case AsteroidType::SMALL:
 			Asteroids::Init(smallAsteroids[activeSmall], pos, AsteroidType::SMALL, direction, speed);
 			activeSmall++;
+			std::cout << "Created Small Asteroid! (" << activeSmall << " active)\n";;
 			break;
 		default:
 			std::cout << "Invalid type! [AsteroidManager.cpp - ActivateAsteroid()]\n";
@@ -80,30 +101,39 @@ namespace AstManager {
 		}
 	}
 
-	void Update() {
+	void Draw() {
 		for (int i = 0; i < activeBig; i++) {
-
+			Asteroids::Draw(bigAsteroids[i]);
 		}
 		for (int i = 0; i < activeMed; i++) {
-
+			Asteroids::Draw(medAsteroids[i]);
 		}
 		for (int i = 0; i < activeSmall; i++) {
+			Asteroids::Draw(smallAsteroids[i]);
+		}
+	}
 
+	void Update() {
+		for (int i = 0; i < activeBig; i++) {
+			Asteroids::Update(bigAsteroids[i]);
+		}
+		for (int i = 0; i < activeMed; i++) {
+			Asteroids::Update(medAsteroids[i]);
+		}
+		for (int i = 0; i < activeSmall; i++) {
+			Asteroids::Update(smallAsteroids[i]);
 		}
 	}
 
 	void Init() {
 		for (int i = 0; i < maxBig; i++) {
 			bigAsteroids[i] = Asteroids::Create();
-			Asteroids::Init(bigAsteroids[i], AsteroidType::BIG);
 		}
 		for (int i = 0; i < maxMed; i++) {
 			medAsteroids[i] = Asteroids::Create();
-			Asteroids::Init(medAsteroids[i], AsteroidType::MEDIUM);
 		}
 		for (int i = 0; i < maxSmall; i++) {
 			smallAsteroids[i] = Asteroids::Create();
-			Asteroids::Init(smallAsteroids[i], AsteroidType::SMALL);
 		}
 
 		activeBig = 0;

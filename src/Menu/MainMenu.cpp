@@ -5,7 +5,7 @@
 #include <iostream>
 
 namespace MainMenu {
-	const int amountButtons = 3;
+	const int amountButtons = (int)Options::COUNT;
 	Button buttons[amountButtons];
 
 	const char* GetButtonName(Options option);
@@ -21,8 +21,11 @@ namespace MainMenu {
 		case MainMenu::Options::PLAY:
 			return "Play";
 			break;
-		case MainMenu::Options::INSTRUCTIONS:
-			return "Instructions";
+		case MainMenu::Options::SETTINGS:
+			return "Settings";
+			break;
+		case MainMenu::Options::CREDITS:
+			return "Credits";
 			break;
 		case MainMenu::Options::EXIT:
 			return "Exit";
@@ -40,7 +43,9 @@ namespace MainMenu {
 		case MainMenu::Options::PLAY:
 			SetProgramStatus(ProgramStatus::INGAME);
 			break;
-		case MainMenu::Options::INSTRUCTIONS:
+		case MainMenu::Options::SETTINGS:
+			break;
+		case MainMenu::Options::CREDITS:
 			break;
 		case MainMenu::Options::EXIT:
 			SetGameShouldClose(true);
@@ -57,8 +62,8 @@ namespace MainMenu {
 			if (i > 0)
 				spacing += buttons[0].size.y + GetScreenWidth() * .025;
 			buttons[i] = Buttons::Create(i,
-				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .5) + spacing },
-				Vector2{ (float)(GetScreenWidth() * .35), (float)(GetScreenHeight() * .125) },
+				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .45) + spacing },
+				Vector2{ (float)(GetScreenWidth() * .3), (float)(GetScreenHeight() * .1) },
 				GetButtonName((Options)i));
 		}
 	}

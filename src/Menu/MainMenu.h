@@ -3,8 +3,10 @@
 namespace MainMenu {
 	enum class Options {
 		PLAY,
-		INSTRUCTIONS,
-		EXIT
+		SETTINGS,
+		CREDITS,
+		EXIT,
+		COUNT
 	};
 
 	void Update();

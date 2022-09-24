@@ -1,7 +1,8 @@
 #include "Utils.h"
 #include "Game.h"
 #include "Spaceship.h"
-#include "Game/Asteroid.h"
+#include "AsteroidManager.h"
+
 #include "Menu/PauseMenu.h" // Extension, menu de pausa.
 #include "Menu/Hud.h" // Hud del juego.
 
@@ -11,12 +12,6 @@ namespace Game {
 	Ship ship;
 
 	bool paused;
-
-	// Placeholder
-	Asteroid asteroid1;
-	Asteroid asteroid2;
-	Asteroid asteroid3;
-	// Placeholder
 
 	void ManageInput();
 	void Draw();
@@ -46,17 +41,18 @@ namespace Game {
 
 	void Draw() {
 		BeginDrawing();
+		// Background
 		ClearBackground(BLACK);
-
+		// Ship
 		Spaceship::Draw(ship);
-
-		Asteroids::Draw(asteroid1);
-		Asteroids::Draw(asteroid2);
-		Asteroids::Draw(asteroid3);
+		// Asteroids
+		AstManager::Draw();
 
 		if (!paused)
+			// Hud
 			Hud::Draw();
 		else
+			// PauseMenu
 			Pause::Draw();
 
 		EndDrawing();
@@ -70,37 +66,33 @@ namespace Game {
 
 	void Update() {
 		if (!paused) {
+			// Input
 			ManageInput();
-
+			// Ship
 			Spaceship::Update(ship);
-
-			Asteroids::Update(asteroid1);
-			Asteroids::Update(asteroid2);
-			Asteroids::Update(asteroid3);
-
+			// Asteroids
+			AstManager::Update();
+			// Hud
 			Hud::Update();
 		}
-		else {
+		else
+			// PauseMenu
 			Pause::Update();
-		}
 
 		Draw();
 	}
 
 	void Init() {
+		// Hud
 		Hud::Init();
+		// PauseMenu
 		Pause::Init();
-
+		paused = false;
+		// Ship
 		ship = Spaceship::Create();
 		Spaceship::Init(ship);
-		
-		paused = false;
+		// Asteroids
+		AstManager::Init();
 
-		asteroid1 = Asteroids::Create();
-		Asteroids::Init(asteroid1, AsteroidType::BIG);
-		asteroid2 = Asteroids::Create();
-		Asteroids::Init(asteroid2, AsteroidType::MEDIUM);
-		asteroid3 = Asteroids::Create();
-		Asteroids::Init(asteroid3, AsteroidType::SMALL);
 	}
 }

@@ -1,5 +1,5 @@
 #include "Hud.h"
-#include "Button.h"
+#include "Button.h" // Para el boton de pausa.
 #include "Game/Game.h"
 
 namespace Hud {
