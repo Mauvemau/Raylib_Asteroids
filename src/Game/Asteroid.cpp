@@ -1,6 +1,11 @@
 #include "Asteroid.h"
 #include "CollisionManager.h" // Para manejar las colisiones.
 
+/*
+Todo:
+Implementar Random Spawn Position.
+*/
+
 namespace Asteroids {
 	
 	Vector2 GetRandomSpawnPosition();

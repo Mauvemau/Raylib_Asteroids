@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="src\Game\Asteroid.cpp" />
     <ClCompile Include="src\Game\AsteroidManager.cpp" />
+    <ClCompile Include="src\Game\Bullet.cpp" />
     <ClCompile Include="src\Game\CollisionManager.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\Game\Spaceship.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="src\Game\Asteroid.h" />
     <ClInclude Include="src\Game\AsteroidManager.h" />
+    <ClInclude Include="src\Game\Bullet.h" />
     <ClInclude Include="src\Game\CollisionManager.h" />
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Game\Spaceship.h" />
