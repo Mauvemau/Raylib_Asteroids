@@ -13,7 +13,7 @@ namespace ObjManager {
 	void ActivateBullet(Vector2 pos, float size, float direction, float speed);
 
 	// Asteroids
-	void DeActivateAsteroid(AsteroidType type, int id);
+	void DeActivateAsteroid(int id);
 	void ActivateAsteroid(AsteroidType type); // Sobrecarga, crea un asteroide de caracteristicas random.
 	void ActivateAsteroid(Vector2 pos, AsteroidType type, float direction, float speed);
 

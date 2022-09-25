@@ -97,7 +97,10 @@ namespace Game {
 		Spaceship::Init(ship);
 		// Asteroids
 		ObjManager::Init();
-		ObjManager::ActivateAsteroid(AsteroidType::BIG);
+		for (int i = 0; i < 20; i++) {
+			ObjManager::ActivateAsteroid((AsteroidType)
+				GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL));
+		}
 		ObjManager::ActivateBullet(Vector2{ 0, 0 }, (GetScreenWidth() * .005), 64.0f, 300.0f);
 	}
 }
