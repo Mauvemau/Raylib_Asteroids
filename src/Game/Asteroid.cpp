@@ -3,8 +3,6 @@
 
 namespace Asteroids {
 	Vector2 GetRandomSpawnPosition();
-	float GetSpeed(AsteroidType type);
-	float GetSize(AsteroidType type);
 	void Move(Asteroid& asteroid);
 
 	// --

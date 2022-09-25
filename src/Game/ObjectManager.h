@@ -8,9 +8,14 @@ Pseudo Pool, se ocupa de instanciar, activar y desactivar objetos dentro de arra
 */
 
 namespace ObjManager {
+	int GetMaxBullets();
+	int GetActiveBullets();
+	int GetMaxAsteroids();
+	int GetActiveAsteroids();
+
 	// Bullets
 	void DeActivateBullet(int id);
-	void ActivateBullet(Vector2 pos, float size, float direction, float speed);
+	void ActivateBullet(Vector2 pos, float size, float direction, float speed, float lifeTime);
 
 	// Asteroids
 	void DeActivateAsteroid(int id);

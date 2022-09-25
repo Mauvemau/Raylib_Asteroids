@@ -24,9 +24,9 @@ namespace Bullets {
 		DrawLineEx(bullet.pos, trailEnd, (bullet.size * .5), Fade(RAYWHITE, .5));
 	}
 
-	void Update(Bullet& bullet, int id) {
+	void Update(Bullet& bullet) {
 		Move(bullet);
-		Collisions::Update(bullet, id);
+		Collisions::Update(bullet);
 	}
 
 	Bullet Create() {
@@ -36,22 +36,28 @@ namespace Bullets {
 		bullet.direction = 0;
 		bullet.speed = 0;
 		bullet.hurtsPlayer = false;
+		bullet.lifeTime = 0;
+		bullet.spawnTime = 0;
 		return bullet;
 	}
 
-	void Init(Bullet& bullet, Vector2 pos, float size, float direction, float speed) {
+	void Init(Bullet& bullet, Vector2 pos, float size, float direction, float speed, float lifeTime, float spawnTime) {
 		bullet.pos = pos;
 		bullet.size = size;
 		bullet.direction = direction;
 		bullet.speed = speed;
 		bullet.hurtsPlayer = false;
+		bullet.lifeTime = lifeTime;
+		bullet.spawnTime = spawnTime;
 	}
 
-	void Init(Bullet& bullet, Vector2 pos, float size, float direction, float speed, bool hurtsPlayer) {
+	void Init(Bullet& bullet, Vector2 pos, float size, float direction, float speed, float lifeTime, float spawnTime, bool hurtsPlayer) {
 		bullet.pos = pos;
 		bullet.size = size;
 		bullet.direction = direction;
 		bullet.speed = speed;
 		bullet.hurtsPlayer = hurtsPlayer;
+		bullet.lifeTime = lifeTime;
+		bullet.spawnTime = spawnTime;
 	}
 }

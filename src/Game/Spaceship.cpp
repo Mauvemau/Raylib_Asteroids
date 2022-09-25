@@ -60,9 +60,12 @@ namespace Spaceship {
 		Arreglar offset.
 		Implementar fire rate.
 		Implementar accuracy.
-		Implementar range.
 		*/
-		ObjManager::ActivateBullet(ship.pos, ship.cannon.caliber, Utils::DegreesToRadians(ship.rotation - 90.0f), ship.cannon.power);
+		ObjManager::ActivateBullet(ship.pos, 
+			ship.cannon.caliber, 
+			Utils::DegreesToRadians(ship.rotation - 90.0f), 
+			ship.cannon.power, 
+			ship.cannon.range);
 	}
 
 	void Accelerate(Ship& ship, Vector2 target) {

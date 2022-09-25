@@ -28,7 +28,6 @@ namespace Collisions {
 	}
 
 	// Global
-
 	bool CircleCircleCollision(Vector2 aPos, float aRadius, Vector2 bPos, float bRadius) {
 		float distX = aPos.x - bPos.x;
 		float distY = aPos.y - bPos.y;
@@ -41,7 +40,11 @@ namespace Collisions {
 		return (v.x > rectPos.x && v.x < (rectPos.x + rectSize.x) && v.y > rectPos.y && v.y < (rectPos.y + rectSize.y));
 	}
 
-	void Update(Bullet& bullet, int id) {
+	bool CheckBulletAsteroidCollision(Bullet bullet, Asteroid asteroid) {
+		return CircleCircleCollision(bullet.pos, bullet.size, asteroid.pos, Asteroids::GetSize(asteroid.type));
+	}
+
+	void Update(Bullet& bullet) {
 		CheckBounds(bullet.pos);
 	}
 

@@ -18,6 +18,7 @@ struct Asteroid {
 
 namespace Asteroids {
 	std::string GetTypeString(AsteroidType type);
+	float GetSpeed(AsteroidType type);
 	float GetSize(AsteroidType type);
 
 	void Draw(Asteroid asteroid);

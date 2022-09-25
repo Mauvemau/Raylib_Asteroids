@@ -1,27 +1,58 @@
 #include "ObjectManager.h"
+#include "CollisionManager.h"
+#include "Game.h" // Para el game time.
 
 #include <iostream>
 
 namespace ObjManager {
 	// Asteroids
-	const int maxAsteroids = 60;
+	const int maxAsteroids = 50;
 	Asteroid asteroids[maxAsteroids];
 	int activeAsteroids;
 
 	//Bullets
-	const int maxBullets = 30;
+	const int maxBullets = 50;
 	Bullet bullets[maxBullets];
 
 	int activeBullets;
 	
+	void HandleCollision(int bulletID, int asteroidID);
 	// Asteroids
+	void DestroyAsteroid(int id);
 	void PrintLog(AsteroidType type, bool creating);
 	// Bullets
+	void HandleBulletLifeTime(int id);
 	void PrintLog(bool creating);
 
 	// --
 	
+	void HandleCollision(int bulletID, int asteroidID) {
+		DeActivateBullet(bulletID);
+		DestroyAsteroid(asteroidID);
+	}
+
 	// Asteroids
+	void DestroyAsteroid(int id) {
+		switch (asteroids[id].type)
+		{
+		case AsteroidType::BIG:
+			ActivateAsteroid(asteroids[id].pos, AsteroidType::MEDIUM, 
+				asteroids[id].direction - .25, Asteroids::GetSpeed(AsteroidType::MEDIUM));
+			ActivateAsteroid(asteroids[id].pos, AsteroidType::MEDIUM,
+				asteroids[id].direction + .25, Asteroids::GetSpeed(AsteroidType::MEDIUM));
+			break;
+		case AsteroidType::MEDIUM:
+			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
+				asteroids[id].direction - .25, Asteroids::GetSpeed(AsteroidType::SMALL));
+			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
+				asteroids[id].direction + .25, Asteroids::GetSpeed(AsteroidType::SMALL));
+			break;
+		default:
+			break;
+		}
+		DeActivateAsteroid(id);
+	}
+
 	void PrintLog(AsteroidType type, bool creating) {
 		std::cout << ((creating) ?  "Created " : "Destroyed ") << 
 			Asteroids::GetTypeString(type) << " Asteroid! (" << 
@@ -29,12 +60,33 @@ namespace ObjManager {
 	}
 
 	// Bullets
+	void HandleBulletLifeTime(int id) {
+		if (bullets[id].lifeTime < (Game::GetGameTime() - bullets[id].spawnTime))
+			DeActivateBullet(id);
+	}
+
 	void PrintLog(bool creating) {
 		std::cout << ((creating) ? "Created " : "Destroyed ") <<"Bullet! (" <<
 			activeBullets << " active)\n";
 	}
 
 	// Global
+
+	int GetMaxBullets() {
+		return maxBullets;
+	}
+
+	int GetActiveBullets() {
+		return activeBullets;
+	}
+
+	int GetMaxAsteroids() {
+		return maxAsteroids;
+	}
+
+	int GetActiveAsteroids() {
+		return activeAsteroids;
+	}
 	
 	// Bullets
 	void DeActivateBullet(int id) {
@@ -45,9 +97,9 @@ namespace ObjManager {
 		}
 	}
 
-	void ActivateBullet(Vector2 pos, float size, float direction, float speed) {
+	void ActivateBullet(Vector2 pos, float size, float direction, float speed, float lifeTime) {
 		if (activeBullets < maxBullets) {
-			Bullets::Init(bullets[activeBullets], pos, size, direction, speed);
+			Bullets::Init(bullets[activeBullets], pos, size, direction, speed, lifeTime, Game::GetGameTime());
 			activeBullets++;
 			PrintLog(true);
 		}
@@ -98,7 +150,15 @@ namespace ObjManager {
 		}
 		// Bullets
 		for (int i = 0; i < activeBullets; i++) {
-			Bullets::Update(bullets[i], i);
+			HandleBulletLifeTime(i);
+			Bullets::Update(bullets[i]);
+		}
+		// Primero Updateamos todos, despues loopeamos nuevamente para checkear colisiones.
+		for (int i = 0; i < activeBullets; i++) {
+			for (int j = 0; j < activeAsteroids; j++) {
+				if (Collisions::CheckBulletAsteroidCollision(bullets[i], asteroids[j]))
+					HandleCollision(i, j);
+			}
 		}
 	}
 

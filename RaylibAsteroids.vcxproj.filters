@@ -1,108 +1,104 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Archivos de recursos">
+    <Filter Include="Source Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Archivos de recursos\Game">
+    <Filter Include="Source Files\Game">
       <UniqueIdentifier>{539966e3-0bae-4384-a158-5491ff1bdcf6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Game">
+    <Filter Include="Source Files\Menu">
+      <UniqueIdentifier>{fc77479f-e1ff-4425-8b8f-f46b2537ccc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Game">
       <UniqueIdentifier>{454fc5dd-5d23-41ab-814c-f08dd8cffcf0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Menu">
+    <Filter Include="Header Files\Menu">
       <UniqueIdentifier>{6836e6a9-6a9e-4302-adaf-c7cb94f01bc4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de recursos\Menu">
-      <UniqueIdentifier>{fc77479f-e1ff-4425-8b8f-f46b2537ccc1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
-      <Filter>Archivos de recursos</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ProgramManager.cpp">
-      <Filter>Archivos de recursos</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils.cpp">
-      <Filter>Archivos de recursos</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Game.cpp">
-      <Filter>Archivos de recursos\Game</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Spaceship.cpp">
-      <Filter>Archivos de recursos\Game</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\CollisionManager.cpp">
-      <Filter>Archivos de recursos\Game</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Menu\MainMenu.cpp">
-      <Filter>Archivos de recursos\Menu</Filter>
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\Menu\Button.cpp">
-      <Filter>Archivos de recursos\Menu</Filter>
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Asteroid.cpp">
-      <Filter>Archivos de recursos\Game</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\ObjectManager.cpp">
-      <Filter>Archivos de recursos\Game</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Menu\PauseMenu.cpp">
-      <Filter>Archivos de recursos\Menu</Filter>
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\Menu\Hud.cpp">
-      <Filter>Archivos de recursos\Menu</Filter>
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Bullet.cpp">
-      <Filter>Archivos de recursos\Game</Filter>
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ProgramManager.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Spaceship.h">
-      <Filter>Archivos de encabezado\Game</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Game.h">
-      <Filter>Archivos de encabezado\Game</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\CollisionManager.h">
-      <Filter>Archivos de encabezado\Game</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Menu\MainMenu.h">
-      <Filter>Archivos de encabezado\Menu</Filter>
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\Menu\Button.h">
-      <Filter>Archivos de encabezado\Menu</Filter>
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Asteroid.h">
-      <Filter>Archivos de encabezado\Game</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\ObjectManager.h">
-      <Filter>Archivos de encabezado\Game</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Menu\PauseMenu.h">
-      <Filter>Archivos de encabezado\Menu</Filter>
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\Menu\Hud.h">
-      <Filter>Archivos de encabezado\Menu</Filter>
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Bullet.h">
-      <Filter>Archivos de encabezado\Game</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

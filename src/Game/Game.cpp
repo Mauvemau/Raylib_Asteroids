@@ -11,12 +11,24 @@ Ship ship;
 
 namespace Game {
 
+	float gameTime; //Alternativa a GetTime, se inicia cuando comienza la partida, se pausa cuando el juego esta pausado.
+	float lastTick; // Para el gameTime;
 	bool paused;
 
+	void TickTime(); // Avanza el gameTime.
 	void ManageInput();
 	void Draw();
 
 	// --
+
+	void TickTime() {
+		if (!paused) { // Si el juego no esta pausado, hacer que el timer avanze
+			if (GetTime() > lastTick) {
+				gameTime += .05;
+				lastTick = GetTime() + .05;
+			}
+		}
+	}
 
 	void ManageInput() {
 		// Rotation
@@ -61,6 +73,10 @@ namespace Game {
 
 	// Global
 
+	int GetGameTime() {
+		return gameTime;
+	}
+
 	Ship GetPlayer() {
 		return ship;
 	}
@@ -70,6 +86,7 @@ namespace Game {
 	}
 
 	void Update() {
+		TickTime();
 		if (!paused) {
 			// Input
 			ManageInput();
@@ -98,14 +115,16 @@ namespace Game {
 		Spaceship::Init(ship);
 		// Asteroids
 		ObjManager::Init();
-		/*
-		for (int i = 0; i < 60; i++) {
+		
+		for (int i = 0; i < 5; i++) {
 			ObjManager::ActivateAsteroid((AsteroidType)
 				GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL));
 		}
-		for (int i = 0; i < 30; i++) {
+		/*
+		for (int i = 0; i < 500; i++) {
 			ObjManager::ActivateBullet(Vector2{ 0, 0 }, (GetScreenWidth() * .005), (float)GetRandomValue(0, 360), 300.0f);
 		}
 		*/
+		
 	}
 }
