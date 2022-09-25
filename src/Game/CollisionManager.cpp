@@ -41,6 +41,10 @@ namespace Collisions {
 		return (v.x > rectPos.x && v.x < (rectPos.x + rectSize.x) && v.y > rectPos.y && v.y < (rectPos.y + rectSize.y));
 	}
 
+	void Update(Bullet& bullet, int id) {
+		CheckBounds(bullet.pos);
+	}
+
 	void Update(Asteroid& asteroid, int id) {
 		CheckBounds(asteroid.pos);
 		if (CheckAsteroidShipCollision(asteroid))

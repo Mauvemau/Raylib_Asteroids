@@ -54,7 +54,7 @@
     <ClCompile Include="src\Game\Asteroid.cpp">
       <Filter>Archivos de recursos\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\AsteroidManager.cpp">
+    <ClCompile Include="src\Game\ObjectManager.cpp">
       <Filter>Archivos de recursos\Game</Filter>
     </ClCompile>
     <ClCompile Include="src\Menu\PauseMenu.cpp">
@@ -92,7 +92,7 @@
     <ClInclude Include="src\Game\Asteroid.h">
       <Filter>Archivos de encabezado\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\AsteroidManager.h">
+    <ClInclude Include="src\Game\ObjectManager.h">
       <Filter>Archivos de encabezado\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Menu\PauseMenu.h">

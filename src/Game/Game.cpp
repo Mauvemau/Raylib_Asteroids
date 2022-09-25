@@ -1,6 +1,6 @@
 #include "Utils.h"
 #include "Game.h"
-#include "AsteroidManager.h"
+#include "ObjectManager.h"
 
 #include "Menu/PauseMenu.h" // Extension, menu de pausa.
 #include "Menu/Hud.h" // Hud del juego.
@@ -46,7 +46,7 @@ namespace Game {
 		// Ship
 		Spaceship::Draw(ship);
 		// Asteroids
-		AstManager::Draw();
+		ObjManager::Draw();
 
 		if (!paused)
 			// Hud
@@ -75,7 +75,7 @@ namespace Game {
 			// Ship
 			Spaceship::Update(ship);
 			// Asteroids
-			AstManager::Update();
+			ObjManager::Update();
 			// Hud
 			Hud::Update();
 		}
@@ -96,7 +96,8 @@ namespace Game {
 		ship = Spaceship::Create();
 		Spaceship::Init(ship);
 		// Asteroids
-		AstManager::Init();
-		AstManager::ActivateAsteroid(AsteroidType::BIG);
+		ObjManager::Init();
+		ObjManager::ActivateAsteroid(AsteroidType::BIG);
+		ObjManager::ActivateBullet(Vector2{ 0, 0 }, (GetScreenWidth() * .005), 64.0f, 300.0f);
 	}
 }

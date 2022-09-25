@@ -57,7 +57,7 @@ namespace Spaceship {
 			RED);
 
 		#ifdef _DEBUG
-		DrawCircle(ship.pos.x, ship.pos.y, GetCollisionRadius(ship), Fade(GREEN, 50));
+		DrawCircle(ship.pos.x, ship.pos.y, GetCollisionRadius(ship), Fade(GREEN, .5));
 		#endif
 	}
 
