@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include "CollisionManager.h" // Para manejar las colisiones.
 #include "ObjectManager.h" // Para disparar balas.
+#include "Game.h" // Para el Gametime
 
 namespace Spaceship {
 	void Move(Ship& ship);
@@ -32,11 +33,12 @@ namespace Spaceship {
 	}
 
 	void InitCannon(Cannon& cannon) {
-		cannon.fireRate = .5f;
+		cannon.fireRate = .25f;
 		cannon.accuracy = 5.0f;
-		cannon.power = 300.0f;
-		cannon.range = 1.5f;
+		cannon.power = 700.0f;
+		cannon.range = .8f;
 		cannon.caliber = (GetScreenWidth() * .005);
+		cannon.lastShot = 0;
 	}
 
 	Cannon CreateCannon() {
@@ -46,6 +48,7 @@ namespace Spaceship {
 		cannon.power = 0;
 		cannon.range = 0;
 		cannon.caliber = 0;
+		cannon.lastShot = 0;
 		return cannon;
 	}
 
@@ -55,17 +58,19 @@ namespace Spaceship {
 		return (float)(ship.size.x * .5);
 	}
 
-	void Shoot(Ship ship) {
+	void Shoot(Ship& ship) {
 		/* Falta:
 		Arreglar offset.
-		Implementar fire rate.
 		Implementar accuracy.
 		*/
-		ObjManager::ActivateBullet(ship.pos, 
-			ship.cannon.caliber, 
-			Utils::DegreesToRadians(ship.rotation - 90.0f), 
-			ship.cannon.power, 
-			ship.cannon.range);
+		if (ship.cannon.fireRate < (Game::GetGameTime() - ship.cannon.lastShot)) {
+			ship.cannon.lastShot = Game::GetGameTime();
+			ObjManager::ActivateBullet(ship.pos,
+				ship.cannon.caliber,
+				Utils::DegreesToRadians(ship.rotation - 90.0f),
+				ship.cannon.power,
+				ship.cannon.range);
+		}
 	}
 
 	void Accelerate(Ship& ship, Vector2 target) {

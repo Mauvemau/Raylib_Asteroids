@@ -29,7 +29,7 @@ namespace Asteroids {
 			speed = (float)GetRandomValue(50, 150);
 			break;
 		case AsteroidType::SMALL:
-			speed = (float)GetRandomValue(75, 175);
+			speed = (float)GetRandomValue(100, 200);
 			break;
 		default:
 			std::cout << "Invalid type! [Asteroid.cpp - GetSpeed()]\n";

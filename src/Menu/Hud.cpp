@@ -14,6 +14,8 @@ namespace Hud {
 	// --
 	void DrawText() {
 #ifdef _DEBUG
+			DrawText(TextFormat("Game Time: %f", Game::GetGameTime()),
+				GetScreenWidth() * .01, GetScreenHeight() * .85, GetScreenHeight() * .025, GREEN);
 			DrawText(TextFormat("Active Bullets: %i", ObjManager::GetActiveBullets()), 
 				GetScreenWidth() * .01, GetScreenHeight() * .9, GetScreenHeight() * .025, GREEN);
 			DrawText(TextFormat("Active Asteroids: %i", ObjManager::GetActiveAsteroids()), 

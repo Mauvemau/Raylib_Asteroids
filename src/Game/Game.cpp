@@ -44,7 +44,7 @@ namespace Game {
 			Spaceship::Accelerate(ship, GetMousePosition());
 
 		// Shooting
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 			Spaceship::Shoot(ship);
 
 		// Pausing
@@ -73,7 +73,7 @@ namespace Game {
 
 	// Global
 
-	int GetGameTime() {
+	float GetGameTime() {
 		return gameTime;
 	}
 
@@ -120,11 +120,5 @@ namespace Game {
 			ObjManager::ActivateAsteroid((AsteroidType)
 				GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL));
 		}
-		/*
-		for (int i = 0; i < 500; i++) {
-			ObjManager::ActivateBullet(Vector2{ 0, 0 }, (GetScreenWidth() * .005), (float)GetRandomValue(0, 360), 300.0f);
-		}
-		*/
-		
 	}
 }

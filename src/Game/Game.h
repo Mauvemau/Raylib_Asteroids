@@ -3,7 +3,7 @@
 #include "Spaceship.h"
 
 namespace Game {
-	int GetGameTime();
+	float GetGameTime();
 	Ship GetPlayer();
 
 	void SetPaused(bool val);

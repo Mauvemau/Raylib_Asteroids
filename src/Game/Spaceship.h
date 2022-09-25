@@ -7,6 +7,7 @@ struct Cannon {
 	float power; // La velocidad a la que salen disparadas las balas.
 	float range; // Cuantos segundos las balas permanecen vivas.
 	float caliber; // El tamaño de las balas.
+	float lastShot; // La ultima vez que se disparo.
 };
 
 struct Ship {
@@ -21,7 +22,7 @@ struct Ship {
 namespace Spaceship {
 	float GetCollisionRadius(Ship ship);
 
-	void Shoot(Ship ship);
+	void Shoot(Ship& ship);
 	void Accelerate(Ship& ship, Vector2 target);
 	void Rotate(Ship& ship, float ang);
 

@@ -150,8 +150,8 @@ namespace ObjManager {
 		}
 		// Bullets
 		for (int i = 0; i < activeBullets; i++) {
-			HandleBulletLifeTime(i);
 			Bullets::Update(bullets[i]);
+			HandleBulletLifeTime(i);
 		}
 		// Primero Updateamos todos, despues loopeamos nuevamente para checkear colisiones.
 		for (int i = 0; i < activeBullets; i++) {
