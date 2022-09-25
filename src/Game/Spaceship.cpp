@@ -1,10 +1,13 @@
 #include "Spaceship.h"
 #include "Utils.h"
 #include "CollisionManager.h" // Para manejar las colisiones.
+#include "ObjectManager.h" // Para disparar balas.
 
 namespace Spaceship {
 	void Move(Ship& ship);
 	void LimitAcceleration(Ship& ship);
+	void InitCannon(Cannon& cannon);
+	Cannon CreateCannon();
 
 	// --
 
@@ -28,10 +31,38 @@ namespace Spaceship {
 		}
 	}
 
+	void InitCannon(Cannon& cannon) {
+		cannon.fireRate = .5f;
+		cannon.accuracy = 5.0f;
+		cannon.power = 300.0f;
+		cannon.range = 1.5f;
+		cannon.caliber = (GetScreenWidth() * .005);
+	}
+
+	Cannon CreateCannon() {
+		Cannon cannon;
+		cannon.fireRate = 0;
+		cannon.accuracy = 0;
+		cannon.power = 0;
+		cannon.range = 0;
+		cannon.caliber = 0;
+		return cannon;
+	}
+
 	// Global
 
 	float GetCollisionRadius(Ship ship) {
 		return (float)(ship.size.x * .5);
+	}
+
+	void Shoot(Ship ship) {
+		/* Falta:
+		Arreglar offset.
+		Implementar fire rate.
+		Implementar accuracy.
+		Implementar range.
+		*/
+		ObjManager::ActivateBullet(ship.pos, ship.cannon.caliber, Utils::DegreesToRadians(ship.rotation - 90.0f), ship.cannon.power);
 	}
 
 	void Accelerate(Ship& ship, Vector2 target) {
@@ -73,6 +104,7 @@ namespace Spaceship {
 		ship.acceleration = { 0, 0 };
 		ship.rotation = 0;
 		ship.maxAccel = 0;
+		ship.cannon = CreateCannon();
 		return ship;
 	}
 
@@ -80,9 +112,12 @@ namespace Spaceship {
 		ship.pos = { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .5) };
 		ship.size = { (float)(GetScreenWidth() * .02), (float)(GetScreenHeight() * .08) };
 		ship.maxAccel = 1.0f;
+		InitCannon(ship.cannon);
 	}
 	void Init(Ship& ship, Vector2 pos, float maxAccel) {
 		ship.pos = pos;
+		ship.size = { (float)(GetScreenWidth() * .02), (float)(GetScreenHeight() * .08) };
 		ship.maxAccel = maxAccel;
+		InitCannon(ship.cannon);
 	}
 }

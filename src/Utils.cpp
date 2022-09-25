@@ -10,6 +10,10 @@ namespace Utils {
 		return sqrtf((vec.x * vec.x) + (vec.y * vec.y));
 	}
 
+	float DegreesToRadians(float deg) {
+		return (deg * (m_pi / 180.0));
+	}
+
 	float RadiansToDegrees(float rad) {
 		return (rad * (180.0 / m_pi));
 	}

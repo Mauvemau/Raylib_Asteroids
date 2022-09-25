@@ -1,6 +1,5 @@
 #include "ObjectManager.h"
 
-#include <algorithm>
 #include <iostream>
 
 namespace ObjManager {

@@ -32,7 +32,8 @@ namespace Game {
 			Spaceship::Accelerate(ship, GetMousePosition());
 
 		// Shooting
-		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT));
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+			Spaceship::Shoot(ship);
 
 		// Pausing
 		if (IsKeyPressed(KEY_ESCAPE))
@@ -97,10 +98,14 @@ namespace Game {
 		Spaceship::Init(ship);
 		// Asteroids
 		ObjManager::Init();
-		for (int i = 0; i < 20; i++) {
+		/*
+		for (int i = 0; i < 60; i++) {
 			ObjManager::ActivateAsteroid((AsteroidType)
 				GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL));
 		}
-		ObjManager::ActivateBullet(Vector2{ 0, 0 }, (GetScreenWidth() * .005), 64.0f, 300.0f);
+		for (int i = 0; i < 30; i++) {
+			ObjManager::ActivateBullet(Vector2{ 0, 0 }, (GetScreenWidth() * .005), (float)GetRandomValue(0, 360), 300.0f);
+		}
+		*/
 	}
 }
