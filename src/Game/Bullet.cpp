@@ -27,7 +27,7 @@ namespace Bullets {
 		
 		Assets::DrawSprite(Sprite::TRAIL, bullet.pos,
 			{ (float)(bullet.size + bullet.speed * .1), (float)(bullet.size * 2) },
-			{ (float)(bullet.size + bullet.speed * .1), (float)(bullet.size) },
+			{ (float)(bullet.size + bullet.speed * .1), (float)(bullet.size * 1) },
 			Utils::RadiansToDegrees(bullet.direction), WHITE);
 
 		//DrawLineEx(bullet.pos, trailEnd, (bullet.size * .5), Fade(RAYWHITE, .25));
