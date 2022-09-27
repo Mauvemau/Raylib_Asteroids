@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include "Game.h"
 #include "ObjectManager.h"
+#include "Animations.h" // Para inicializarlas.
 
 #include "Menu/PauseMenu.h" // Extension, menu de pausa.
 #include "Menu/Hud.h" // Hud del juego.
@@ -13,6 +14,10 @@ namespace Game {
 
 	float gameTime; //Alternativa a GetTime, se inicia cuando comienza la partida, se pausa cuando el juego esta pausado.
 	float lastTick; // Para el gameTime;
+
+	const float haltTime = 3; // Cantidad de segundos que el juego se detiene antes de comenzar a mover la pelota.
+	float haltResumes; // El tiempo en el cual la pelota puede comenzar a moverse nuevamente.
+
 	bool paused;
 
 	void TickTime(); // Avanza el gameTime.
@@ -34,17 +39,18 @@ namespace Game {
 		// Rotation
 		if (GetMouseX() < GetScreenWidth() && GetMouseX() > 0 &&
 			GetMouseY() < GetScreenHeight() && GetMouseY > 0 &&
-			Utils::GetDistance(ship.pos, GetMousePosition()) > (float)(ship.size.y * .25))
+			Utils::GetDistance(ship.pos, GetMousePosition()) > (float)(ship.size.y * .25) &&
+			!GetIsHalted())
 			Spaceship::Rotate(ship, Utils::CalculateRotationAngle(ship.pos, GetMousePosition()));
 
 		// Acceleration
-		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT) &&
+		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT && !GetIsHalted()) &&
 			GetMouseX() < GetScreenWidth() && GetMouseX() > 0 &&
 			GetMouseY() < GetScreenHeight() && GetMouseY > 0)
 			Spaceship::Accelerate(ship, GetMousePosition());
 
 		// Shooting
-		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && !GetIsHalted())
 			Spaceship::Shoot(ship);
 
 		// Pausing
@@ -73,16 +79,33 @@ namespace Game {
 
 	// Global
 
+	void Finish() {
+
+	}
+
 	float GetGameTime() {
 		return gameTime;
 	}
 
-	Ship GetPlayer() {
+	Ship& GetPlayer() {
 		return ship;
+	}
+
+	bool GetIsHalted() {
+		return (GetGameTime() < haltResumes);
+	}
+
+	float GetHaltTime() {
+		return haltResumes;
 	}
 
 	void SetPaused(bool val) {
 		paused = val;
+	}
+
+	void SetHalted() {
+		if(!GetIsHalted())
+			haltResumes = GetGameTime() + haltTime;
 	}
 
 	void Update() {
@@ -93,7 +116,8 @@ namespace Game {
 			// Ship
 			Spaceship::Update(ship);
 			// Asteroids
-			ObjManager::Update();
+			if(!GetIsHalted())
+				ObjManager::Update();
 			// Hud
 			Hud::Update();
 		}
@@ -115,10 +139,14 @@ namespace Game {
 		Spaceship::Init(ship);
 		// Asteroids
 		ObjManager::Init();
+		// Animations
+		Animations::Init();
 		
 		for (int i = 0; i < 5; i++) {
 			ObjManager::ActivateAsteroid((AsteroidType)
 				GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL));
 		}
+
+		haltResumes = 0;
 	}
 }

@@ -2,7 +2,8 @@
 #include "Utils.h"
 #include "CollisionManager.h" // Para manejar las colisiones.
 #include "ObjectManager.h" // Para disparar balas.
-#include "Game.h" // Para el Gametime
+#include "Game.h" // Para el Gametime.
+#include "Animations.h" // Para el blink.
 
 namespace Spaceship {
 	void Move(Ship& ship);
@@ -13,8 +14,8 @@ namespace Spaceship {
 	// --
 
 	void Move(Ship& ship) {
-		ship.pos.x += (ship.acceleration.x * GetFrameTime()) * 380.0f;
-		ship.pos.y += (ship.acceleration.y * GetFrameTime()) * 380.0f;
+		ship.pos.x += (ship.acceleration.x * GetFrameTime()) * ship.speed;
+		ship.pos.y += (ship.acceleration.y * GetFrameTime()) * ship.speed;
 	}
 
 	void LimitAcceleration(Ship& ship) {
@@ -34,7 +35,6 @@ namespace Spaceship {
 
 	void InitCannon(Cannon& cannon) {
 		cannon.fireRate = .25f;
-		cannon.accuracy = 5.0f;
 		cannon.power = 700.0f;
 		cannon.range = .8f;
 		cannon.caliber = (GetScreenWidth() * .005);
@@ -44,7 +44,6 @@ namespace Spaceship {
 	Cannon CreateCannon() {
 		Cannon cannon;
 		cannon.fireRate = 0;
-		cannon.accuracy = 0;
 		cannon.power = 0;
 		cannon.range = 0;
 		cannon.caliber = 0;
@@ -61,7 +60,6 @@ namespace Spaceship {
 	void Shoot(Ship& ship) {
 		/* Falta:
 		Arreglar offset.
-		Implementar accuracy.
 		*/
 		if (ship.cannon.fireRate < (Game::GetGameTime() - ship.cannon.lastShot)) {
 			ship.cannon.lastShot = Game::GetGameTime();
@@ -71,6 +69,10 @@ namespace Spaceship {
 				ship.cannon.power,
 				ship.cannon.range);
 		}
+	}
+
+	void ResetAcceleration(Ship& ship) {
+		ship.acceleration = { 0, 0 };
 	}
 
 	void Accelerate(Ship& ship, Vector2 target) {
@@ -89,11 +91,12 @@ namespace Spaceship {
 	}
 
 	void Draw(Ship ship) {
-		DrawRectanglePro(
-			{ ship.pos.x, ship.pos.y, ship.size.x, ship.size.y }, 
-			{ (float)(ship.size.x  * .5), (float)(ship.size.y * .5) }, 
-			ship.rotation, 
-			RED);
+		if(Animations::Blink())
+			DrawRectanglePro(
+				{ ship.pos.x, ship.pos.y, ship.size.x, ship.size.y }, 
+				{ (float)(ship.size.x  * .5), (float)(ship.size.y * .5) }, 
+				ship.rotation, 
+				RED);
 
 		#ifdef _DEBUG
 		DrawCircle(ship.pos.x, ship.pos.y, GetCollisionRadius(ship), Fade(GREEN, .5));
@@ -101,7 +104,9 @@ namespace Spaceship {
 	}
 
 	void Update(Ship& ship) {
-		Move(ship);
+		if (!Game::GetIsHalted()) {
+			Move(ship);
+		}
 		Collisions::Update(ship);
 	}
 
@@ -119,12 +124,14 @@ namespace Spaceship {
 	void Init(Ship& ship) {
 		ship.pos = { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .5) };
 		ship.size = { (float)(GetScreenWidth() * .02), (float)(GetScreenHeight() * .08) };
+		ship.speed = 400.0f;
 		ship.maxAccel = 1.0f;
 		InitCannon(ship.cannon);
 	}
-	void Init(Ship& ship, Vector2 pos, float maxAccel) {
+	void Init(Ship& ship, Vector2 pos, float speed, float maxAccel) {
 		ship.pos = pos;
 		ship.size = { (float)(GetScreenWidth() * .02), (float)(GetScreenHeight() * .08) };
+		ship.speed = speed;
 		ship.maxAccel = maxAccel;
 		InitCannon(ship.cannon);
 	}

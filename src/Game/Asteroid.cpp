@@ -23,13 +23,13 @@ namespace Asteroids {
 		switch (type)
 		{
 		case AsteroidType::BIG:
-			speed = (float)GetRandomValue(25, 125);
+			speed = (float)GetRandomValue(25, 150);
 			break;
 		case AsteroidType::MEDIUM:
-			speed = (float)GetRandomValue(50, 150);
+			speed = (float)GetRandomValue(100, 200);
 			break;
 		case AsteroidType::SMALL:
-			speed = (float)GetRandomValue(100, 200);
+			speed = (float)GetRandomValue(150, 250);
 			break;
 		default:
 			std::cout << "Invalid type! [Asteroid.cpp - GetSpeed()]\n";

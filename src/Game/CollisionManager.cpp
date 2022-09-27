@@ -6,15 +6,9 @@
 
 namespace Collisions {
 
-	bool CheckAsteroidShipCollision(Asteroid asteroid);
 	void CheckBounds(Vector2& pos); // Se ocupa de manejar el warping al chocar con los bordes de la pantalla.
 
 	// --
-
-	bool CheckAsteroidShipCollision(Asteroid asteroid) {
-		Ship ship = Game::GetPlayer();
-		return CircleCircleCollision(asteroid.pos, Asteroids::GetSize(asteroid.type), ship.pos, Spaceship::GetCollisionRadius(ship));
-	}
 
 	void CheckBounds(Vector2& pos) {
 		if (pos.x < 0)
@@ -44,15 +38,17 @@ namespace Collisions {
 		return CircleCircleCollision(bullet.pos, bullet.size, asteroid.pos, Asteroids::GetSize(asteroid.type));
 	}
 
+	bool CheckShipAsteroidCollision(Asteroid asteroid) {
+		Ship ship = Game::GetPlayer();
+		return CircleCircleCollision(asteroid.pos, Asteroids::GetSize(asteroid.type), ship.pos, Spaceship::GetCollisionRadius(ship));
+	}
+
 	void Update(Bullet& bullet) {
 		CheckBounds(bullet.pos);
 	}
 
 	void Update(Asteroid& asteroid, int id) {
 		CheckBounds(asteroid.pos);
-		if (CheckAsteroidShipCollision(asteroid))
-			std::cout << "[COLLISION] Ship -> Asteroid [TYPE:" 
-			<< Asteroids::GetTypeString(asteroid.type) << ", ID: " << id << "]\n";
 	}
 
 	void Update(Ship& ship) {

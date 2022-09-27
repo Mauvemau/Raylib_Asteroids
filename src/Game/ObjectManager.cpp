@@ -13,12 +13,11 @@ namespace ObjManager {
 	//Bullets
 	const int maxBullets = 50;
 	Bullet bullets[maxBullets];
-
 	int activeBullets;
 	
 	void HandleCollision(int bulletID, int asteroidID);
 	// Asteroids
-	void DestroyAsteroid(int id);
+	void DestroyAsteroid(int id, float angle);
 	void PrintLog(AsteroidType type, bool creating);
 	// Bullets
 	void HandleBulletLifeTime(int id);
@@ -27,12 +26,13 @@ namespace ObjManager {
 	// --
 	
 	void HandleCollision(int bulletID, int asteroidID) {
+		float bulletAngle = bullets[bulletID].direction;
 		DeActivateBullet(bulletID);
-		DestroyAsteroid(asteroidID);
+		DestroyAsteroid(asteroidID, bulletAngle);
 	}
 
 	// Asteroids
-	void DestroyAsteroid(int id) {
+	void DestroyAsteroid(int id, float angle) {
 		switch (asteroids[id].type)
 		{
 		case AsteroidType::BIG:
@@ -43,9 +43,9 @@ namespace ObjManager {
 			break;
 		case AsteroidType::MEDIUM:
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
-				asteroids[id].direction - .25, Asteroids::GetSpeed(AsteroidType::SMALL));
+				angle - .25, Asteroids::GetSpeed(AsteroidType::SMALL));
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
-				asteroids[id].direction + .25, Asteroids::GetSpeed(AsteroidType::SMALL));
+				angle + .25, Asteroids::GetSpeed(AsteroidType::SMALL));
 			break;
 		default:
 			break;
@@ -147,6 +147,11 @@ namespace ObjManager {
 		// Asteroids
 		for (int i = 0; i < activeAsteroids; i++) {
 			Asteroids::Update(asteroids[i], i);
+			if (Collisions::CheckShipAsteroidCollision(asteroids[i])) {
+				DeActivateAsteroid(i);
+				Spaceship::ResetAcceleration(Game::GetPlayer());
+				Game::SetHalted();
+			}
 		}
 		// Bullets
 		for (int i = 0; i < activeBullets; i++) {

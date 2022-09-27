@@ -8,6 +8,7 @@ namespace Collisions {
 	bool Vector2RectCollision(Vector2 v, Vector2 rectPos, Vector2 rectSize);
 
 	bool CheckBulletAsteroidCollision(Bullet bullet, Asteroid asteroid);
+	bool CheckShipAsteroidCollision(Asteroid asteroid);
 	// Bullets
 	void Update(Bullet& bullet);
 	// Asteroids
