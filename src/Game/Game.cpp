@@ -20,11 +20,36 @@ namespace Game {
 
 	bool paused;
 
+	void HandleGameLogic();
 	void TickTime(); // Avanza el gameTime.
 	void ManageInput();
 	void Draw();
 
 	// --
+
+	void HandleGameLogic() {
+		int asteroidLimit;
+		bool invaders;
+		if (gameTime < 30.0f) {
+			asteroidLimit = 5;
+			invaders = false;
+		}
+		else if (gameTime >= 30.0f && gameTime < 90.0f) {
+			asteroidLimit = 10;
+			invaders = true;
+		}
+		else if (gameTime >= 90.0f && gameTime < 120.0f) {
+			asteroidLimit = 20;
+		}
+		else if (gameTime >= 120.0f) {
+			asteroidLimit = 30;
+		}
+
+		if (ObjManager::GetActiveAsteroids() < asteroidLimit) {
+			ObjManager::ActivateAsteroid((AsteroidType)
+				GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL));
+		}
+	}
 
 	void TickTime() {
 		if (!paused) { // Si el juego no esta pausado, hacer que el timer avanze
@@ -44,9 +69,10 @@ namespace Game {
 			Spaceship::Rotate(ship, Utils::CalculateRotationAngle(ship.pos, GetMousePosition()));
 
 		// Acceleration
-		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT && !GetIsHalted()) &&
+		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT) &&
 			GetMouseX() < GetScreenWidth() && GetMouseX() > 0 &&
-			GetMouseY() < GetScreenHeight() && GetMouseY > 0)
+			GetMouseY() < GetScreenHeight() && GetMouseY > 0 &&
+			!GetIsHalted())
 			Spaceship::Accelerate(ship, GetMousePosition());
 
 		// Shooting
@@ -113,6 +139,8 @@ namespace Game {
 		if (!paused) {
 			// Input
 			ManageInput();
+			// GameLogic
+			HandleGameLogic();
 			// Ship
 			Spaceship::Update(ship);
 			// Asteroids
@@ -141,11 +169,6 @@ namespace Game {
 		ObjManager::Init();
 		// Animations
 		Animations::Init();
-		
-		for (int i = 0; i < 5; i++) {
-			ObjManager::ActivateAsteroid((AsteroidType)
-				GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL));
-		}
 
 		haltResumes = 0;
 	}
