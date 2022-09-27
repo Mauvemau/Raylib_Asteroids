@@ -3,6 +3,7 @@
 #include "ProgramManager.h"
 #include "Menu/MainMenu.h"
 #include "Game/Game.h"
+#include "AssetLoader.h" // Para cargar los assets.
 
 #include <iostream>
 
@@ -36,6 +37,7 @@ void InitRespectiveStatus(ProgramStatus status) {
 }
 
 void CloseProgram() {
+	Assets::Unload();
 	CloseWindow();
 }
 
@@ -59,6 +61,7 @@ void UpdateProgram() {
 void InitProgram() {
 	InitWindow(screenWidth, screenHeight, "Raylib Asteroids");
 	SetExitKey(KEY_NULL); // No queremos que la ventana se cierre con escape.
+	Assets::Init(); // Cargamos los assets.
 	SetProgramStatus(ProgramStatus::MAINMENU);
 }
 

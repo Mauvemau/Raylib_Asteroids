@@ -4,6 +4,7 @@
 #include "ObjectManager.h" // Para disparar balas.
 #include "Game.h" // Para el Gametime.
 #include "Animations.h" // Para el blink.
+#include "AssetLoader.h" // Para la textura.
 
 namespace Spaceship {
 	void Move(Ship& ship);
@@ -37,7 +38,7 @@ namespace Spaceship {
 		cannon.fireRate = .25f;
 		cannon.power = 700.0f;
 		cannon.range = .8f;
-		cannon.caliber = (GetScreenWidth() * .005);
+		cannon.caliber = (GetScreenWidth() * .004);
 		cannon.lastShot = 0;
 	}
 
@@ -68,6 +69,7 @@ namespace Spaceship {
 				Utils::DegreesToRadians(ship.rotation - 90.0f),
 				ship.cannon.power,
 				ship.cannon.range);
+			Assets::PlayAudio(Audio::SHOOT);
 		}
 	}
 
@@ -91,16 +93,15 @@ namespace Spaceship {
 	}
 
 	void Draw(Ship ship) {
-		if(Animations::Blink())
-			DrawRectanglePro(
-				{ ship.pos.x, ship.pos.y, ship.size.x, ship.size.y }, 
-				{ (float)(ship.size.x  * .5), (float)(ship.size.y * .5) }, 
-				ship.rotation, 
-				RED);
+#ifdef _DEBUG
+		DrawCircle(ship.pos.x, ship.pos.y, GetCollisionRadius(ship), Fade(GREEN, .25));
+#endif
 
-		#ifdef _DEBUG
-		DrawCircle(ship.pos.x, ship.pos.y, GetCollisionRadius(ship), Fade(GREEN, .5));
-		#endif
+		if (Animations::Blink())
+			Assets::DrawSprite(Sprite::SPACESHIP, ship.pos,
+				{ (float)(ship.size.x * 2), (float)(ship.size.y * 2) },
+				{ (float)(ship.size.x), (float)(ship.size.y) },
+				ship.rotation, WHITE);
 	}
 
 	void Update(Ship& ship) {
@@ -123,7 +124,7 @@ namespace Spaceship {
 
 	void Init(Ship& ship) {
 		ship.pos = { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .5) };
-		ship.size = { (float)(GetScreenWidth() * .02), (float)(GetScreenHeight() * .08) };
+		ship.size = { (float)(GetScreenHeight() * .02), (float)(GetScreenHeight() * .02) };
 		ship.speed = 400.0f;
 		ship.maxAccel = 1.0f;
 		InitCannon(ship.cannon);

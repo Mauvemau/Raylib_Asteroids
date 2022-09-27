@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AssetLoader.cpp" />
     <ClCompile Include="src\Game\Animations.cpp" />
     <ClCompile Include="src\Game\Asteroid.cpp" />
     <ClCompile Include="src\Game\ObjectManager.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AssetLoader.h" />
     <ClInclude Include="src\Game\Animations.h" />
     <ClInclude Include="src\Game\Asteroid.h" />
     <ClInclude Include="src\Game\ObjectManager.h" />

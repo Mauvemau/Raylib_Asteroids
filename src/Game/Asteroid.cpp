@@ -1,5 +1,6 @@
 #include "Asteroid.h"
 #include "CollisionManager.h" // Para manejar las colisiones.
+#include "AssetLoader.h" // Para el sprite
 
 namespace Asteroids {
 	Vector2 GetRandomSpawnPosition();
@@ -88,7 +89,15 @@ namespace Asteroids {
 	}
 
 	void Draw(Asteroid asteroid) {
-		DrawCircle(asteroid.pos.x, asteroid.pos.y, GetSize(asteroid.type), ORANGE);
+#ifdef _DEBUG
+		DrawCircle(asteroid.pos.x, asteroid.pos.y, GetSize(asteroid.type), Fade(GREEN, .25));
+#endif
+		
+		Assets::DrawSprite(Assets::GetAsteroidSprite(asteroid.type),
+			asteroid.pos,
+			{ (float)(GetSize(asteroid.type) * 2), (float)(GetSize(asteroid.type) * 2) },
+			{ (float)(GetSize(asteroid.type)), (float)(GetSize(asteroid.type)) },
+			0, WHITE);
 	}
 
 	void Update(Asteroid& asteroid, int id) {
