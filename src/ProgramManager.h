@@ -5,7 +5,8 @@ Maneja los loops y distintas pantallas del juego.
 
 enum class ProgramStatus {
 	MAINMENU,
-	INGAME
+	INGAME,
+	SETTINGS
 };
 
 void SetGameShouldClose(bool value);

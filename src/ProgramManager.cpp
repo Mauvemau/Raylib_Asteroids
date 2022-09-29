@@ -2,6 +2,7 @@
 
 #include "ProgramManager.h"
 #include "Menu/MainMenu.h"
+#include "Menu/Settings.h"
 #include "Game/Game.h"
 #include "AssetLoader.h" // Para cargar los assets.
 
@@ -30,6 +31,9 @@ void InitRespectiveStatus(ProgramStatus status) {
 	case ProgramStatus::INGAME:
 		Game::Init();
 		break;
+	case ProgramStatus::SETTINGS:
+		Settings::Init();
+		break;
 	default:
 		std::cout << "Invalid program Status! [ProgramManager.cpp - InitRespectiveStatus()]\n";
 		break;
@@ -51,6 +55,9 @@ void UpdateProgram() {
 		case ProgramStatus::INGAME:
 			Game::Update();
 			break;
+		case ProgramStatus::SETTINGS:
+			Settings::Update();
+			break;
 		default:
 			std::cout << "Invalid program Status! [ProgramManager.cpp - UpdateProgram()]\n";
 			break;
@@ -62,6 +69,7 @@ void InitProgram() {
 	InitWindow(screenWidth, screenHeight, "Raylib Asteroids");
 	SetExitKey(KEY_NULL); // No queremos que la ventana se cierre con escape.
 	Assets::Init(); // Cargamos los assets.
+	Settings::InitSettings(); // Se inicializan las settings default cuando se ejecuta el programa.
 	SetProgramStatus(ProgramStatus::MAINMENU);
 }
 

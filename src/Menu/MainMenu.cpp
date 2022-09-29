@@ -44,6 +44,7 @@ namespace MainMenu {
 			SetProgramStatus(ProgramStatus::INGAME);
 			break;
 		case MainMenu::Options::SETTINGS:
+			SetProgramStatus(ProgramStatus::SETTINGS);
 			break;
 		case MainMenu::Options::CREDITS:
 			break;

@@ -170,6 +170,7 @@ namespace Game {
 		// Animations
 		Animations::Init();
 
+		gameTime = 0;
 		haltResumes = 0;
 	}
 }
