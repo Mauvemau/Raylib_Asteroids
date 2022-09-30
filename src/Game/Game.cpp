@@ -1,5 +1,6 @@
 #include "Utils.h"
 #include "Game.h"
+#include "ProgramManager.h"
 #include "ObjectManager.h"
 #include "Animations.h" // Para inicializarlas.
 
@@ -20,12 +21,17 @@ namespace Game {
 
 	bool paused;
 
+	void FinishGame();
 	void HandleGameLogic();
 	void TickTime(); // Avanza el gameTime.
 	void ManageInput();
 	void Draw();
 
 	// --
+
+	void FinishGame() {
+		SetProgramStatus(ProgramStatus::GAMEOVER);
+	}
 
 	void HandleGameLogic() {
 		int asteroidLimit;
@@ -82,6 +88,12 @@ namespace Game {
 		// Pausing
 		if (IsKeyPressed(KEY_ESCAPE))
 			SetPaused(true);
+
+#ifdef _DEBUG
+		if (IsKeyPressed(KEY_F4)) {
+			FinishGame();
+		}
+#endif
 	}
 
 	void Draw() {

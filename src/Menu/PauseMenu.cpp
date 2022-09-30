@@ -7,7 +7,7 @@
 #include <iostream>
 
 namespace Pause {
-	const int amountButtons = 3;
+	const int amountButtons = (int)Options::COUNT;
 	Button buttons[amountButtons];
 
 	void DrawMenuText();

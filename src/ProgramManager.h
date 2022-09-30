@@ -6,6 +6,7 @@ Maneja los loops y distintas pantallas del juego.
 enum class ProgramStatus {
 	MAINMENU,
 	INGAME,
+	GAMEOVER,
 	SETTINGS
 };
 

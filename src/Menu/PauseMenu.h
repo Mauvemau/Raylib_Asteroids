@@ -8,7 +8,8 @@ namespace Pause {
 	enum class Options {
 		RESUME,
 		RESTART,
-		RETURNTOMENU
+		RETURNTOMENU,
+		COUNT
 	};
 
 	void Draw(); // Este menu tiene un draw publico, ya que funciona como una extension de Game.h

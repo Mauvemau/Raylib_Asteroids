@@ -163,6 +163,7 @@
     <ClCompile Include="src\Game\Spaceship.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu\Button.cpp" />
+    <ClCompile Include="src\Menu\GameOverMenu.cpp" />
     <ClCompile Include="src\Menu\Hud.cpp" />
     <ClCompile Include="src\Menu\MainMenu.cpp" />
     <ClCompile Include="src\Menu\PauseMenu.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Game\Spaceship.h" />
     <ClInclude Include="src\Menu\Button.h" />
+    <ClInclude Include="src\Menu\GameOverMenu.h" />
     <ClInclude Include="src\Menu\Hud.h" />
     <ClInclude Include="src\Menu\MainMenu.h" />
     <ClInclude Include="src\Menu\PauseMenu.h" />

@@ -26,6 +26,6 @@ namespace Settings {
 	};
 
 	void Update();
-	void InitSettings();
-	void Init();
+	void InitSettings(); // Inicializa las settings default.
+	void Init(); // Inicializa el menu
 }

@@ -21,7 +21,7 @@ namespace Settings {
 	Resolution GetResolutionValue(Resolutions id);
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
-	void InitButtons();
+	void InitButtons(); // Inicializa los botones.
 	void Draw();
 
 	// --
