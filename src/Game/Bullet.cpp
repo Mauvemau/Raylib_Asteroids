@@ -20,8 +20,8 @@ namespace Bullets {
 
 	void Draw(Bullet bullet) {
 		Vector2 trailEnd;
-		trailEnd.x = bullet.pos.x + (-bullet.speed * .1) * cosf(bullet.direction);
-		trailEnd.y = bullet.pos.y + (-bullet.speed * .1) * sinf(bullet.direction);
+		trailEnd.x = (float)(bullet.pos.x + (-bullet.speed * .1) * cosf(bullet.direction));
+		trailEnd.y = (float)(bullet.pos.y + (-bullet.speed * .1) * sinf(bullet.direction));
 		DrawCircle(bullet.pos.x, bullet.pos.y, bullet.size, RAYWHITE);
 
 		

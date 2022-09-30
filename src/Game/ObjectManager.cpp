@@ -1,5 +1,6 @@
 #include "ObjectManager.h"
 #include "CollisionManager.h"
+#include "AssetLoader.h" // Para los sonidos.
 #include "Game.h" // Para el game time.
 
 #include <iostream>
@@ -51,6 +52,7 @@ namespace ObjManager {
 			break;
 		}
 		DeActivateAsteroid(id);
+		Assets::PlayAudio((Audio)GetRandomValue((int)Audio::EXPLOSION_1, (int)Audio::EXPLOSION_3), .5);
 	}
 
 	void PrintLog(AsteroidType type, bool creating) {
@@ -151,6 +153,7 @@ namespace ObjManager {
 				DeActivateAsteroid(i);
 				Spaceship::ResetAcceleration(Game::GetPlayer());
 				Game::SetHalted();
+				Assets::PlayAudio(Audio::HURT, .5);
 			}
 		}
 		// Bullets

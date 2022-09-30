@@ -69,7 +69,7 @@ namespace Spaceship {
 				Utils::DegreesToRadians(ship.rotation - 90.0f),
 				ship.cannon.power,
 				ship.cannon.range);
-			Assets::PlayAudio(Audio::SHOOT);
+			Assets::PlayAudio(Audio::SHOOT, .5);
 		}
 	}
 

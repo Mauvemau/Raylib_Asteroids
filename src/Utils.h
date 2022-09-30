@@ -2,7 +2,7 @@
 #include "raylib.h"
 #include <iostream>
 
-const float m_pi = 3.14159265358979323846;
+const double m_pi = 3.14159265358979323846;
 
 namespace Utils {
 	void DrawCenteredText(const char* text, Vector2 pos, int fontSize, Color color);

@@ -23,7 +23,7 @@ enum class Sprite {
 
 namespace Assets {
 
-	void PlayAudio(Audio sound);
+	void PlayAudio(Audio sound, float volume);
 	void DrawSprite(Sprite sprite, Vector2 pos, Vector2 size, Vector2 pivot, float rotation, Color tint);
 
 	Sprite GetAsteroidSprite(AsteroidType type);

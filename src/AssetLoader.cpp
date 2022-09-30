@@ -113,7 +113,8 @@ namespace Assets {
 			rotation, tint);
 	}
 
-	void PlayAudio(Audio sound) {
+	void PlayAudio(Audio sound, float volume) {
+		SetSoundVolume(sounds[(int)sound], volume);
 		PlaySound(sounds[(int)sound]);
 	}
 

@@ -11,10 +11,10 @@ namespace Asteroids {
 	Vector2 GetRandomSpawnPosition() {
 		Vector2 spawnPos = {0, 0};
 		if (GetRandomValue(0, 1)) {
-			spawnPos.x = GetRandomValue(0, GetScreenHeight());
+			spawnPos.x = (float)GetRandomValue(0, GetScreenHeight());
 		}
 		else {
-			spawnPos.y = GetRandomValue(0, GetScreenWidth());
+			spawnPos.y = (float)GetRandomValue(0, GetScreenWidth());
 		}
 		return spawnPos;
 	}
@@ -90,7 +90,7 @@ namespace Asteroids {
 
 	void Draw(Asteroid asteroid) {
 #ifdef _DEBUG
-		DrawCircle(asteroid.pos.x, asteroid.pos.y, GetSize(asteroid.type), Fade(GREEN, .25));
+		DrawCircle((int)asteroid.pos.x, (int)asteroid.pos.y, GetSize(asteroid.type), Fade(GREEN, .25));
 #endif
 		
 		Assets::DrawSprite(Assets::GetAsteroidSprite(asteroid.type),
