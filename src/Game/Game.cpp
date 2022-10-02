@@ -3,6 +3,7 @@
 #include "ProgramManager.h"
 #include "ObjectManager.h"
 #include "Animations.h" // Para inicializarlas.
+#include "AssetLoader.h" // Para el sonido
 
 #include "Menu/PauseMenu.h" // Extension, menu de pausa.
 #include "Menu/Hud.h" // Hud del juego.
@@ -60,8 +61,8 @@ namespace Game {
 	void TickTime() {
 		if (!paused) { // Si el juego no esta pausado, hacer que el timer avanze
 			if (GetTime() > lastTick) {
-				gameTime += .05;
-				lastTick = GetTime() + .05;
+				gameTime += .01;
+				lastTick = GetTime() + .01;
 			}
 		}
 	}
@@ -139,6 +140,12 @@ namespace Game {
 
 	void SetPaused(bool val) {
 		paused = val;
+		if (paused) {
+			Assets::PauseMusic(Musics::FINAL_LEVEL);
+			Assets::PlayAudio(Audio::PAUSE, .5);
+		}
+		else
+			Assets::ResumeMusic(Musics::FINAL_LEVEL);
 	}
 
 	void SetHalted() {
@@ -165,6 +172,7 @@ namespace Game {
 			// PauseMenu
 			Pause::Update();
 
+		Assets::UpdateMusic(Musics::FINAL_LEVEL);
 		Draw();
 	}
 
@@ -184,5 +192,7 @@ namespace Game {
 
 		gameTime = 0;
 		haltResumes = 0;
+
+		Assets::PlayMusic(Musics::FINAL_LEVEL, .25);
 	}
 }

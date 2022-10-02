@@ -1,6 +1,7 @@
 #include "GameOverMenu.h"
 #include "Button.h"
 #include "ProgramManager.h"
+#include "AssetLoader.h" // Para la musica.
 
 #include <iostream>
 
@@ -35,9 +36,11 @@ namespace GameOver {
 		switch (option)
 		{
 		case GameOver::Options::PLAYAGAIN:
+			Assets::StopMusic(Musics::FINAL_LEVEL);
 			SetProgramStatus(ProgramStatus::INGAME);
 			break;
 		case GameOver::Options::RETURNTOMENU:
+			Assets::StopMusic(Musics::FINAL_LEVEL);
 			SetProgramStatus(ProgramStatus::MAINMENU);
 			break;
 		default:

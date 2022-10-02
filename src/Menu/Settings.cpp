@@ -230,6 +230,9 @@ namespace Settings {
 				SelectOption((Options)buttons[i].id);
 		}
 
+		if(IsKeyPressed(KEY_ESCAPE))
+			SetProgramStatus(ProgramStatus::MAINMENU);
+
 		Draw();
 	}
 

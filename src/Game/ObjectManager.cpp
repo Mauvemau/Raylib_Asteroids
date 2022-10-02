@@ -153,7 +153,7 @@ namespace ObjManager {
 				DeActivateAsteroid(i);
 				Spaceship::ResetAcceleration(Game::GetPlayer());
 				Game::SetHalted();
-				Assets::PlayAudio(Audio::HURT, .5);
+				Assets::PlayAudio(Audio::HURT, .75);
 			}
 		}
 		// Bullets

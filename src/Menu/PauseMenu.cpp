@@ -3,6 +3,7 @@
 #include "Game/Game.h" // Para controlar la pausa del juego.
 #include "ProgramManager.h" // Para controlar el estado del programa y poder reiniciar y volver al menu.
 #include "Utils.h" // Para el texto centrado
+#include "AssetLoader.h" // Para la musica.
 
 #include <iostream>
 
@@ -52,6 +53,7 @@ namespace Pause {
 			SetProgramStatus(ProgramStatus::INGAME);
 			break;
 		case Pause::Options::RETURNTOMENU:
+			Assets::StopMusic(Musics::FINAL_LEVEL);
 			SetProgramStatus(ProgramStatus::MAINMENU);
 			break;
 		default:
