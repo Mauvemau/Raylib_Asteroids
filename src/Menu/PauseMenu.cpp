@@ -78,6 +78,7 @@ namespace Pause {
 
 	void Draw() {
 		// Simplemente dibujamos, ya que este draw se encuentra adentro del draw de Game.
+		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, .5));
 		for (int i = 0; i < amountButtons; i++) {
 			Buttons::Draw(buttons[i]);
 		}

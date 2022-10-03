@@ -9,7 +9,8 @@ namespace Credits {
 	const int amountButtons = (int)Options::COUNT;
 	Button buttons[amountButtons];
 
-
+	Color GetButtonColor(Options option);
+	float GetButtonWidth(Options option);
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
 	void InitButtons();
@@ -18,23 +19,60 @@ namespace Credits {
 
 	// --
 
+
+	Color GetButtonColor(Options option) {
+		switch (option)
+		{
+		case Credits::Options::RAYLIB:
+			return RED;
+			break;
+		case Credits::Options::MUSIC:
+			return GREEN;
+			break;
+		case Credits::Options::ANIMATION:
+			return SKYBLUE;
+			break;
+		case Credits::Options::SFX:
+			return ORANGE;
+			break;
+		case Credits::Options::SPRITES:
+			return PINK;
+			break;
+		default:
+			return RAYWHITE;
+			break;
+		}
+	}
+
+	float GetButtonWidth(Options option) {
+		switch (option)
+		{
+		case Credits::Options::RETURNTOMENU:
+			return (float)(GetScreenWidth() * .3);
+			break;
+		default:
+			return (float)(GetScreenWidth() * .5);
+			break;
+		}
+	}
+
 	const char* GetButtonName(Options option) {
 		switch (option)
 		{
 		case Credits::Options::RAYLIB:
-			return "Raylib";
+			return "Game Built using Raylib by Ray";
 			break;
 		case Credits::Options::MUSIC:
-			return "HoliznaCC0";
+			return "Game Music by HoliznaCC0";
 			break;
 		case Credits::Options::ANIMATION:
-			return "9KeyStudio";
+			return "Explosion Animation by 9KeyStudio";
 			break;
 		case Credits::Options::SFX:
-			return "Chiptone";
+			return "Sound Effects made using Chiptone";
 			break;
 		case Credits::Options::SPRITES:
-			return "Aseprite";
+			return "Sprites made using Aseprite";
 			break;
 		case Credits::Options::RETURNTOMENU:
 			return "Return to Menu";
@@ -77,20 +115,17 @@ namespace Credits {
 		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
-				spacing += buttons[0].size.y + GetScreenWidth() * .06;
+				spacing += buttons[0].size.y + GetScreenWidth() * .03;
 			buttons[i] = Buttons::Create(i,
-				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .15) + spacing },
-				Vector2{ (float)(GetScreenWidth() * .3), (float)(GetScreenHeight() * .075) },
+				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .18) + spacing },
+				Vector2{ GetButtonWidth((Options)i), (float)(GetScreenWidth() * .05) },
+				GetButtonColor((Options)i),
 				GetButtonName((Options)i));
 		}
 	}
 
 	void DrawText() {
-		Utils::DrawCenteredText("Game Built using Raylib by Ray", { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .065) }, (float)(GetScreenHeight() * .05), PINK);
-		Utils::DrawCenteredText("Game Music by HoliznaCC0", { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .225) }, (float)(GetScreenHeight() * .05), ORANGE);
-		Utils::DrawCenteredText("Explosion Animation by 9KeyStudio", { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .38) }, (float)(GetScreenHeight() * .05), RED);
-		Utils::DrawCenteredText("Sound Effects made using Chiptone", { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .535) }, (float)(GetScreenHeight() * .05), GREEN);
-		Utils::DrawCenteredText("Sprites made using Aseprite", { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .69) }, (float)(GetScreenHeight() * .05), SKYBLUE);
+
 	}
 
 	void Draw() {
@@ -113,6 +148,9 @@ namespace Credits {
 			if (Buttons::Update(buttons[i]))
 				SelectOption((Options)buttons[i].id);
 		}
+
+		if(GetKeyPressed())
+			SetProgramStatus(ProgramStatus::MAINMENU);
 
 		Draw();
 	}
