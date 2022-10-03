@@ -17,7 +17,6 @@ const int screenWidth = 1024;
 const int screenHeight = 768;
 
 void InitRespectiveStatus(ProgramStatus status);
-
 void CloseProgram();
 void UpdateProgram();
 void InitProgram();

@@ -105,6 +105,8 @@ namespace Game {
 		Spaceship::Draw(ship);
 		// Asteroids
 		ObjManager::Draw();
+		// Animations
+		Animations::Draw();
 
 		if (!paused)
 			// Hud
@@ -165,6 +167,8 @@ namespace Game {
 			// Asteroids
 			if(!GetIsHalted())
 				ObjManager::Update();
+			// Animations
+			Animations::Update();
 			// Hud
 			Hud::Update();
 		}

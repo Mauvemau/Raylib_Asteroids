@@ -2,6 +2,7 @@
 #include "CollisionManager.h"
 #include "AssetLoader.h" // Para los sonidos.
 #include "Game.h" // Para el game time.
+#include "Animations.h" // Para las explosiones.
 
 #include <iostream>
 
@@ -22,7 +23,6 @@ namespace ObjManager {
 	void PrintLog(AsteroidType type, bool creating);
 	// Bullets
 	void HandleBulletLifeTime(int id);
-	void PrintLog(bool creating);
 
 	// --
 	
@@ -51,6 +51,8 @@ namespace ObjManager {
 		default:
 			break;
 		}
+		Animations::PlayAnimation(Anims::EXPLOSION, asteroids[id].pos, 
+			Vector2{ (float)(Asteroids::GetSize(asteroids[id].type) * 5), (float)(Asteroids::GetSize(asteroids[id].type) * 5) });
 		DeActivateAsteroid(id);
 		Assets::PlayAudio((Audio)GetRandomValue((int)Audio::EXPLOSION_1, (int)Audio::EXPLOSION_3), .5);
 	}
@@ -95,7 +97,6 @@ namespace ObjManager {
 		if (id < activeBullets) {
 			bullets[id] = bullets[activeBullets - 1];
 			activeBullets--;
-			PrintLog(false);
 		}
 	}
 
@@ -103,7 +104,6 @@ namespace ObjManager {
 		if (activeBullets < maxBullets) {
 			Bullets::Init(bullets[activeBullets], pos, size, direction, speed, lifeTime, Game::GetGameTime());
 			activeBullets++;
-			PrintLog(true);
 		}
 	}
 
@@ -113,7 +113,6 @@ namespace ObjManager {
 			AsteroidType type = asteroids[id].type; // Para el log
 			asteroids[id] = asteroids[activeAsteroids - 1];
 			activeAsteroids--;
-			PrintLog(type, false);
 		}
 	}
 
@@ -121,7 +120,6 @@ namespace ObjManager {
 		if (activeAsteroids < maxAsteroids) {
 			Asteroids::Init(asteroids[activeAsteroids], type);
 			activeAsteroids++;
-			PrintLog(type, true);
 		}
 	}
 
@@ -129,7 +127,6 @@ namespace ObjManager {
 		if (activeAsteroids < maxAsteroids) {
 			Asteroids::Init(asteroids[activeAsteroids], pos, type, direction, speed);
 			activeAsteroids++;
-			PrintLog(type, true);
 		}
 	}
 
