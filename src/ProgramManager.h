@@ -7,6 +7,7 @@ enum class ProgramStatus {
 	MAINMENU,
 	INGAME,
 	GAMEOVER,
+	CREDITS,
 	SETTINGS
 };
 

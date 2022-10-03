@@ -47,6 +47,7 @@ namespace MainMenu {
 			SetProgramStatus(ProgramStatus::SETTINGS);
 			break;
 		case MainMenu::Options::CREDITS:
+			SetProgramStatus(ProgramStatus::CREDITS);
 			break;
 		case MainMenu::Options::EXIT:
 			SetGameShouldClose(true);

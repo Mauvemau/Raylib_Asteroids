@@ -4,6 +4,7 @@
 #include "Menu/MainMenu.h"
 #include "Menu/Settings.h"
 #include "Menu/GameOverMenu.h"
+#include "Menu/Credits.h"
 #include "Game/Game.h"
 #include "AssetLoader.h" // Para cargar los assets.
 
@@ -35,6 +36,9 @@ void InitRespectiveStatus(ProgramStatus status) {
 	case ProgramStatus::GAMEOVER:
 		GameOver::Init();
 		break;
+	case ProgramStatus::CREDITS:
+		Credits::Init();
+		break;
 	case ProgramStatus::SETTINGS:
 		Settings::Init();
 		break;
@@ -61,6 +65,9 @@ void UpdateProgram() {
 			break;
 		case ProgramStatus::GAMEOVER:
 			GameOver::Update();
+			break;
+		case ProgramStatus::CREDITS:
+			Credits::Update();
 			break;
 		case ProgramStatus::SETTINGS:
 			Settings::Update();
