@@ -52,7 +52,7 @@ namespace ObjManager {
 			break;
 		}
 		Animations::PlayAnimation(Anims::EXPLOSION, asteroids[id].pos, 
-			Vector2{ (float)(Asteroids::GetSize(asteroids[id].type) * 5), (float)(Asteroids::GetSize(asteroids[id].type) * 5) });
+			Vector2{ (float)(Asteroids::GetSize(asteroids[id].type) * 6), (float)(Asteroids::GetSize(asteroids[id].type) * 6) });
 		DeActivateAsteroid(id);
 		Assets::PlayAudio((Audio)GetRandomValue((int)Audio::EXPLOSION_1, (int)Audio::EXPLOSION_3), .5);
 	}
@@ -150,7 +150,8 @@ namespace ObjManager {
 				DeActivateAsteroid(i);
 				Spaceship::ResetAcceleration(Game::GetPlayer());
 				Game::SetHalted();
-				Assets::PlayAudio(Audio::HURT, .75);
+				Game::RemoveLive(1);
+				Assets::PlayAudio(Audio::HURT, 1);
 			}
 		}
 		// Bullets

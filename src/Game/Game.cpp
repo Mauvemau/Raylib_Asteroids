@@ -20,6 +20,8 @@ namespace Game {
 	const float haltTime = 3; // Cantidad de segundos que el juego se detiene antes de comenzar a mover la pelota.
 	float haltResumes; // El tiempo en el cual la pelota puede comenzar a moverse nuevamente.
 
+	int lives;
+
 	bool paused;
 
 	void FinishGame();
@@ -120,8 +122,18 @@ namespace Game {
 
 	// Global
 
-	void Finish() {
+	void AddLive(int amount) {
+		lives += amount;
+	}
 
+	void RemoveLive(int amount) {
+		lives -= amount;
+		if (lives < 0)
+			lives = 0;
+	}
+
+	int GetLives() {
+		return lives;
 	}
 
 	float GetGameTime() {
@@ -196,6 +208,8 @@ namespace Game {
 
 		gameTime = 0;
 		haltResumes = 0;
+		lives = 0;
+		AddLive(4);
 
 		Assets::PlayMusic(Musics::FINAL_LEVEL, .25);
 	}

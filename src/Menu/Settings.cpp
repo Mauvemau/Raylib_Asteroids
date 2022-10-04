@@ -1,6 +1,7 @@
 #include "Settings.h"
 #include "Button.h"
 #include "ProgramManager.h"
+#include "Utils.h" // Para el texto centrado.
 
 #include "raylib.h"
 
@@ -13,6 +14,7 @@ namespace Settings {
 	int currentResolution;
 	bool fullscreen;
 
+	bool IsResBiggerThanMonitor(Resolution res);
 	void CenterWindow();
 	void MyToggleFullscreen();
 	void SetResolution(Resolution res);
@@ -21,11 +23,17 @@ namespace Settings {
 	Resolution GetResolutionValue(Resolutions id);
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
-	void InitButtons(); // Inicializa los botones.
+	void InitButtons();
+	void DrawHeader(const char* text, Options option);
+	void DrawText();
 	void Draw();
 
 	// --
 
+	bool IsResBiggerThanMonitor(Resolution res) {
+		int monitor = GetCurrentMonitor();
+		return (res.width > GetMonitorWidth(monitor) || res.height > GetMonitorHeight(monitor));
+	}
 	
 	void CenterWindow() {
 		int monitor = GetCurrentMonitor();
@@ -167,6 +175,10 @@ namespace Settings {
 				if (currentResolution > (int)Resolutions::r1600x900) { // Rotar si pasa el maximo.
 					currentResolution = 0;
 				}
+				if (currentResolution > (int)Resolutions::r1024x768) { // Si es mayor que el default.
+					if (IsResBiggerThanMonitor(GetResolutionValue((Resolutions)currentResolution))) // Si la resolucion es mas grande que el monitor.
+						currentResolution = 0; // Rotar
+				}
 				ChangeResolution((Resolutions)currentResolution);
 			}
 			break;
@@ -212,6 +224,21 @@ namespace Settings {
 		}
 	}
 
+	void DrawHeader(const char* text, Options option) {
+		Vector2 pos = { (buttons[(int)option].pos.x + (float)(buttons[(int)option].size.x * .5)),
+						(buttons[(int)option].pos.y - (float)(buttons[(int)option].size.x * .1)) };
+		Utils::DrawCenteredText(text, pos, GetScreenHeight() * .03, RAYWHITE);
+	}
+
+	void DrawText() {
+		Utils::DrawCenteredText("Settings",
+			{(float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .2)}, 
+			GetScreenHeight() * .07, ORANGE);
+
+		DrawHeader("Click to switch resolution", Options::RESOLUTION);
+		DrawHeader("Fullscreen/Windowed", Options::FULLSCREEN);
+	}
+
 	void Draw() {
 		BeginDrawing();
 		ClearBackground(BLACK);
@@ -219,6 +246,8 @@ namespace Settings {
 		for (int i = 0; i < amountButtons; i++) {
 			Buttons::Draw(buttons[i]);
 		}
+
+		DrawText();
 
 		EndDrawing();
 	}

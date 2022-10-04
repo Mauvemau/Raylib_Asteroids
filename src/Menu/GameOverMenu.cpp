@@ -2,6 +2,7 @@
 #include "Button.h"
 #include "ProgramManager.h"
 #include "AssetLoader.h" // Para la musica.
+#include "Utils.h" // Para el texto centrado.
 
 #include <iostream>
 
@@ -12,6 +13,7 @@ namespace GameOver {
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
 	void InitButtons();
+	void DrawText();
 	void Draw();
 
 	// --
@@ -61,6 +63,12 @@ namespace GameOver {
 		}
 	}
 
+	void DrawText() {
+		Utils::DrawCenteredText("Game Over",
+			{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .25) },
+			GetScreenHeight() * .15, RED);
+	}
+
 	void Draw() {
 		BeginDrawing();
 		ClearBackground(BLACK);
@@ -68,6 +76,8 @@ namespace GameOver {
 		for (int i = 0; i < amountButtons; i++) {
 			Buttons::Draw(buttons[i]);
 		}
+
+		DrawText();
 
 		EndDrawing();
 	}
