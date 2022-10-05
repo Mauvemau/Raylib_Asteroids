@@ -3,6 +3,7 @@
 #include "ProgramManager.h"
 #include "AssetLoader.h" // Para la musica.
 #include "Utils.h" // Para el texto centrado.
+#include "Game/Game.h" // Para el score.
 
 #include <iostream>
 
@@ -67,6 +68,10 @@ namespace GameOver {
 		Utils::DrawCenteredText("Game Over",
 			{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .25) },
 			GetScreenHeight() * .15, RED);
+
+		Utils::DrawCenteredText(TextFormat("Your Score: %i", Game::GetScore()),
+			{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .4) },
+			GetScreenWidth() * .05, RAYWHITE);
 	}
 
 	void Draw() {

@@ -35,6 +35,7 @@ namespace Spaceship {
 	}
 
 	void InitCannon(Cannon& cannon) {
+		cannon.isEvil = false;
 		cannon.fireRate = .25f;
 		cannon.power = (float)(GetScreenHeight() * .9);
 		cannon.range = .8f;
@@ -44,6 +45,7 @@ namespace Spaceship {
 
 	Cannon CreateCannon() {
 		Cannon cannon;
+		cannon.isEvil = false;
 		cannon.fireRate = 0;
 		cannon.power = 0;
 		cannon.range = 0;
@@ -59,16 +61,14 @@ namespace Spaceship {
 	}
 
 	void Shoot(Ship& ship) {
-		/* Falta:
-		Arreglar offset.
-		*/
 		if (ship.cannon.fireRate < (Game::GetGameTime() - ship.cannon.lastShot)) {
 			ship.cannon.lastShot = Game::GetGameTime();
 			ObjManager::ActivateBullet(ship.pos,
 				ship.cannon.caliber,
 				Utils::DegreesToRadians(ship.rotation - 90.0f),
 				ship.cannon.power,
-				ship.cannon.range);
+				ship.cannon.range,
+				false);
 			Assets::PlayAudio(Audio::SHOOT, .5);
 		}
 	}

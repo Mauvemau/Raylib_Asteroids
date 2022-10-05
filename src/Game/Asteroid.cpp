@@ -1,23 +1,12 @@
 #include "Asteroid.h"
 #include "CollisionManager.h" // Para manejar las colisiones.
 #include "AssetLoader.h" // Para el sprite
+#include "Utils.h"
 
 namespace Asteroids {
-	Vector2 GetRandomSpawnPosition();
 	void Move(Asteroid& asteroid);
 
 	// --
-
-	Vector2 GetRandomSpawnPosition() {
-		Vector2 spawnPos = {0, 0};
-		if (GetRandomValue(0, 1)) {
-			spawnPos.x = (float)GetRandomValue(0, GetScreenHeight());
-		}
-		else {
-			spawnPos.y = (float)GetRandomValue(0, GetScreenWidth());
-		}
-		return spawnPos;
-	}
 
 	float GetSpeed(AsteroidType type) {
 		float speed;
@@ -116,14 +105,14 @@ namespace Asteroids {
 
 	void Init(Asteroid& asteroid) {
 		asteroid.type = (AsteroidType)GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL);
-		asteroid.pos = GetRandomSpawnPosition();
+		asteroid.pos = Utils::GetRandomSpawnPosition();
 		asteroid.direction = (float)GetRandomValue(0, 360);
 		asteroid.speed = GetSpeed(asteroid.type);
 	}
 
 	void Init(Asteroid& asteroid, AsteroidType type) {
 		asteroid.type = type;
-		asteroid.pos = GetRandomSpawnPosition();
+		asteroid.pos = Utils::GetRandomSpawnPosition();
 		asteroid.direction = (float)GetRandomValue(0, 360);
 		asteroid.speed = GetSpeed(asteroid.type);
 	}

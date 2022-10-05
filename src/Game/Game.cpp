@@ -4,15 +4,19 @@
 #include "ObjectManager.h"
 #include "Animations.h" // Para inicializarlas.
 #include "AssetLoader.h" // Para el sonido
+#include "Invader.h"
 
 #include "Menu/PauseMenu.h" // Extension, menu de pausa.
 #include "Menu/Hud.h" // Hud del juego.
 
 #include <iostream>
 
-Ship ship;
-
 namespace Game {
+
+	Ship ship;
+	Ship invader;
+
+	bool invaderActive;
 
 	float gameTime; //Alternativa a GetTime, se inicia cuando comienza la partida, se pausa cuando el juego esta pausado.
 	float lastTick; // Para el gameTime;
@@ -20,6 +24,7 @@ namespace Game {
 	const float haltTime = 3; // Cantidad de segundos que el juego se detiene antes de comenzar a mover la pelota.
 	float haltResumes; // El tiempo en el cual la pelota puede comenzar a moverse nuevamente.
 
+	unsigned long score;
 	int lives;
 
 	bool paused;
@@ -96,6 +101,10 @@ namespace Game {
 		if (IsKeyPressed(KEY_F4)) {
 			FinishGame();
 		}
+
+		if (IsKeyPressed(KEY_F3)) {
+			SetInvader(true);
+		}
 #endif
 	}
 
@@ -105,6 +114,9 @@ namespace Game {
 		ClearBackground(BLACK);
 		// Ship
 		Spaceship::Draw(ship);
+		//Invader
+		if(invaderActive)
+			Invader::Draw(invader);
 		// Asteroids
 		ObjManager::Draw();
 		// Animations
@@ -122,6 +134,10 @@ namespace Game {
 
 	// Global
 
+	void AddScore(int amount) {
+		score += amount;
+	}
+
 	void AddLive(int amount) {
 		lives += amount;
 	}
@@ -132,12 +148,24 @@ namespace Game {
 			lives = 0;
 	}
 
+	bool GetInvaderActive() {
+		return invaderActive;
+	}
+
+	long GetScore() {
+		return score;
+	}
+
 	int GetLives() {
 		return lives;
 	}
 
 	float GetGameTime() {
 		return gameTime;
+	}
+
+	Ship& GetInvader() {
+		return invader;
 	}
 
 	Ship& GetPlayer() {
@@ -150,6 +178,12 @@ namespace Game {
 
 	float GetHaltTime() {
 		return haltResumes;
+	}
+
+	void SetInvader(bool active) {
+		invaderActive = active;
+		if(invaderActive)
+			Invader::Init(invader);
 	}
 
 	void SetPaused(bool val) {
@@ -176,9 +210,13 @@ namespace Game {
 			HandleGameLogic();
 			// Ship
 			Spaceship::Update(ship);
-			// Asteroids
-			if(!GetIsHalted())
+			if (!GetIsHalted()) {
+				// Asteroids
 				ObjManager::Update();
+				//Invader
+				if(invaderActive)
+					Invader::Update(invader, ship);
+			}
 			// Animations
 			Animations::Update();
 			// Hud
@@ -201,6 +239,9 @@ namespace Game {
 		// Ship
 		ship = Spaceship::Create();
 		Spaceship::Init(ship);
+		// Invader
+		invader = Spaceship::Create();
+		SetInvader(false);
 		// Asteroids
 		ObjManager::Init();
 		// Animations
@@ -209,6 +250,7 @@ namespace Game {
 		gameTime = 0;
 		haltResumes = 0;
 		lives = 0;
+		score = 0;
 		AddLive(4);
 
 		Assets::PlayMusic(Musics::FINAL_LEVEL, .25);

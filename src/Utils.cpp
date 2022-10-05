@@ -1,6 +1,17 @@
 #include "Utils.h"
 
 namespace Utils {
+	Vector2 GetRandomSpawnPosition() {
+		Vector2 spawnPos = { 0, 0 };
+		if (GetRandomValue(0, 1)) {
+			spawnPos.x = (float)GetRandomValue(0, GetScreenHeight());
+		}
+		else {
+			spawnPos.y = (float)GetRandomValue(0, GetScreenWidth());
+		}
+		return spawnPos;
+	}
+
 	void DrawCenteredText(const char* text, Vector2 pos, int fontSize, Color color) {
 		int textWide = MeasureText(text, fontSize);
 		DrawText(text, (pos.x) - (textWide * .5), (pos.y) - (fontSize * .5), fontSize, color);

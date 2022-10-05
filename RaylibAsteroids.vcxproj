@@ -156,6 +156,7 @@
     <ClCompile Include="src\AssetLoader.cpp" />
     <ClCompile Include="src\Game\Animations.cpp" />
     <ClCompile Include="src\Game\Asteroid.cpp" />
+    <ClCompile Include="src\Game\Invader.cpp" />
     <ClCompile Include="src\Game\ObjectManager.cpp" />
     <ClCompile Include="src\Game\Bullet.cpp" />
     <ClCompile Include="src\Game\CollisionManager.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="src\AssetLoader.h" />
     <ClInclude Include="src\Game\Animations.h" />
     <ClInclude Include="src\Game\Asteroid.h" />
+    <ClInclude Include="src\Game\Invader.h" />
     <ClInclude Include="src\Game\ObjectManager.h" />
     <ClInclude Include="src\Game\Bullet.h" />
     <ClInclude Include="src\Game\CollisionManager.h" />

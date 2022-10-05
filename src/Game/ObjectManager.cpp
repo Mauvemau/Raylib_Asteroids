@@ -37,18 +37,21 @@ namespace ObjManager {
 		switch (asteroids[id].type)
 		{
 		case AsteroidType::BIG:
+			Game::AddScore(5);
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::MEDIUM, 
 				asteroids[id].direction - .25, Asteroids::GetSpeed(AsteroidType::MEDIUM));
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::MEDIUM,
 				asteroids[id].direction + .25, Asteroids::GetSpeed(AsteroidType::MEDIUM));
 			break;
 		case AsteroidType::MEDIUM:
+			Game::AddScore(10);
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
 				angle - .25, Asteroids::GetSpeed(AsteroidType::SMALL));
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
 				angle + .25, Asteroids::GetSpeed(AsteroidType::SMALL));
 			break;
 		default:
+			Game::AddScore(25);
 			break;
 		}
 		Animations::PlayAnimation(Anims::EXPLOSION, asteroids[id].pos, 
@@ -100,9 +103,9 @@ namespace ObjManager {
 		}
 	}
 
-	void ActivateBullet(Vector2 pos, float size, float direction, float speed, float lifeTime) {
+	void ActivateBullet(Vector2 pos, float size, float direction, float speed, float lifeTime, bool hurtsPlayer) {
 		if (activeBullets < maxBullets) {
-			Bullets::Init(bullets[activeBullets], pos, size, direction, speed, lifeTime, Game::GetGameTime());
+			Bullets::Init(bullets[activeBullets], pos, size, direction, speed, lifeTime, Game::GetGameTime(), hurtsPlayer);
 			activeBullets++;
 		}
 	}
@@ -158,6 +161,26 @@ namespace ObjManager {
 		for (int i = 0; i < activeBullets; i++) {
 			Bullets::Update(bullets[i]);
 			HandleBulletLifeTime(i);
+			if (bullets[i].hurtsPlayer) {
+				if (Collisions::CheckBulletShipCollision(bullets[i], Game::GetPlayer())) {
+					DeActivateBullet(i);
+					Spaceship::ResetAcceleration(Game::GetPlayer());
+					Game::SetHalted();
+					Game::RemoveLive(1);
+					Assets::PlayAudio(Audio::HURT, 1);
+					if(Game::GetInvaderActive())
+						Game::SetInvader(true); // Reiniciar el enemigo si nos pega la bala y no esta muerto.
+				}
+			}
+			else {
+				if (Game::GetInvaderActive())
+					if (Collisions::CheckBulletShipCollision(bullets[i], Game::GetInvader())) {
+						Game::SetInvader(false);
+						Animations::PlayAnimation(Anims::EXPLOSION, Game::GetInvader().pos,
+							Vector2{ (float)(Spaceship::GetCollisionRadius(Game::GetInvader()) * 12.0f ), (float)(Spaceship::GetCollisionRadius(Game::GetInvader()) * 12.0f ) });
+						Assets::PlayAudio((Audio)GetRandomValue((int)Audio::EXPLOSION_1, (int)Audio::EXPLOSION_3), .5);
+					}
+			}
 		}
 		// Primero Updateamos todos, despues loopeamos nuevamente para checkear colisiones.
 		for (int i = 0; i < activeBullets; i++) {

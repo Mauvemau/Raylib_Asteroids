@@ -142,6 +142,9 @@ namespace Assets {
 			case Sprite::EXPLOSION_5:
 				LoadSprite("resources/sprites/explosion/5.png", i);
 				break;
+			case Sprite::INVADER:
+				LoadSprite("resources/sprites/invader.png", i);
+				break;
 			default:
 				std::cout << "[!] Invalid Sprite: AssetLoader - LoadSprites\n";
 				break;

@@ -15,7 +15,7 @@ namespace ObjManager {
 
 	// Bullets
 	void DeActivateBullet(int id);
-	void ActivateBullet(Vector2 pos, float size, float direction, float speed, float lifeTime);
+	void ActivateBullet(Vector2 pos, float size, float direction, float speed, float lifeTime, bool hurtsPlayer);
 
 	// Asteroids
 	void DeActivateAsteroid(int id);

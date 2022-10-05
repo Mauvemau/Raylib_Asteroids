@@ -20,15 +20,21 @@ namespace Bullets {
 
 	void Draw(Bullet bullet) {
 		Vector2 trailEnd;
+		Color col;
+		if (!bullet.hurtsPlayer)
+			col = WHITE;
+		else
+			col = RED;
+
 		trailEnd.x = (float)(bullet.pos.x + (-bullet.speed * .1) * cosf(bullet.direction));
 		trailEnd.y = (float)(bullet.pos.y + (-bullet.speed * .1) * sinf(bullet.direction));
-		DrawCircle(bullet.pos.x, bullet.pos.y, bullet.size, RAYWHITE);
+		DrawCircle(bullet.pos.x, bullet.pos.y, bullet.size, col);
 
 		
 		Assets::DrawSprite(Sprite::TRAIL, bullet.pos,
 			{ (float)(bullet.size + bullet.speed * .1), (float)(bullet.size * 2) },
 			{ (float)(bullet.size + bullet.speed * .1), (float)(bullet.size * 1) },
-			Utils::RadiansToDegrees(bullet.direction), WHITE);
+			Utils::RadiansToDegrees(bullet.direction), col);
 
 		//DrawLineEx(bullet.pos, trailEnd, (bullet.size * .5), Fade(RAYWHITE, .25));
 	}

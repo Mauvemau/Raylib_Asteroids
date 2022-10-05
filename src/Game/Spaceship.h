@@ -2,6 +2,7 @@
 #include "raylib.h"
 
 struct Cannon {
+	bool isEvil; // Si las balas de este cañon lastiman al jugador.
 	float fireRate; // La cantidad de disparos por segundo.
 	float power; // La velocidad a la que salen disparadas las balas.
 	float range; // Cuantos segundos las balas permanecen vivas.

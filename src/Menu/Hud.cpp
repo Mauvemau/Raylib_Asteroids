@@ -28,7 +28,7 @@ namespace Hud {
 	}
 
 	void DrawText() {
-		DrawText(TextFormat("Score: %i", 00000),
+		DrawText(TextFormat("Score: %i", Game::GetScore()),
 			GetScreenWidth() * .01, GetScreenHeight() * .01, GetScreenHeight() * .06, RAYWHITE);
 
 #ifdef _DEBUG

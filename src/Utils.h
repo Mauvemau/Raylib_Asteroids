@@ -5,6 +5,7 @@
 const double m_pi = 3.14159265358979323846;
 
 namespace Utils {
+	Vector2 GetRandomSpawnPosition();
 	void DrawCenteredText(const char* text, Vector2 pos, int fontSize, Color color);
 	float Modulo(Vector2 vec);
 	float DegreesToRadians(float deg);

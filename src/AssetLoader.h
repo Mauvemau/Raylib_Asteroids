@@ -31,6 +31,7 @@ enum class Sprite {
 	EXPLOSION_3,
 	EXPLOSION_4,
 	EXPLOSION_5,
+	INVADER,
 	COUNT
 };
 
