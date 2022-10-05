@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "Asteroid.h"
 #include "Bullet.h"
+#include "Pickup.h"
 
 /*
 Pseudo Pool, se ocupa de instanciar, activar y desactivar objetos dentro de arrays.
@@ -12,6 +13,11 @@ namespace ObjManager {
 	int GetActiveBullets();
 	int GetMaxAsteroids();
 	int GetActiveAsteroids();
+
+	// Pickups
+	void DeActivatePickup(int id);
+	void ActivatePickup();
+	void ActivatePickup(PickupType type);
 
 	// Bullets
 	void DeActivateBullet(int id);

@@ -253,6 +253,12 @@ namespace Game {
 		score = 0;
 		AddLive(4);
 
+		for (int i = 0; i < 10; i++) {
+			ObjManager::ActivatePickup();
+		}
+		ObjManager::ActivatePickup(PickupType::SUS);
+		ObjManager::ActivatePickup(PickupType::UPGRADE);
+
 		Assets::PlayMusic(Musics::FINAL_LEVEL, .25);
 	}
 }

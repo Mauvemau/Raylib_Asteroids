@@ -16,6 +16,11 @@ namespace ObjManager {
 	const int maxBullets = 50;
 	Bullet bullets[maxBullets];
 	int activeBullets;
+
+	// Pickups
+	const int maxPickups = 15;
+	Pickup pickups[maxPickups];
+	int activePickups;
 	
 	void HandleCollision(int bulletID, int asteroidID);
 	// Asteroids
@@ -37,21 +42,21 @@ namespace ObjManager {
 		switch (asteroids[id].type)
 		{
 		case AsteroidType::BIG:
-			Game::AddScore(5);
+			Game::AddScore(10);
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::MEDIUM, 
 				asteroids[id].direction - .25, Asteroids::GetSpeed(AsteroidType::MEDIUM));
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::MEDIUM,
 				asteroids[id].direction + .25, Asteroids::GetSpeed(AsteroidType::MEDIUM));
 			break;
 		case AsteroidType::MEDIUM:
-			Game::AddScore(10);
+			Game::AddScore(25);
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
 				angle - .25, Asteroids::GetSpeed(AsteroidType::SMALL));
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
 				angle + .25, Asteroids::GetSpeed(AsteroidType::SMALL));
 			break;
 		default:
-			Game::AddScore(25);
+			Game::AddScore(50);
 			break;
 		}
 		Animations::PlayAnimation(Anims::EXPLOSION, asteroids[id].pos, 
@@ -95,6 +100,29 @@ namespace ObjManager {
 		return activeAsteroids;
 	}
 	
+	// Pickups
+
+	void DeActivatePickup(int id) {
+		if (id < activePickups) {
+			pickups[id] = pickups[activePickups - 1];
+			activePickups--;
+		}
+	}
+
+	void ActivatePickup() {
+		if (activePickups < maxPickups) {
+			Pickups::Init(pickups[activePickups], PickupType::COIN);
+			activePickups++;
+		}
+	}
+
+	void ActivatePickup(PickupType type) {
+		if (activePickups < maxPickups) {
+			Pickups::Init(pickups[activePickups], type);
+			activePickups++;
+		}
+	}
+
 	// Bullets
 	void DeActivateBullet(int id) {
 		if (id < activeBullets) {
@@ -143,6 +171,9 @@ namespace ObjManager {
 		for (int i = 0; i < activeAsteroids; i++) {
 			Asteroids::Draw(asteroids[i]);
 		}
+		for (int i = 0; i < activePickups; i++) {
+			Pickups::Draw(pickups[i]);
+		}
 	}
 
 	void Update() {
@@ -169,13 +200,14 @@ namespace ObjManager {
 					Game::RemoveLive(1);
 					Assets::PlayAudio(Audio::HURT, 1);
 					if(Game::GetInvaderActive())
-						Game::SetInvader(true); // Reiniciar el enemigo si nos pega la bala y no esta muerto.
+						Game::SetInvader(true); // Reiniciar el enemigo si nos pega la bala y se encuentra vivo.
 				}
 			}
 			else {
 				if (Game::GetInvaderActive())
 					if (Collisions::CheckBulletShipCollision(bullets[i], Game::GetInvader())) {
 						Game::SetInvader(false);
+						Game::AddScore(100);
 						Animations::PlayAnimation(Anims::EXPLOSION, Game::GetInvader().pos,
 							Vector2{ (float)(Spaceship::GetCollisionRadius(Game::GetInvader()) * 12.0f ), (float)(Spaceship::GetCollisionRadius(Game::GetInvader()) * 12.0f ) });
 						Assets::PlayAudio((Audio)GetRandomValue((int)Audio::EXPLOSION_1, (int)Audio::EXPLOSION_3), .5);
@@ -187,6 +219,18 @@ namespace ObjManager {
 			for (int j = 0; j < activeAsteroids; j++) {
 				if (Collisions::CheckBulletAsteroidCollision(bullets[i], asteroids[j]))
 					HandleCollision(i, j);
+			}
+		}
+		// Pickups
+		for (int i = 0; i < activePickups; i++) {
+			Pickups::Update(pickups[i]);
+			if (Collisions::CircleCircleCollision(pickups[i].pos,
+				(Spaceship::GetCollisionRadius(Game::GetPlayer()) * 2.5f),
+				Game::GetPlayer().pos, Spaceship::GetCollisionRadius(Game::GetPlayer()) * 2.5f)) {
+
+				PickupType type = pickups[i].type;
+				DeActivatePickup(i);
+				Pickups::HandlePickup(type);
 			}
 		}
 	}
@@ -203,5 +247,11 @@ namespace ObjManager {
 			bullets[i] = Bullets::Create();
 		}
 		activeBullets = 0;
+
+		// Pickups
+		for (int i = 0; i < maxPickups; i++) {
+			pickups[i] = Pickups::Create();
+		}
+		activePickups = 0;
 	}
 }

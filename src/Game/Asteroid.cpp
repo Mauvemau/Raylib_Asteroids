@@ -91,7 +91,7 @@ namespace Asteroids {
 
 	void Update(Asteroid& asteroid, int id) {
 		Move(asteroid);
-		Collisions::Update(asteroid, id);
+		Collisions::Update(asteroid);
 	}
 
 	Asteroid Create() {

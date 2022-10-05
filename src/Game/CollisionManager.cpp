@@ -48,11 +48,15 @@ namespace Collisions {
 		return CircleCircleCollision(asteroid.pos, Asteroids::GetSize(asteroid.type), ship.pos, Spaceship::GetCollisionRadius(ship));
 	}
 
+	void Update(Pickup& pickup) {
+		CheckBounds(pickup.pos);
+	}
+
 	void Update(Bullet& bullet) {
 		CheckBounds(bullet.pos);
 	}
 
-	void Update(Asteroid& asteroid, int id) {
+	void Update(Asteroid& asteroid) {
 		CheckBounds(asteroid.pos);
 	}
 
