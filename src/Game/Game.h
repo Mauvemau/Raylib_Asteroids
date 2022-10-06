@@ -7,6 +7,7 @@ namespace Game {
 	void AddLive(int amount);
 	void RemoveLive(int amount);
 	void OpenUpgradeMenu();
+	void StartGame();
 
 	bool GetHasStarted(); // Devuelve si el juego comenzó o si el jugador sigue leyendo el tutorial.
 	bool GetInvaderActive();

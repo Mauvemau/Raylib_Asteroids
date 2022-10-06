@@ -54,7 +54,6 @@ namespace Game {
 	unsigned long astronautsRescued;
 
 	void FinishGame();
-	void StartGame();
 	void HandleGameLogic();
 	void TickTime(); // Avanza el gameTime.
 	void ManageInput();
