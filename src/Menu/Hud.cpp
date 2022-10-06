@@ -52,8 +52,10 @@ namespace Hud {
 
 	void Draw() {
 		Buttons::Draw(pauseButton);
-		DrawText();
-		DrawLives();
+		if (Game::GetHasStarted()) {
+			DrawText();
+			DrawLives();
+		}
 	}
 
 	void Update() {

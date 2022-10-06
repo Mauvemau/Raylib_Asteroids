@@ -18,7 +18,7 @@ namespace ObjManager {
 	int activeBullets;
 
 	// Pickups
-	const int maxPickups = 15;
+	const int maxPickups = 25;
 	Pickup pickups[maxPickups];
 	int activePickups;
 	
@@ -83,6 +83,14 @@ namespace ObjManager {
 	}
 
 	// Global
+
+	int GetMaxPickups() {
+		return maxPickups;
+	}
+
+	int GetActivePickups() {
+		return activePickups;
+	}
 
 	int GetMaxBullets() {
 		return maxBullets;
@@ -167,12 +175,13 @@ namespace ObjManager {
 		for (int i = 0; i < activeBullets; i++) {
 			Bullets::Draw(bullets[i]);
 		}
+		// Pickups
+		for (int i = 0; i < activePickups; i++) {
+			Pickups::Draw(pickups[i]);
+		}
 		// Asteroids
 		for (int i = 0; i < activeAsteroids; i++) {
 			Asteroids::Draw(asteroids[i]);
-		}
-		for (int i = 0; i < activePickups; i++) {
-			Pickups::Draw(pickups[i]);
 		}
 	}
 

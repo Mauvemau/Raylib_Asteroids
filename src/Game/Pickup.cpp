@@ -23,8 +23,7 @@ namespace Pickups {
 
 	Vector2 GetSpriteSize(PickupType type) {
 		float size;
-		switch (type)
-		{
+		switch (type) {
 		case PickupType::COIN:
 			size = .01f;
 			break;
@@ -43,8 +42,7 @@ namespace Pickups {
 	}
 
 	Sprite GetSprite(PickupType type) {
-		switch (type)
-		{
+		switch (type) {
 		case PickupType::COIN:
 			return Sprite::COIN;
 			break;
@@ -64,8 +62,7 @@ namespace Pickups {
 	// Global
 
 	void HandlePickup(PickupType pickup) {
-		switch (pickup)
-		{
+		switch (pickup) {
 		case PickupType::COIN:
 			Game::AddScore(5);
 			Assets::PlayAudio(Audio::PICKUP, .5);

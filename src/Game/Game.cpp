@@ -24,12 +24,37 @@ namespace Game {
 	const float haltTime = 3; // Cantidad de segundos que el juego se detiene antes de comenzar a mover la pelota.
 	float haltResumes; // El tiempo en el cual la pelota puede comenzar a moverse nuevamente.
 
-	unsigned long score;
 	int lives;
 
+	bool started;
 	bool paused;
 
+	// Constantes
+	const float invaderInterval = 30.0f; // Cada cuanto aparece el invader.
+	const float upgradeInterval = 20.0f; // Cada cuanto recibimos un powerup.
+	const float increaseInverval = 25.0f; // La cantidad de segundos que tienen que pasar para que se aumente el cap de asteroides.
+
+	// HardCaps
+	const int asteroidHardCap = 35;
+	const int pickupHardCap = 20;
+
+	// SoftCaps (Limitadores que cambian al avanzar el juego)
+	int asteroidCap; // Limite actual de asteroides.
+	int pickupCap;
+	int increaseAmount; // La cantidad de unidades en la que sube el softcap en el siguiente intervalo.
+
+	float nextInvader;
+	float nextUpgrade;
+	float nextIncrease; // El tiempo en el que sucedera el proximo intervalo.
+
+	// Stats
+	unsigned long score;
+	unsigned long asteroidsDestroyed;
+	unsigned long goldCollected;
+	unsigned long astronautsRescued;
+
 	void FinishGame();
+	void StartGame();
 	void HandleGameLogic();
 	void TickTime(); // Avanza el gameTime.
 	void ManageInput();
@@ -41,27 +66,46 @@ namespace Game {
 		SetProgramStatus(ProgramStatus::GAMEOVER);
 	}
 
-	void HandleGameLogic() {
-		int asteroidLimit;
-		bool invaders;
-		if (gameTime < 30.0f) {
-			asteroidLimit = 5;
-			invaders = false;
+	void StartGame() {
+		if (!started) {
+			started = true;
+			Assets::PlayMusic(Musics::FINAL_LEVEL, .25);
 		}
-		else if (gameTime >= 30.0f && gameTime < 90.0f) {
-			asteroidLimit = 10;
-			invaders = true;
-		}
-		else if (gameTime >= 90.0f && gameTime < 120.0f) {
-			asteroidLimit = 20;
-		}
-		else if (gameTime >= 120.0f) {
-			asteroidLimit = 30;
-		}
+	}
 
-		if (ObjManager::GetActiveAsteroids() < asteroidLimit) {
-			ObjManager::ActivateAsteroid((AsteroidType)
-				GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL));
+	void HandleGameLogic() {
+		if (ObjManager::GetActiveAsteroids() < asteroidCap) {
+			ObjManager::ActivateAsteroid((AsteroidType)GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::MEDIUM));
+		}
+		if (ObjManager::GetActivePickups() < pickupCap) {
+			if (GetRandomValue(1, 10) < 2)
+				ObjManager::ActivatePickup(PickupType::SUS);
+			else
+				ObjManager::ActivatePickup(PickupType::COIN);
+		}
+		if (nextIncrease < GetGameTime()) {
+			if (asteroidCap < asteroidHardCap)
+				asteroidCap += increaseAmount;
+			else 
+				asteroidCap = asteroidHardCap;
+
+			if (pickupCap < pickupHardCap)
+				pickupCap += increaseAmount;
+			else
+				pickupCap = pickupHardCap;
+
+			if (increaseAmount < 3) {
+				increaseAmount++;
+			}
+			nextIncrease = GetGameTime() + increaseInverval;
+		}
+		if (nextInvader < GetGameTime()) {
+			SetInvader(true);
+			nextInvader = GetGameTime() + invaderInterval;
+		}
+		if (nextUpgrade < GetGameTime()) {
+			ObjManager::ActivatePickup(PickupType::UPGRADE);
+			nextUpgrade = GetGameTime() + upgradeInterval;
 		}
 	}
 
@@ -97,6 +141,10 @@ namespace Game {
 		if (IsKeyPressed(KEY_ESCAPE))
 			SetPaused(true);
 
+		// Tutorial
+		if (IsKeyPressed(KEY_F))
+			StartGame();
+
 #ifdef _DEBUG
 		if (IsKeyPressed(KEY_F4)) {
 			FinishGame();
@@ -114,13 +162,13 @@ namespace Game {
 		BeginDrawing();
 		// Background
 		ClearBackground(BLACK);
+		// Asteroids / Bullets / Pickups
+		ObjManager::Draw();
 		// Ship
 		Spaceship::Draw(ship);
 		//Invader
 		if(invaderActive)
 			Invader::Draw(invader);
-		// Asteroids
-		ObjManager::Draw();
 		// Animations
 		Animations::Draw();
 
@@ -156,6 +204,10 @@ namespace Game {
 		lives -= amount;
 		if (lives < 0)
 			lives = 0;
+	}
+
+	bool GetHasStarted() {
+		return started;
 	}
 
 	bool GetInvaderActive() {
@@ -202,8 +254,9 @@ namespace Game {
 			Assets::PauseMusic(Musics::FINAL_LEVEL);
 			Assets::PlayAudio(Audio::PAUSE, .5);
 		}
-		else
+		else {
 			Assets::ResumeMusic(Musics::FINAL_LEVEL);
+		}
 	}
 
 	void SetHalted() {
@@ -217,7 +270,8 @@ namespace Game {
 			// Input
 			ManageInput();
 			// GameLogic
-			HandleGameLogic();
+			if(started)
+				HandleGameLogic();
 			// Ship
 			Spaceship::Update(ship);
 			if (!GetIsHalted()) {
@@ -257,18 +311,26 @@ namespace Game {
 		// Animations
 		Animations::Init();
 
+		started = false;
 		gameTime = 0;
 		haltResumes = 0;
+
 		lives = 0;
-		score = 0;
 		AddLive(4);
 
-		for (int i = 0; i < 10; i++) {
-			ObjManager::ActivatePickup();
-		}
-		ObjManager::ActivatePickup(PickupType::SUS);
-		ObjManager::ActivatePickup(PickupType::UPGRADE);
+		// Stats
+		score = 0;
+		asteroidsDestroyed = 0;
+		goldCollected = 0;
+		astronautsRescued = 0;
 
-		Assets::PlayMusic(Musics::FINAL_LEVEL, .25);
+		// SoftCaps
+		asteroidCap = 5;
+		pickupCap = 5;
+		increaseAmount = 1;
+
+		nextInvader = GetGameTime() + invaderInterval;
+		nextUpgrade = GetGameTime() + upgradeInterval;
+		nextIncrease = GetGameTime() + increaseInverval;
 	}
 }
