@@ -4,6 +4,7 @@
 #include "ProgramManager.h" // Para controlar el estado del programa y poder reiniciar y volver al menu.
 #include "Utils.h" // Para el texto centrado
 #include "AssetLoader.h" // Para la musica.
+#include "Upgrades.h" // Para los powerups.
 
 #include <iostream>
 
@@ -11,14 +12,16 @@ namespace Pause {
 	const int amountButtons = (int)Options::COUNT;
 	Button buttons[amountButtons];
 
-	void DrawMenuText();
+	bool upgrading;
+
+	void DrawText();
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
 	void InitButtons();
 
 	// --
 
-	void DrawMenuText() {
+	void DrawText() {
 		Utils::DrawCenteredText("GAME PAUSED", 
 			Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .25) }, 
 			GetScreenHeight() * .1, RAYWHITE);
@@ -76,26 +79,47 @@ namespace Pause {
 
 	// Global
 
+	void FinishUpgrading() {
+		upgrading = false;
+		SelectOption(Options::RESUME);
+	}
+
+	void StartUpgrading() {
+		upgrading = true;
+	}
+
 	void Draw() {
 		// Simplemente dibujamos, ya que este draw se encuentra adentro del draw de Game.
 		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, .5));
-		for (int i = 0; i < amountButtons; i++) {
-			Buttons::Draw(buttons[i]);
+		if (!upgrading) {
+			for (int i = 0; i < amountButtons; i++) {
+				Buttons::Draw(buttons[i]);
+			}
+			DrawText();
 		}
-		DrawMenuText();
+		else {
+			Upgrades::Draw();
+		}
 	}
 
 	void Update() {
-		for (int i = 0; i < amountButtons; i++) {
-			if (Buttons::Update(buttons[i]))
-				SelectOption((Options)buttons[i].id);
-		}
+		if (!upgrading) {
+			for (int i = 0; i < amountButtons; i++) {
+				if (Buttons::Update(buttons[i]))
+					SelectOption((Options)buttons[i].id);
+			}
 
-		if (IsKeyPressed(KEY_ESCAPE))
-			Game::SetPaused(false);
+			if (IsKeyPressed(KEY_ESCAPE))
+				Game::SetPaused(false);
+		}
+		else {
+			Upgrades::Update();
+		}
 	}
 
 	void Init() {
 		InitButtons();
+		Upgrades::Init();
+		upgrading = false;
 	}
 }

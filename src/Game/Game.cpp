@@ -101,9 +101,11 @@ namespace Game {
 		if (IsKeyPressed(KEY_F4)) {
 			FinishGame();
 		}
-
 		if (IsKeyPressed(KEY_F3)) {
 			SetInvader(true);
+		}
+		if (IsKeyPressed(KEY_F2)) {
+			OpenUpgradeMenu();
 		}
 #endif
 	}
@@ -133,6 +135,14 @@ namespace Game {
 	}
 
 	// Global
+
+	void OpenUpgradeMenu() {
+		if (!paused) {
+			paused = true;
+			Pause::StartUpgrading();
+			Assets::PauseMusic(Musics::FINAL_LEVEL);
+		}
+	}
 
 	void AddScore(int amount) {
 		score += amount;

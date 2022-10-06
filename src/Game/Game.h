@@ -6,6 +6,7 @@ namespace Game {
 	void AddScore(int amount);
 	void AddLive(int amount);
 	void RemoveLive(int amount);
+	void OpenUpgradeMenu();
 
 	bool GetInvaderActive();
 	long GetScore();
