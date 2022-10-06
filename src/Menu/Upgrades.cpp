@@ -4,10 +4,14 @@
 #include "PauseMenu.h"
 #include "Game/Game.h"
 
+#include <iostream>
+
 namespace Upgrades {
 	const int amountButtons = (int)Options::COUNT;
 	Button buttons[amountButtons];
 
+	bool IsCapped(Options option);
+	void CheckCaps(Cannon& cannon);
 	Color GetButtonColor(Options option);
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
@@ -15,6 +19,62 @@ namespace Upgrades {
 	void DrawText();
 
 	// --
+
+	bool IsCapped(Options option) {
+		const float maxFireRate = .085f;
+		const float maxCaliber = (float)(GetScreenHeight() * .015);
+		const float maxRange = 2.0f;
+		const float maxPower = (float)(GetScreenHeight() * 1.75);
+		Cannon cannon = Game::GetPlayer().cannon;
+
+		switch (option)
+		{
+		case Upgrades::Options::FIRERATE:
+			if (cannon.fireRate == maxFireRate)
+				return true;
+			break;
+		case Upgrades::Options::BULLETSIZE:
+			if (cannon.caliber == maxCaliber)
+				return true;
+			break;
+		case Upgrades::Options::BULLETRANGE:
+			if (cannon.range == maxRange)
+				return true;
+			break;
+		case Upgrades::Options::BULLETSPEED:
+			if (cannon.power == maxPower)
+				return true;
+			break;
+		default:
+			break;
+		}
+
+		return false;
+	}
+
+	void CheckCaps(Cannon& cannon) {
+		const float maxFireRate = .085f;
+		const float maxCaliber = (float)(GetScreenHeight() * .015);
+		const float maxRange = 2.0f;
+		const float maxPower = (float)(GetScreenHeight() * 1.75);
+
+		if (cannon.fireRate < maxFireRate) {
+			std::cout << "Maximum Fire Rate reached.\n";
+			cannon.fireRate = maxFireRate;
+		}
+		if (cannon.caliber > maxCaliber) {
+			std::cout << "Maximum Bullet Size reached.\n";
+			cannon.caliber = maxCaliber;
+		}
+		if (cannon.range > maxRange) {
+			std::cout << "Maximum Bullet Range reached.\n";
+			cannon.range = maxRange;
+		}
+		if (cannon.power > maxPower) {
+			std::cout << "Maximum Bullet Speed reached.\n";
+			cannon.power = maxPower;
+		}
+	}
 
 	Color GetButtonColor(Options option) {
 		switch (option) {
@@ -74,6 +134,7 @@ namespace Upgrades {
 		default:
 			break;
 		}
+		CheckCaps(Game::GetPlayer().cannon);
 		Pause::FinishUpgrading();
 	}
 
@@ -110,8 +171,13 @@ namespace Upgrades {
 
 	void Update() {
 		for (int i = 0; i < amountButtons; i++) {
-			if (Buttons::Update(buttons[i]))
-				SelectOption((Options)buttons[i].id);
+			if (IsCapped((Options)i)) {
+				buttons[i].col = DARKGRAY;
+			}
+			if (Buttons::Update(buttons[i])) {
+				if(!IsCapped((Options)i))
+					SelectOption((Options)buttons[i].id);
+			}
 		}
 	}
 

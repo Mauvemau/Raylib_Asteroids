@@ -30,7 +30,7 @@ namespace Game {
 	bool paused;
 
 	// Constantes
-	const float invaderInterval = 30.0f; // Cada cuanto aparece el invader.
+	const float invaderInterval = 45.0f; // Cada cuanto aparece el invader.
 	const float upgradeInterval = 20.0f; // Cada cuanto recibimos un powerup.
 	const float increaseInverval = 25.0f; // La cantidad de segundos que tienen que pasar para que se aumente el cap de asteroides.
 
@@ -68,6 +68,7 @@ namespace Game {
 
 	void StartGame() {
 		if (!started) {
+			Init();
 			started = true;
 			Assets::PlayMusic(Musics::FINAL_LEVEL, .25);
 		}
@@ -203,7 +204,7 @@ namespace Game {
 	void RemoveLive(int amount) {
 		lives -= amount;
 		if (lives < 0)
-			lives = 0;
+			FinishGame();
 	}
 
 	bool GetHasStarted() {

@@ -39,7 +39,7 @@ namespace Spaceship {
 		cannon.fireRate = .25f;
 		cannon.power = (float)(GetScreenHeight() * .9);
 		cannon.range = .8f;
-		cannon.caliber = (float)(GetScreenWidth() * .003);
+		cannon.caliber = (float)(GetScreenHeight() * .005);
 		cannon.lastShot = 0;
 	}
 
