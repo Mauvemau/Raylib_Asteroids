@@ -75,7 +75,7 @@ namespace Game {
 
 	void HandleGameLogic() {
 		if (ObjManager::GetActiveAsteroids() < asteroidCap) {
-			ObjManager::ActivateAsteroid((AsteroidType)GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::MEDIUM));
+			ObjManager::ActivateAsteroid((AsteroidType)GetRandomValue(static_cast<int>(AsteroidType::BIG), static_cast<int>(AsteroidType::MEDIUM)));
 		}
 		if (ObjManager::GetActivePickups() < pickupCap) {
 			if (GetRandomValue(1, 10) < 2)
@@ -122,7 +122,7 @@ namespace Game {
 		// Rotation
 		if (GetMouseX() < GetScreenWidth() && GetMouseX() > 0 &&
 			GetMouseY() < GetScreenHeight() && GetMouseY > 0 &&
-			Utils::GetDistance(ship.pos, GetMousePosition()) > (float)(ship.size.y * .25) &&
+			Utils::GetDistance(ship.pos, GetMousePosition()) > static_cast<float>(ship.size.y * .25f) &&
 			!GetIsHalted())
 			Spaceship::Rotate(ship, Utils::CalculateRotationAngle(ship.pos, GetMousePosition()));
 

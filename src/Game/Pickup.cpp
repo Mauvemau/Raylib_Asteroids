@@ -74,6 +74,7 @@ namespace Pickups {
 		case PickupType::UPGRADE:
 			Game::OpenUpgradeMenu();
 			Assets::PlayAudio(Audio::POWERUP, .1);
+			Spaceship::ResetAcceleration(Game::GetPlayer());
 			break;
 		default:
 			std::cout << "Invalid Pickup Type! [Pickup.cpp - HandlePickup]\n";

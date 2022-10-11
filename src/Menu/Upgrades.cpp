@@ -10,6 +10,11 @@ namespace Upgrades {
 	const int amountButtons = (int)Options::COUNT;
 	Button buttons[amountButtons];
 
+	float maxFireRate;
+	float maxCaliber;
+	float maxRange;
+	float maxPower;
+
 	bool IsCapped(Options option);
 	void CheckCaps(Cannon& cannon);
 	Color GetButtonColor(Options option);
@@ -21,10 +26,6 @@ namespace Upgrades {
 	// --
 
 	bool IsCapped(Options option) {
-		const float maxFireRate = .085f;
-		const float maxCaliber = (float)(GetScreenHeight() * .015);
-		const float maxRange = 2.0f;
-		const float maxPower = (float)(GetScreenHeight() * 1.75);
 		Cannon cannon = Game::GetPlayer().cannon;
 
 		switch (option)
@@ -53,11 +54,6 @@ namespace Upgrades {
 	}
 
 	void CheckCaps(Cannon& cannon) {
-		const float maxFireRate = .085f;
-		const float maxCaliber = (float)(GetScreenHeight() * .015);
-		const float maxRange = 2.0f;
-		const float maxPower = (float)(GetScreenHeight() * 1.75);
-
 		if (cannon.fireRate < maxFireRate) {
 			std::cout << "Maximum Fire Rate reached.\n";
 			cannon.fireRate = maxFireRate;
@@ -183,5 +179,10 @@ namespace Upgrades {
 
 	void Init() {
 		InitButtons();
+
+		maxFireRate = .085f;
+		maxCaliber = (float)(GetScreenHeight() * .015);
+		maxRange = 2.0f;
+		maxPower = (float)(GetScreenHeight() * 1.75);
 	}
 }

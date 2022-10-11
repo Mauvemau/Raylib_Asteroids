@@ -69,7 +69,7 @@ namespace Pause {
 		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
-				spacing += buttons[0].size.y + GetScreenWidth() * .025;
+				spacing += buttons[0].size.y + GetScreenHeight() * .025;
 			buttons[i] = Buttons::Create(i,
 				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .5) + spacing },
 				Vector2{ (float)(GetScreenWidth() * .325), (float)(GetScreenHeight() * .1) },

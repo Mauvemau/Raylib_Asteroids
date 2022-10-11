@@ -56,7 +56,7 @@ namespace GameOver {
 		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
-				spacing += (float)(buttons[0].size.y + GetScreenWidth() * .025);
+				spacing += (float)(buttons[0].size.y + GetScreenHeight() * .025);
 			buttons[i] = Buttons::Create(i,
 				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .55) + spacing },
 				Vector2{ (float)(GetScreenWidth() * .35), (float)(GetScreenHeight() * .1) },
