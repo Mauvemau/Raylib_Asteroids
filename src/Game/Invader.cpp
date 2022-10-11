@@ -28,9 +28,9 @@ namespace Invader {
 	void InitCannon(Cannon& cannon) {
 		cannon.isEvil = true;
 		cannon.fireRate = .5f;
-		cannon.power = (float)(GetScreenHeight() * .5);
+		cannon.power = static_cast<float>(GetScreenHeight() * .5);
 		cannon.range = 1.8f;
-		cannon.caliber = (float)(GetScreenWidth() * .003);
+		cannon.caliber = static_cast<float>(GetScreenWidth() * .003);
 		cannon.lastShot = 0;
 	}
 
@@ -38,12 +38,12 @@ namespace Invader {
 
 	void Draw(Ship ship) {
 #ifdef _DEBUG
-		DrawCircle(ship.pos.x, ship.pos.y, Spaceship::GetCollisionRadius(ship), Fade(GREEN, .25));
+		DrawCircle(static_cast<int>(ship.pos.x), static_cast<int>(ship.pos.y), Spaceship::GetCollisionRadius(ship), Fade(GREEN, .25));
 #endif
 
 		Assets::DrawSprite(Sprite::INVADER, ship.pos,
-			{ (float)(ship.size.x * 2), (float)(ship.size.y * 2) },
-			{ (float)(ship.size.x), (float)(ship.size.y) },
+			{ static_cast<float>(ship.size.x * 2), static_cast<float>(ship.size.y * 2) },
+			{ static_cast<float>(ship.size.x), static_cast<float>(ship.size.y) },
 			ship.rotation, WHITE);
 	}
 
@@ -56,7 +56,7 @@ namespace Invader {
 
 	void Init(Ship& ship) {
 		ship.pos = Utils::GetRandomSpawnPosition();
-		ship.size = { (float)(GetScreenHeight() * .03), (float)(GetScreenHeight() * .03) };
+		ship.size = { static_cast<float>(GetScreenHeight() * .03), static_cast<float>(GetScreenHeight() * .03) };
 		ship.speed = 300.0f;
 		ship.maxAccel = .5f;
 		InitCannon(ship.cannon);

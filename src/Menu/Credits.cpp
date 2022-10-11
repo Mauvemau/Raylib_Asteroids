@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace Credits {
-	const int amountButtons = (int)Options::COUNT;
+	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
 	Color GetButtonColor(Options option);
@@ -48,10 +48,10 @@ namespace Credits {
 		switch (option)
 		{
 		case Credits::Options::RETURNTOMENU:
-			return (float)(GetScreenWidth() * .3);
+			return static_cast<float>(GetScreenWidth() * .3);
 			break;
 		default:
-			return (float)(GetScreenWidth() * .5);
+			return static_cast<float>(GetScreenWidth() * .5);
 			break;
 		}
 	}
@@ -106,7 +106,7 @@ namespace Credits {
 			SetProgramStatus(ProgramStatus::MAINMENU);
 			break;
 		default:
-			std::cout << "Invalid Option! [MainMenu.cpp - SelectOption()]\n";
+			std::cout << "Invalid Option! [MainMenu.cpp - SelectOption]\n";
 			break;
 		}
 	}
@@ -115,10 +115,10 @@ namespace Credits {
 		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
-				spacing += buttons[0].size.y + GetScreenHeight() * .03;
+				spacing += buttons[0].size.y + GetScreenHeight() * .03f;
 			buttons[i] = Buttons::Create(i,
-				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .18) + spacing },
-				Vector2{ GetButtonWidth((Options)i), (float)(GetScreenWidth() * .05) },
+				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .24) + spacing },
+				Vector2{ GetButtonWidth((Options)i), static_cast<float>(GetScreenWidth() * .05) },
 				GetButtonColor((Options)i),
 				GetButtonName((Options)i));
 		}

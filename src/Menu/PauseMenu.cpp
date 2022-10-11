@@ -9,7 +9,7 @@
 #include <iostream>
 
 namespace Pause {
-	const int amountButtons = (int)Options::COUNT;
+	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
 	bool upgrading;
@@ -23,8 +23,8 @@ namespace Pause {
 
 	void DrawText() {
 		Utils::DrawCenteredText("GAME PAUSED", 
-			Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .25) }, 
-			GetScreenHeight() * .1, RAYWHITE);
+			Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .25) },
+			static_cast<int>(GetScreenHeight() * .1f), RAYWHITE);
 	}
 
 	const char* GetButtonName(Options option) {
@@ -69,10 +69,10 @@ namespace Pause {
 		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
-				spacing += buttons[0].size.y + GetScreenHeight() * .025;
+				spacing += buttons[0].size.y + GetScreenHeight() * .025f;
 			buttons[i] = Buttons::Create(i,
-				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .5) + spacing },
-				Vector2{ (float)(GetScreenWidth() * .325), (float)(GetScreenHeight() * .1) },
+				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .5) + spacing },
+				Vector2{ static_cast<float>(GetScreenWidth() * .325), static_cast<float>(GetScreenHeight() * .1) },
 				GetButtonName((Options)i));
 		}
 	}

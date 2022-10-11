@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace MainMenu {
-	const int amountButtons = (int)Options::COUNT;
+	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
 	const char* GetButtonName(Options option);
@@ -34,7 +34,7 @@ namespace MainMenu {
 			return "Exit";
 			break;
 		default:
-			std::cout << "Invalid Option! [MainMenu.cpp - GetButtonname()]\n";
+			std::cout << "Invalid Option! [MainMenu.cpp - GetButtonname]\n";
 			return "Error";
 			break;
 		}
@@ -65,28 +65,28 @@ namespace MainMenu {
 		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
-				spacing += buttons[0].size.y + GetScreenHeight() * .025;
+				spacing += buttons[0].size.y + GetScreenHeight() * .025f;
 			buttons[i] = Buttons::Create(i,
-				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .45) + spacing },
-				Vector2{ (float)(GetScreenWidth() * .3), (float)(GetScreenHeight() * .1) },
+				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .45) + spacing },
+				Vector2{ static_cast<float>(GetScreenWidth() * .3), static_cast<float>(GetScreenHeight() * .1) },
 				GetButtonName((Options)i));
 		}
 	}
 
 	void DrawCredits() {
 		const char* text = "Game built by Salazar using Raylib by Ray";
-		int fontSize = GetScreenHeight() * .025;
+		int fontSize = static_cast<int>(GetScreenHeight() * .025f);
 		int textWide = MeasureText(text, fontSize);
-		DrawText(text, (GetScreenWidth() * .99) - textWide, (GetScreenHeight() * .99) - fontSize, fontSize, WHITE);
+		DrawText(text, static_cast<int>((GetScreenWidth() * .99) - textWide), static_cast<int>((GetScreenHeight() * .99) - fontSize), fontSize, WHITE);
 	}
 
 	void DrawText() {
 		Utils::DrawCenteredText("Astray", 
-			{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .17) }, 
-			GetScreenHeight() * .2, SKYBLUE);
+			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .17) },
+			static_cast<int>(GetScreenHeight() * .2f), SKYBLUE);
 		Utils::DrawCenteredText("An Asteroids-like Game", 
-			{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .26) },
-			GetScreenHeight() * .035, ORANGE);
+			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .26) },
+			static_cast<int>(GetScreenHeight() * .035f), ORANGE);
 	}
 
 	void Draw() {

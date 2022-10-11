@@ -12,12 +12,12 @@ namespace Collisions {
 
 	void CheckBounds(Vector2& pos) {
 		if (pos.x < 0)
-			pos.x = GetScreenWidth();
-		if (pos.x > GetScreenWidth())
+			pos.x = static_cast<float>(GetScreenWidth());
+		if (pos.x > static_cast<float>(GetScreenWidth()))
 			pos.x = 0;
 		if (pos.y < 0)
-			pos.y = GetScreenHeight();
-		if (pos.y > GetScreenHeight())
+			pos.y = static_cast<float>(GetScreenHeight());
+		if (pos.y > static_cast<float>(GetScreenHeight()))
 			pos.y = 0;
 	}
 

@@ -27,17 +27,15 @@ namespace Bullets {
 		else
 			col = RED;
 
-		trailEnd.x = (float)(bullet.pos.x + (-bullet.speed * .1) * cosf(bullet.direction));
-		trailEnd.y = (float)(bullet.pos.y + (-bullet.speed * .1) * sinf(bullet.direction));
-		DrawCircle(bullet.pos.x, bullet.pos.y, bullet.size, col);
+		trailEnd.x = static_cast<float>(bullet.pos.x + (-bullet.speed * .1) * cosf(bullet.direction));
+		trailEnd.y = static_cast<float>(bullet.pos.y + (-bullet.speed * .1) * sinf(bullet.direction));
+		DrawCircle(static_cast<int>(bullet.pos.x), static_cast<int>(bullet.pos.y), bullet.size, col);
 
 		if(-(bullet.spawnTime - Game::GetGameTime()) > .075f)
 			Assets::DrawSprite(Sprite::TRAIL, bullet.pos,
-				{ (float)(bullet.size + bullet.speed * .1), (float)(bullet.size * 2) },
-				{ (float)(bullet.size + bullet.speed * .1), (float)(bullet.size * 1) },
+				{ static_cast<float>(bullet.size + bullet.speed * .1), static_cast<float>(bullet.size * 2) },
+				{ static_cast<float>(bullet.size + bullet.speed * .1), static_cast<float>(bullet.size * 1) },
 				Utils::RadiansToDegrees(bullet.direction), col);
-
-		//DrawLineEx(bullet.pos, trailEnd, (bullet.size * .5), Fade(RAYWHITE, .25));
 	}
 
 	void Update(Bullet& bullet) {

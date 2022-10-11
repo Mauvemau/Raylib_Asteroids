@@ -22,7 +22,7 @@ namespace Asteroids {
 	float GetSize(AsteroidType type);
 
 	void Draw(Asteroid asteroid);
-	void Update(Asteroid& asteroid, int id);
+	void Update(Asteroid& asteroid);
 	Asteroid Create();
 	void Init(Asteroid& asteroid); // Sobrecarga, crea un asteroide random, direccion y velocidad random.
 	void Init(Asteroid& asteroid, AsteroidType type); // Sobrecarga, crea un asteroide de un tipo en una posicion, direccion y velocidad random.

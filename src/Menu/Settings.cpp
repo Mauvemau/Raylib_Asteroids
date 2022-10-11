@@ -8,7 +8,7 @@
 #include <iostream>
 
 namespace Settings {
-	const int amountButtons = (int)Options::COUNT;
+	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
 	int currentResolution;
@@ -41,7 +41,7 @@ namespace Settings {
 		monitorRes.width = GetMonitorWidth(monitor);
 		monitorRes.height = GetMonitorHeight(monitor);
 		Resolution windowRes = GetResolutionValue((Resolutions)currentResolution);
-		SetWindowPosition((monitorRes.width * .5) - (windowRes.width * .5), (monitorRes.height * .5) - (windowRes.height * .5));
+		SetWindowPosition(static_cast<int>((monitorRes.width * .5) - (windowRes.width * .5)), static_cast<int>((monitorRes.height * .5) - (windowRes.height * .5)));
 	}
 
 	void MyToggleFullscreen() {
@@ -53,14 +53,14 @@ namespace Settings {
 			res.height = GetMonitorHeight(monitor);
 			SetResolution(res);
 			Init();
-			buttons[(int)Options::RESOLUTION].col = DARKGRAY;
+			buttons[static_cast<int>(Options::RESOLUTION)].col = DARKGRAY;
 		}
 		ToggleFullscreen();
 		if(!fullscreen) {
 			SetResolution(GetResolutionValue((Resolutions)currentResolution)); // Restaurar la resolucion a la actual si se sale de pantalla completa.
 			CenterWindow();
 			Init();
-			buttons[(int)Options::RESOLUTION].col = RAYWHITE;
+			buttons[static_cast<int>(Options::RESOLUTION)].col = RAYWHITE;
 		}
 	}
 
@@ -172,10 +172,10 @@ namespace Settings {
 		case Settings::Options::RESOLUTION:
 			if (!fullscreen) { // Solo permitir cambiar resolucion si el juego se encuentra en modo ventana.
 				currentResolution++;
-				if (currentResolution > (int)Resolutions::r1600x900) { // Rotar si pasa el maximo.
+				if (currentResolution > static_cast<int>(Resolutions::r1600x900)) { // Rotar si pasa el maximo.
 					currentResolution = 0;
 				}
-				if (currentResolution > (int)Resolutions::r1024x768) { // Si es mayor que el default.
+				if (currentResolution > static_cast<int>(Resolutions::r1024x768)) { // Si es mayor que el default.
 					if (IsResBiggerThanMonitor(GetResolutionValue((Resolutions)currentResolution))) // Si la resolucion es mas grande que el monitor.
 						currentResolution = 0; // Rotar
 				}
@@ -195,26 +195,25 @@ namespace Settings {
 	}
 
 	void InitButtons() {
-		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			switch ((Options)i)
 			{
 			case Settings::Options::RESOLUTION:
 				buttons[i] = Buttons::Create(i,
-					Vector2{ (float)(GetScreenWidth() * .25), (float)(GetScreenHeight() * .5) },
-					Vector2{ (float)(GetScreenWidth() * .3), (float)(GetScreenHeight() * .1) },
+					Vector2{ static_cast<float>(GetScreenWidth() * .25), static_cast<float>(GetScreenHeight() * .5) },
+					Vector2{ static_cast<float>(GetScreenWidth() * .3), static_cast<float>(GetScreenHeight() * .1) },
 					GetButtonName((Options)i));
 				break;
 			case Settings::Options::FULLSCREEN:
 				buttons[i] = Buttons::Create(i,
-					Vector2{ (float)(GetScreenWidth() * .75), (float)(GetScreenHeight() * .5) },
-					Vector2{ (float)(GetScreenWidth() * .3), (float)(GetScreenHeight() * .1) },
+					Vector2{ static_cast<float>(GetScreenWidth() * .75), static_cast<float>(GetScreenHeight() * .5) },
+					Vector2{ static_cast<float>(GetScreenWidth() * .3), static_cast<float>(GetScreenHeight() * .1) },
 					GetButtonName((Options)i));
 				break;
 			case Settings::Options::RETURNTOMENU:
 				buttons[i] = Buttons::Create(i,
-					Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .85) },
-					Vector2{ (float)(GetScreenWidth() * .35), (float)(GetScreenHeight() * .1) },
+					Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .85) },
+					Vector2{ static_cast<float>(GetScreenWidth() * .35), static_cast<float>(GetScreenHeight() * .1) },
 					GetButtonName((Options)i));
 				break;
 			default:
@@ -225,15 +224,15 @@ namespace Settings {
 	}
 
 	void DrawHeader(const char* text, Options option) {
-		Vector2 pos = { (buttons[(int)option].pos.x + (float)(buttons[(int)option].size.x * .5)),
-						(buttons[(int)option].pos.y - (float)(buttons[(int)option].size.x * .1)) };
-		Utils::DrawCenteredText(text, pos, GetScreenHeight() * .03, RAYWHITE);
+		Vector2 pos = { (buttons[static_cast<int>(option)].pos.x + static_cast<float>(buttons[static_cast<int>(option)].size.x * .5)),
+						(buttons[static_cast<int>(option)].pos.y - static_cast<float>(buttons[static_cast<int>(option)].size.x * .1)) };
+		Utils::DrawCenteredText(text, pos, static_cast<int>(GetScreenHeight() * .03f), RAYWHITE);
 	}
 
 	void DrawText() {
 		Utils::DrawCenteredText("Settings",
-			{(float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .2)}, 
-			GetScreenHeight() * .07, ORANGE);
+			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .2)},
+			static_cast<int>(GetScreenHeight() * .07f), ORANGE);
 
 		DrawHeader("Click to switch resolution", Options::RESOLUTION);
 		DrawHeader("Fullscreen/Windowed", Options::FULLSCREEN);
@@ -266,7 +265,7 @@ namespace Settings {
 	}
 
 	void InitSettings() {
-		currentResolution = (int)Resolutions::r1024x768;
+		currentResolution = static_cast<int>(Resolutions::r1024x768);
 		fullscreen = false;
 	}
 

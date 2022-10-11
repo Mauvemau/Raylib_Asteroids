@@ -7,7 +7,7 @@
 #include <iostream>
 
 namespace Upgrades {
-	const int amountButtons = (int)Options::COUNT;
+	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
 	float maxFireRate;
@@ -116,16 +116,16 @@ namespace Upgrades {
 			Game::AddLive(1);
 			break;
 		case Upgrades::Options::FIRERATE:
-			Game::GetPlayer().cannon.fireRate = (float)(Game::GetPlayer().cannon.fireRate * .85f);
+			Game::GetPlayer().cannon.fireRate = static_cast<float>(Game::GetPlayer().cannon.fireRate * .85f);
 			break;
 		case Upgrades::Options::BULLETSIZE:
-			Game::GetPlayer().cannon.caliber = (float)(Game::GetPlayer().cannon.caliber * 1.5f);
+			Game::GetPlayer().cannon.caliber = static_cast<float>(Game::GetPlayer().cannon.caliber * 1.5f);
 			break;
 		case Upgrades::Options::BULLETRANGE:
-			Game::GetPlayer().cannon.range = (float)(Game::GetPlayer().cannon.range * 1.2f);
+			Game::GetPlayer().cannon.range = static_cast<float>(Game::GetPlayer().cannon.range * 1.2f);
 			break;
 		case Upgrades::Options::BULLETSPEED:
-			Game::GetPlayer().cannon.power = (float)(Game::GetPlayer().cannon.power * 1.2f);
+			Game::GetPlayer().cannon.power = static_cast<float>(Game::GetPlayer().cannon.power * 1.2f);
 			break;
 		default:
 			break;
@@ -138,10 +138,10 @@ namespace Upgrades {
 		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
-				spacing += buttons[0].size.y + GetScreenHeight() * .025;
+				spacing += buttons[0].size.y + GetScreenHeight() * .025f;
 			buttons[i] = Buttons::Create(i,
-				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .3) + spacing },
-				Vector2{ (float)(GetScreenWidth() * .325), (float)(GetScreenHeight() * .075) },
+				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .3) + spacing },
+				Vector2{ static_cast<float>(GetScreenWidth() * .325), static_cast<float>(GetScreenHeight() * .075) },
 				GetButtonColor((Options)i),
 				GetButtonName((Options)i));
 		}
@@ -149,11 +149,11 @@ namespace Upgrades {
 
 	void DrawText() {
 		Utils::DrawCenteredText("You picked up a PowerUp!",
-			Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .15) },
-			GetScreenHeight() * .075, SKYBLUE);
+			Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .15) },
+			static_cast<int>(GetScreenHeight() * .075f), SKYBLUE);
 		Utils::DrawCenteredText("Please select an upgrade",
-			Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .225) },
-			GetScreenHeight() * .03, RAYWHITE);
+			Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .225) },
+			static_cast<int>(GetScreenHeight() * .03f), RAYWHITE);
 	}
 
 	// Global
@@ -181,8 +181,8 @@ namespace Upgrades {
 		InitButtons();
 
 		maxFireRate = .085f;
-		maxCaliber = (float)(GetScreenHeight() * .015);
+		maxCaliber = static_cast<float>(GetScreenHeight() * .015);
 		maxRange = 2.0f;
-		maxPower = (float)(GetScreenHeight() * 1.75);
+		maxPower = static_cast<float>(GetScreenHeight() * 1.75);
 	}
 }

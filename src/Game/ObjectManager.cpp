@@ -44,25 +44,25 @@ namespace ObjManager {
 		case AsteroidType::BIG:
 			Game::AddScore(10);
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::MEDIUM, 
-				asteroids[id].direction - .25, Asteroids::GetSpeed(AsteroidType::MEDIUM));
+				asteroids[id].direction - .25f, Asteroids::GetSpeed(AsteroidType::MEDIUM));
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::MEDIUM,
-				asteroids[id].direction + .25, Asteroids::GetSpeed(AsteroidType::MEDIUM));
+				asteroids[id].direction + .25f, Asteroids::GetSpeed(AsteroidType::MEDIUM));
 			break;
 		case AsteroidType::MEDIUM:
 			Game::AddScore(25);
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
-				angle - .25, Asteroids::GetSpeed(AsteroidType::SMALL));
+				angle - .25f, Asteroids::GetSpeed(AsteroidType::SMALL));
 			ActivateAsteroid(asteroids[id].pos, AsteroidType::SMALL,
-				angle + .25, Asteroids::GetSpeed(AsteroidType::SMALL));
+				angle + .25f, Asteroids::GetSpeed(AsteroidType::SMALL));
 			break;
 		default:
 			Game::AddScore(50);
 			break;
 		}
 		Animations::PlayAnimation(Anims::EXPLOSION, asteroids[id].pos, 
-			Vector2{ (float)(Asteroids::GetSize(asteroids[id].type) * 6), (float)(Asteroids::GetSize(asteroids[id].type) * 6) });
+			Vector2{ static_cast<float>(Asteroids::GetSize(asteroids[id].type) * 6), static_cast<float>(Asteroids::GetSize(asteroids[id].type) * 6) });
 		DeActivateAsteroid(id);
-		Assets::PlayAudio((Audio)GetRandomValue((int)Audio::EXPLOSION_1, (int)Audio::EXPLOSION_3), .5);
+		Assets::PlayAudio((Audio)GetRandomValue(static_cast<int>(Audio::EXPLOSION_1), static_cast<int>(Audio::EXPLOSION_3)), .5);
 	}
 
 	void PrintLog(AsteroidType type, bool creating) {
@@ -149,7 +149,6 @@ namespace ObjManager {
 	// Asteroids
 	void DeActivateAsteroid(int id) {
 		if (id < activeAsteroids) {
-			AsteroidType type = asteroids[id].type; // Para el log
 			asteroids[id] = asteroids[activeAsteroids - 1];
 			activeAsteroids--;
 		}
@@ -188,7 +187,7 @@ namespace ObjManager {
 	void Update() {
 		// Asteroids
 		for (int i = 0; i < activeAsteroids; i++) {
-			Asteroids::Update(asteroids[i], i);
+			Asteroids::Update(asteroids[i]);
 			if (Collisions::CheckShipAsteroidCollision(asteroids[i])) {
 				DeActivateAsteroid(i);
 				Spaceship::ResetAcceleration(Game::GetPlayer());
@@ -209,7 +208,7 @@ namespace ObjManager {
 					Game::RemoveLive(1);
 					Assets::PlayAudio(Audio::HURT, 1);
 					if(Game::GetInvaderActive())
-						Game::SetInvader(true); // Reiniciar el enemigo si nos pega la bala y se encuentra vivo.
+						Game::SetInvader(false);
 				}
 			}
 			else {
@@ -218,8 +217,8 @@ namespace ObjManager {
 						Game::SetInvader(false);
 						Game::AddScore(100);
 						Animations::PlayAnimation(Anims::EXPLOSION, Game::GetInvader().pos,
-							Vector2{ (float)(Spaceship::GetCollisionRadius(Game::GetInvader()) * 12.0f ), (float)(Spaceship::GetCollisionRadius(Game::GetInvader()) * 12.0f ) });
-						Assets::PlayAudio((Audio)GetRandomValue((int)Audio::EXPLOSION_1, (int)Audio::EXPLOSION_3), .5);
+							Vector2{ static_cast<float>(Spaceship::GetCollisionRadius(Game::GetInvader()) * 12.0f ), static_cast<float>(Spaceship::GetCollisionRadius(Game::GetInvader()) * 12.0f ) });
+						Assets::PlayAudio((Audio)GetRandomValue(static_cast<int>(Audio::EXPLOSION_1), static_cast<int>(Audio::EXPLOSION_3)), .5);
 					}
 			}
 		}

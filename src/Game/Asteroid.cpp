@@ -13,17 +13,17 @@ namespace Asteroids {
 		switch (type)
 		{
 		case AsteroidType::BIG:
-			speed = (float)GetRandomValue(25, 150);
+			speed = static_cast<float>(GetRandomValue(25, 150));
 			break;
 		case AsteroidType::MEDIUM:
-			speed = (float)GetRandomValue(100, 200);
+			speed = static_cast<float>(GetRandomValue(100, 200));
 			break;
 		case AsteroidType::SMALL:
-			speed = (float)GetRandomValue(150, 250);
+			speed = static_cast<float>(GetRandomValue(150, 250));
 			break;
 		default:
 			std::cout << "Invalid type! [Asteroid.cpp - GetSpeed()]\n";
-			speed = (float)GetRandomValue(25, 125);
+			speed = static_cast<float>(GetRandomValue(25, 125));
 			break;
 		}
 		return speed;
@@ -74,22 +74,22 @@ namespace Asteroids {
 			size = .05f;
 			break;
 		}
-		return (float)(GetScreenWidth() * size);
+		return static_cast<float>(GetScreenWidth() * size);
 	}
 
 	void Draw(Asteroid asteroid) {
 #ifdef _DEBUG
-		DrawCircle((int)asteroid.pos.x, (int)asteroid.pos.y, GetSize(asteroid.type), Fade(GREEN, .25));
+		DrawCircle(static_cast<int>(asteroid.pos.x), static_cast<int>(asteroid.pos.y), GetSize(asteroid.type), Fade(GREEN, .25));
 #endif
 		
 		Assets::DrawSprite(Assets::GetAsteroidSprite(asteroid.type),
 			asteroid.pos,
-			{ (float)(GetSize(asteroid.type) * 2), (float)(GetSize(asteroid.type) * 2) },
-			{ (float)(GetSize(asteroid.type)), (float)(GetSize(asteroid.type)) },
+			{ static_cast<float>(GetSize(asteroid.type) * 2), static_cast<float>(GetSize(asteroid.type) * 2) },
+			{ static_cast<float>(GetSize(asteroid.type)), static_cast<float>(GetSize(asteroid.type)) },
 			0, WHITE);
 	}
 
-	void Update(Asteroid& asteroid, int id) {
+	void Update(Asteroid& asteroid) {
 		Move(asteroid);
 		Collisions::Update(asteroid);
 	}
@@ -104,16 +104,16 @@ namespace Asteroids {
 	}
 
 	void Init(Asteroid& asteroid) {
-		asteroid.type = (AsteroidType)GetRandomValue((int)AsteroidType::BIG, (int)AsteroidType::SMALL);
+		asteroid.type = (AsteroidType)GetRandomValue(static_cast<int>(AsteroidType::BIG), static_cast<int>(AsteroidType::SMALL));
 		asteroid.pos = Utils::GetRandomSpawnPosition();
-		asteroid.direction = (float)GetRandomValue(0, 360);
+		asteroid.direction = static_cast<float>(GetRandomValue(0, 360));
 		asteroid.speed = GetSpeed(asteroid.type);
 	}
 
 	void Init(Asteroid& asteroid, AsteroidType type) {
 		asteroid.type = type;
 		asteroid.pos = Utils::GetRandomSpawnPosition();
-		asteroid.direction = (float)GetRandomValue(0, 360);
+		asteroid.direction = static_cast<float>(GetRandomValue(0, 360));
 		asteroid.speed = GetSpeed(asteroid.type);
 	}
 

@@ -18,7 +18,7 @@ namespace Pickups {
 	}
 
 	float GetRandomSpeed() {
-		return (float)GetRandomValue(25, 100);
+		return static_cast<float>(GetRandomValue(25, 100));
 	}
 
 	Vector2 GetSpriteSize(PickupType type) {
@@ -38,7 +38,7 @@ namespace Pickups {
 			size = .005f;
 			break;
 		}
-		return Vector2{ (float)(GetScreenHeight() * size), (float)(GetScreenHeight() * size) };
+		return Vector2{ static_cast<float>(GetScreenHeight() * size), static_cast<float>(GetScreenHeight() * size) };
 	}
 
 	Sprite GetSprite(PickupType type) {
@@ -53,8 +53,8 @@ namespace Pickups {
 			return Sprite::UPGRADE;
 			break;
 		default:
-			return Sprite::COIN;
 			std::cout << "Invalid Pickup! [Pickup.cpp - GetPrickupSprite]\n";
+			return Sprite::COIN;
 			break;
 		}
 	}
@@ -65,15 +65,15 @@ namespace Pickups {
 		switch (pickup) {
 		case PickupType::COIN:
 			Game::AddScore(5);
-			Assets::PlayAudio(Audio::PICKUP, .5);
+			Assets::PlayAudio(Audio::PICKUP, .5f);
 			break;
 		case PickupType::SUS:
 			Game::AddScore(100);
-			Assets::PlayAudio(Audio::PICKUP, .5);
+			Assets::PlayAudio(Audio::PICKUP, .5f);
 			break;
 		case PickupType::UPGRADE:
 			Game::OpenUpgradeMenu();
-			Assets::PlayAudio(Audio::POWERUP, .1);
+			Assets::PlayAudio(Audio::POWERUP, .1f);
 			Spaceship::ResetAcceleration(Game::GetPlayer());
 			break;
 		default:
@@ -85,7 +85,7 @@ namespace Pickups {
 	void Draw(Pickup pickup) {
 		Vector2 size = GetSpriteSize(pickup.type);
 		Assets::DrawSprite(GetSprite(pickup.type), pickup.pos, size,
-			Vector2{ (float)(size.x * .5), (float)(size.y * .5) }, 0, WHITE);
+			Vector2{ static_cast<float>(size.x * .5), static_cast<float>(size.y * .5) }, 0, WHITE);
 	}
 
 	void Update(Pickup& pickup) {
@@ -103,7 +103,7 @@ namespace Pickups {
 	void Init(Pickup& pickup, PickupType type) {
 		pickup.pos = Utils::GetRandomSpawnPosition();
 		pickup.type = type;
-		pickup.direction = (float)GetRandomValue(0, 360);
+		pickup.direction = static_cast<float>(GetRandomValue(0, 360));
 		pickup.speed = GetRandomSpeed();
 	}
 }

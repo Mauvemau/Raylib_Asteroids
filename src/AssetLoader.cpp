@@ -4,13 +4,13 @@
 
 namespace Assets {
 
-	const int musicAmount = (int)Musics::COUNT;
+	const int musicAmount = static_cast<int>(Musics::COUNT);
 	Music musics[musicAmount];
 
-	const int soundAmount = (int)Audio::COUNT;
+	const int soundAmount = static_cast<int>(Audio::COUNT);
 	Sound sounds[soundAmount];
 
-	const int spriteAmount = (int)Sprite::COUNT;
+	const int spriteAmount = static_cast<int>(Sprite::COUNT);
 	Texture2D sprites[spriteAmount];
 
 	void UnloadMusics();
@@ -168,24 +168,24 @@ namespace Assets {
 	// Global
 
 	void StopMusic(Musics music) {
-		StopMusicStream(musics[(int)music]);
+		StopMusicStream(musics[static_cast<int>(music)]);
 	}
 
 	void UpdateMusic(Musics music) {
-		UpdateMusicStream(musics[(int)music]);
+		UpdateMusicStream(musics[static_cast<int>(music)]);
 	}
 
 	void ResumeMusic(Musics music) {
-		ResumeMusicStream(musics[(int)music]);
+		ResumeMusicStream(musics[static_cast<int>(music)]);
 	}
 
 	void PauseMusic(Musics music) {
-		PauseMusicStream(musics[(int)music]);
+		PauseMusicStream(musics[static_cast<int>(music)]);
 	}
 
 	void PlayMusic(Musics music, float volume) {
-		SetMusicVolume(musics[(int)music], volume);
-		PlayMusicStream(musics[(int)music]);
+		SetMusicVolume(musics[static_cast<int>(music)], volume);
+		PlayMusicStream(musics[static_cast<int>(music)]);
 	}
 
 	void DrawSprite(Sprite sprite, Vector2 pos, Vector2 size, Vector2 pivot, float rotation, Color tint) {
@@ -194,15 +194,15 @@ namespace Assets {
 		int textureHeight = texture.height;
 
 		DrawTexturePro(texture,
-			{ 0.0f, 0.0f, (float)textureWidth, (float)textureHeight },
+			{ 0.0f, 0.0f, static_cast<float>(textureWidth), static_cast<float>(textureHeight) },
 			{ pos.x, pos.y, size.x, size.y },
 			{ pivot.x, pivot.y },
 			rotation, tint);
 	}
 
 	void PlayAudio(Audio sound, float volume) {
-		SetSoundVolume(sounds[(int)sound], volume);
-		PlaySound(sounds[(int)sound]);
+		SetSoundVolume(sounds[static_cast<int>(sound)], volume);
+		PlaySound(sounds[static_cast<int>(sound)]);
 	}
 
 	Sprite GetAsteroidSprite(AsteroidType type) {
@@ -227,7 +227,7 @@ namespace Assets {
 	}
 
 	Texture2D GetSprite(Sprite sprite) {
-		return sprites[(int)sprite];
+		return sprites[static_cast<int>(sprite)];
 	}
 
 	void Unload() {

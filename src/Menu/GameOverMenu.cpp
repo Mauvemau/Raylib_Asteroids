@@ -8,7 +8,7 @@
 #include <iostream>
 
 namespace GameOver {
-	const int amountButtons = (int)Options::COUNT;
+	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
 	const char* GetButtonName(Options option);
@@ -56,22 +56,22 @@ namespace GameOver {
 		float spacing = 0;
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
-				spacing += (float)(buttons[0].size.y + GetScreenHeight() * .025);
+				spacing += static_cast<float>(buttons[0].size.y + GetScreenHeight() * .025);
 			buttons[i] = Buttons::Create(i,
-				Vector2{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .55) + spacing },
-				Vector2{ (float)(GetScreenWidth() * .35), (float)(GetScreenHeight() * .1) },
+				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .55) + spacing },
+				Vector2{ static_cast<float>(GetScreenWidth() * .35), static_cast<float>(GetScreenHeight() * .1) },
 				GetButtonName((Options)i));
 		}
 	}
 
 	void DrawText() {
 		Utils::DrawCenteredText("Game Over",
-			{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .25) },
-			GetScreenHeight() * .15, RED);
+			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .25) },
+			static_cast<int>(GetScreenHeight() * .15f), RED);
 
 		Utils::DrawCenteredText(TextFormat("Your Score: %i", Game::GetScore()),
-			{ (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .4) },
-			GetScreenWidth() * .05, RAYWHITE);
+			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .4) },
+			static_cast<int>(GetScreenWidth() * .05), RAYWHITE);
 	}
 
 	void Draw() {

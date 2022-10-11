@@ -9,8 +9,8 @@ namespace Buttons {
 	// --
 
 	void CenterButton(Button& button) {
-		button.pos.x -= (button.size.x * .5);
-		button.pos.y -= (button.size.y * .5);
+		button.pos.x -= (button.size.x * .5f);
+		button.pos.y -= (button.size.y * .5f);
 	}
 
 	bool IsCursorInside(Button button) {
@@ -21,16 +21,16 @@ namespace Buttons {
 
 	void Draw(Button button) {
 		if (button.hovered) {
-			DrawRectangle(button.pos.x, button.pos.y, button.size.x, button.size.y, button.col);
+			DrawRectangle(static_cast<int>(button.pos.x), static_cast<int>(button.pos.y), static_cast<int>(button.size.x), static_cast<int>(button.size.y), button.col);
 			Utils::DrawCenteredText(button.text, 
-				Vector2{(float)(button.pos.x + (button.size.x * .5)), (float)(button.pos.y + (button.size.y * .5)) }, 
-				(button.size.y * .5), BLACK);
+				Vector2{ static_cast<float>(button.pos.x + (button.size.x * .5)), static_cast<float>(button.pos.y + (button.size.y * .5)) },
+				static_cast<int>(button.size.y * .5f), BLACK);
 		}
 		else {
-			DrawRectangleLines(button.pos.x, button.pos.y, button.size.x, button.size.y, button.col);
+			DrawRectangleLines(static_cast<int>(button.pos.x), static_cast<int>(button.pos.y), static_cast<int>(button.size.x), static_cast<int>(button.size.y), button.col);
 			Utils::DrawCenteredText(button.text,
-				Vector2{ (float)(button.pos.x + (button.size.x * .5)), (float)(button.pos.y + (button.size.y * .5)) },
-				(button.size.y * .5), button.col);
+				Vector2{ static_cast<float>(button.pos.x + (button.size.x * .5)), static_cast<float>(button.pos.y + (button.size.y * .5)) },
+				static_cast<int>(button.size.y * .5f), button.col);
 		}
 	}
 

@@ -112,8 +112,8 @@ namespace Game {
 	void TickTime() {
 		if (!paused) { // Si el juego no esta pausado, hacer que el timer avanze
 			if (GetTime() > lastTick) {
-				gameTime += .01;
-				lastTick = GetTime() + .01;
+				gameTime += .01f;
+				lastTick = static_cast<float>(GetTime() + .01f);
 			}
 		}
 	}

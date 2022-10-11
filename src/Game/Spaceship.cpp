@@ -37,9 +37,9 @@ namespace Spaceship {
 	void InitCannon(Cannon& cannon) {
 		cannon.isEvil = false;
 		cannon.fireRate = .25f;
-		cannon.power = (float)(GetScreenHeight() * .9);
+		cannon.power = static_cast<float>(GetScreenHeight() * .9);
 		cannon.range = .8f;
-		cannon.caliber = (float)(GetScreenHeight() * .005);
+		cannon.caliber = static_cast<float>(GetScreenHeight() * .005);
 		cannon.lastShot = 0;
 	}
 
@@ -57,7 +57,7 @@ namespace Spaceship {
 	// Global
 
 	float GetCollisionRadius(Ship ship) {
-		return (float)(ship.size.x * .5);
+		return static_cast<float>(ship.size.x * .5);
 	}
 
 	void Shoot(Ship& ship) {
@@ -94,13 +94,13 @@ namespace Spaceship {
 
 	void Draw(Ship ship) {
 #ifdef _DEBUG
-		DrawCircle(ship.pos.x, ship.pos.y, GetCollisionRadius(ship), Fade(GREEN, .25));
+		DrawCircle(static_cast<int>(ship.pos.x), static_cast<int>(ship.pos.y), GetCollisionRadius(ship), Fade(GREEN, .25));
 #endif
 
 		if (Animations::Blink())
 			Assets::DrawSprite(Sprite::SPACESHIP, ship.pos,
-				{ (float)(ship.size.x * 2), (float)(ship.size.y * 2) },
-				{ (float)(ship.size.x), (float)(ship.size.y) },
+				{ static_cast<float>(ship.size.x * 2), static_cast<float>(ship.size.y * 2) },
+				{ static_cast<float>(ship.size.x), static_cast<float>(ship.size.y) },
 				ship.rotation, WHITE);
 	}
 
@@ -123,15 +123,15 @@ namespace Spaceship {
 	}
 
 	void Init(Ship& ship) {
-		ship.pos = { (float)(GetScreenWidth() * .5), (float)(GetScreenHeight() * .5) };
-		ship.size = { (float)(GetScreenHeight() * .02), (float)(GetScreenHeight() * .02) };
+		ship.pos = { static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .5) };
+		ship.size = { static_cast<float>(GetScreenHeight() * .02), static_cast<float>(GetScreenHeight() * .02) };
 		ship.speed = 400.0f;
 		ship.maxAccel = 1.0f;
 		InitCannon(ship.cannon);
 	}
 	void Init(Ship& ship, Vector2 pos, float speed, float maxAccel) {
 		ship.pos = pos;
-		ship.size = { (float)(GetScreenWidth() * .02), (float)(GetScreenHeight() * .08) };
+		ship.size = { static_cast<float>(GetScreenWidth() * .02), static_cast<float>(GetScreenHeight() * .08) };
 		ship.speed = speed;
 		ship.maxAccel = maxAccel;
 		InitCannon(ship.cannon);

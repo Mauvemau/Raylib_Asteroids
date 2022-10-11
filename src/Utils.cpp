@@ -4,17 +4,17 @@ namespace Utils {
 	Vector2 GetRandomSpawnPosition() {
 		Vector2 spawnPos = { 0, 0 };
 		if (GetRandomValue(0, 1)) {
-			spawnPos.x = (float)GetRandomValue(0, GetScreenHeight());
+			spawnPos.x = static_cast<float>(GetRandomValue(0, GetScreenHeight()));
 		}
 		else {
-			spawnPos.y = (float)GetRandomValue(0, GetScreenWidth());
+			spawnPos.y = static_cast<float>(GetRandomValue(0, GetScreenWidth()));
 		}
 		return spawnPos;
 	}
 
 	void DrawCenteredText(const char* text, Vector2 pos, int fontSize, Color color) {
 		int textWide = MeasureText(text, fontSize);
-		DrawText(text, (pos.x) - (textWide * .5), (pos.y) - (fontSize * .5), fontSize, color);
+		DrawText(text, static_cast<int>((pos.x) - (textWide * .5)), static_cast<int>((pos.y) - (fontSize * .5)), fontSize, color);
 	}
 
 	float Modulo(Vector2 vec) {
@@ -22,11 +22,11 @@ namespace Utils {
 	}
 
 	float DegreesToRadians(float deg) {
-		return (deg * (m_pi / 180.0));
+		return static_cast<float>(deg * (m_pi / 180.0));
 	}
 
 	float RadiansToDegrees(float rad) {
-		return (rad * (180.0 / m_pi));
+		return static_cast<float>(rad * (180.0 / m_pi));
 	}
 
 	Vector2 GetTargetVector(Vector2 origin, Vector2 target) {

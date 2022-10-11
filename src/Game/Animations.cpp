@@ -11,7 +11,7 @@ namespace Animations {
 	float nextBlink;
 
 	// Animations
-	const float animationFrameTime = 0.1;
+	const float animationFrameTime = 0.1f;
 	const int maxAnimations = 25;
 	Anim animations[maxAnimations];
 	int activeAnimations;
@@ -104,7 +104,7 @@ namespace Animations {
 			Assets::DrawSprite((Sprite)(GetAnimationIndex(animations[i].animation) + animations[i].currentFrame),
 				animations[i].pos,
 				animations[i].size,
-				Vector2{ (float)(animations[i].size.x * .5), (float)(animations[i].size.y * .5) },
+				Vector2{ static_cast<float>(animations[i].size.x * .5), static_cast<float>(animations[i].size.y * .5) },
 				0,
 				WHITE);
 		}
