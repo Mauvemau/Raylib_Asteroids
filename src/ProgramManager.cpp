@@ -16,10 +16,10 @@ bool gameShouldClose; // Para salir del game loop.
 const int screenWidth = 1024;
 const int screenHeight = 768;
 
-void InitRespectiveStatus(ProgramStatus status);
-void CloseProgram();
-void UpdateProgram();
-void InitProgram();
+static void InitRespectiveStatus(ProgramStatus status);
+static void CloseProgram();
+static void UpdateProgram();
+static void InitProgram();
 
 // --
 

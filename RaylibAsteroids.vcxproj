@@ -175,6 +175,7 @@
     <ClCompile Include="src\Menu\Settings.cpp" />
     <ClCompile Include="src\Menu\Upgrades.cpp" />
     <ClCompile Include="src\ProgramManager.cpp" />
+    <ClCompile Include="src\SaveFileManager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +198,7 @@
     <ClInclude Include="src\Menu\Settings.h" />
     <ClInclude Include="src\Menu\Upgrades.h" />
     <ClInclude Include="src\ProgramManager.h" />
+    <ClInclude Include="src\SaveFileManager.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
