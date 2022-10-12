@@ -2,12 +2,15 @@
 #include "Button.h" // El menu tiene botones.
 #include "ProgramManager.h" // Para cambiar el estado del juego.
 #include "Utils.h" // Para el texto centrado.
+#include "SaveFileManager.h" // Para mostrar el highscore.
 
 #include <iostream>
 
 namespace MainMenu {
 	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
+
+	long highscore;
 
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
@@ -87,6 +90,11 @@ namespace MainMenu {
 		Utils::DrawCenteredText("An Asteroids-like Game", 
 			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .26) },
 			static_cast<int>(GetScreenHeight() * .035f), ORANGE);
+		if (highscore > 0) {
+			Utils::DrawCenteredText(TextFormat("High Score: %i", highscore),
+				{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .375) },
+				static_cast<int>(GetScreenHeight() * .032f), PINK);
+		}
 	}
 
 	void Draw() {
@@ -116,5 +124,6 @@ namespace MainMenu {
 
 	void Init() {
 		InitButtons();
+		highscore = Saves::GetHighScore();
 	}
 }
