@@ -3,6 +3,7 @@
 #include "CollisionManager.h"
 #include "Utils.h" // Para el spawn pos
 #include "Game.h" // Para sumar score.
+#include "Animations.h" // Para la rotacion
 
 namespace Pickups {
 	void Move(Pickup& pickup);
@@ -84,8 +85,11 @@ namespace Pickups {
 
 	void Draw(Pickup pickup) {
 		Vector2 size = GetSpriteSize(pickup.type);
+		float rotation = 0.0f;
+		if (pickup.type == PickupType::SUS)
+			rotation = Animations::Rotation();
 		Assets::DrawSprite(GetSprite(pickup.type), pickup.pos, size,
-			Vector2{ static_cast<float>(size.x * .5), static_cast<float>(size.y * .5) }, 0, WHITE);
+			Vector2{ static_cast<float>(size.x * .5), static_cast<float>(size.y * .5) }, rotation, WHITE);
 	}
 
 	void Update(Pickup& pickup) {

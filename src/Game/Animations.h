@@ -15,7 +15,7 @@ struct Anim {
 };
 
 namespace Animations {
-
+	float Rotation();
 	void PlayAnimation(Anims anim, Vector2 pos, Vector2 size);
 	bool Blink();
 
