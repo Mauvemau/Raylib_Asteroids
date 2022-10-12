@@ -99,6 +99,10 @@ namespace GameOver {
 				{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .46) },
 				static_cast<int>(GetScreenWidth() * .03), ORANGE);
 		}
+
+		Utils::DrawCenteredText(TextFormat("You have destroyed a total of %i Asteroids!", Game::GetAsteroidsDestroyed()),
+			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .5) },
+			static_cast<int>(GetScreenWidth() * .02), GREEN);
 	}
 
 	void Draw() {

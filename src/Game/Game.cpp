@@ -32,11 +32,11 @@ namespace Game {
 
 	// Constantes
 	const float invaderInterval = 45.0f; // Cada cuanto aparece el invader.
-	const float upgradeInterval = 20.0f; // Cada cuanto recibimos un powerup.
-	const float increaseInverval = 25.0f; // La cantidad de segundos que tienen que pasar para que se aumente el cap de asteroides.
+	const float upgradeInterval = 15.0f; // Cada cuanto recibimos un powerup.
+	const float increaseInverval = 5.0f; // La cantidad de segundos que tienen que pasar para que se aumente el cap de asteroides.
 
 	// HardCaps
-	const int asteroidHardCap = 35;
+	const int asteroidHardCap = 190;
 	const int pickupHardCap = 20;
 
 	// SoftCaps (Limitadores que cambian al avanzar el juego)
@@ -51,8 +51,6 @@ namespace Game {
 	// Stats
 	unsigned long score;
 	unsigned long asteroidsDestroyed;
-	unsigned long goldCollected;
-	unsigned long astronautsRescued;
 
 	void FinishGame();
 	void HandleGameLogic();
@@ -95,9 +93,10 @@ namespace Game {
 			else
 				pickupCap = pickupHardCap;
 
-			if (increaseAmount < 3) {
-				increaseAmount++;
-			}
+			if(GetGameTime() > 120.0f) // Subimos la dificultad despues de 2 min.
+				if (increaseAmount < 10) {
+					increaseAmount++;
+				}
 			nextIncrease = GetGameTime() + increaseInverval;
 		}
 		if (nextInvader < GetGameTime()) {
@@ -185,8 +184,8 @@ namespace Game {
 
 	// Global
 
-	bool GetAutoshootActive() {
-		return autoshoot;
+	void AddAsteroidsDestroyed(int amount) {
+		asteroidsDestroyed += amount;
 	}
 
 	void OpenUpgradeMenu() {
@@ -209,6 +208,14 @@ namespace Game {
 		lives -= amount;
 		if (lives < 0)
 			FinishGame();
+	}
+
+	long GetAsteroidsDestroyed() {
+		return asteroidsDestroyed;
+	}
+
+	bool GetAutoshootActive() {
+		return autoshoot;
 	}
 
 	bool GetHasStarted() {
@@ -332,8 +339,6 @@ namespace Game {
 		// Stats
 		score = 0;
 		asteroidsDestroyed = 0;
-		goldCollected = 0;
-		astronautsRescued = 0;
 
 		// SoftCaps
 		asteroidCap = 5;

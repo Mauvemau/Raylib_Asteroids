@@ -90,13 +90,13 @@ namespace Upgrades {
 			return "+1 Life";
 			break;
 		case Upgrades::Options::FIRERATE:
-			return "+15% Fire Rate";
+			return "+20% Fire Rate";
 			break;
 		case Upgrades::Options::BULLETSIZE:
 			return "+50% Bullet Size";
 			break;
 		case Upgrades::Options::BULLETRANGE:
-			return "+20% Bullet Range";
+			return "+40% Bullet Range";
 			break;
 		case Upgrades::Options::BULLETSPEED:
 			return "+20% Bullet Speed";
@@ -116,13 +116,13 @@ namespace Upgrades {
 			Game::AddLive(1);
 			break;
 		case Upgrades::Options::FIRERATE:
-			Game::GetPlayer().cannon.fireRate = static_cast<float>(Game::GetPlayer().cannon.fireRate * .85f);
+			Game::GetPlayer().cannon.fireRate = static_cast<float>(Game::GetPlayer().cannon.fireRate * .8f);
 			break;
 		case Upgrades::Options::BULLETSIZE:
 			Game::GetPlayer().cannon.caliber = static_cast<float>(Game::GetPlayer().cannon.caliber * 1.5f);
 			break;
 		case Upgrades::Options::BULLETRANGE:
-			Game::GetPlayer().cannon.range = static_cast<float>(Game::GetPlayer().cannon.range * 1.2f);
+			Game::GetPlayer().cannon.range = static_cast<float>(Game::GetPlayer().cannon.range * 1.4f);
 			break;
 		case Upgrades::Options::BULLETSPEED:
 			Game::GetPlayer().cannon.power = static_cast<float>(Game::GetPlayer().cannon.power * 1.2f);

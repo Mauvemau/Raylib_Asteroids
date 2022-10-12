@@ -8,7 +8,7 @@
 
 namespace ObjManager {
 	// Asteroids
-	const int maxAsteroids = 50;
+	const int maxAsteroids = 200;
 	Asteroid asteroids[maxAsteroids];
 	int activeAsteroids;
 
@@ -63,6 +63,7 @@ namespace ObjManager {
 			Vector2{ static_cast<float>(Asteroids::GetSize(asteroids[id].type) * 6), static_cast<float>(Asteroids::GetSize(asteroids[id].type) * 6) });
 		DeActivateAsteroid(id);
 		Assets::PlayAudio((Audio)GetRandomValue(static_cast<int>(Audio::EXPLOSION_1), static_cast<int>(Audio::EXPLOSION_3)), .5);
+		Game::AddAsteroidsDestroyed(1);
 	}
 
 	void PrintLog(AsteroidType type, bool creating) {

@@ -3,12 +3,14 @@
 #include "Spaceship.h"
 
 namespace Game {
+	void AddAsteroidsDestroyed(int amount);
 	void AddScore(int amount);
 	void AddLive(int amount);
 	void RemoveLive(int amount);
 	void OpenUpgradeMenu();
 	void StartGame();
 
+	long GetAsteroidsDestroyed();
 	bool GetAutoshootActive(); // Devuelve si el autoshoot esta activo.
 	bool GetHasStarted(); // Devuelve si el juego comenzó o si el jugador sigue leyendo el tutorial.
 	bool GetInvaderActive();
