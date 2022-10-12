@@ -4,6 +4,7 @@
 #include "AssetLoader.h" // Para la musica.
 #include "Utils.h" // Para el texto centrado.
 #include "Game/Game.h" // Para el score.
+#include "SaveFileManager.h" // Para guardar el highscore.
 
 #include <iostream>
 
@@ -11,6 +12,10 @@ namespace GameOver {
 	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
+	bool isHighScore;
+	long highScore;
+
+	bool ManageHighScore(long score);
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
 	void InitButtons();
@@ -18,6 +23,15 @@ namespace GameOver {
 	void Draw();
 
 	// --
+
+	bool ManageHighScore(long score) {
+		highScore = Saves::GetHighScore();
+		if (score > highScore) {
+			std::cout << "[High Score] New High score of " << score << "!!\n";
+			Saves::SaveHighScore(score);
+		}
+		return (score > highScore);
+	}
 
 	const char* GetButtonName(Options option) {
 		switch (option)
@@ -58,7 +72,7 @@ namespace GameOver {
 			if (i > 0)
 				spacing += static_cast<float>(buttons[0].size.y + GetScreenHeight() * .025);
 			buttons[i] = Buttons::Create(i,
-				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .55) + spacing },
+				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .6) + spacing },
 				Vector2{ static_cast<float>(GetScreenWidth() * .35), static_cast<float>(GetScreenHeight() * .1) },
 				GetButtonName((Options)i));
 		}
@@ -70,8 +84,21 @@ namespace GameOver {
 			static_cast<int>(GetScreenHeight() * .15f), RED);
 
 		Utils::DrawCenteredText(TextFormat("Your Score: %i", Game::GetScore()),
-			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .4) },
+			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .375) },
 			static_cast<int>(GetScreenWidth() * .05), RAYWHITE);
+
+		if (!isHighScore) {
+			if (highScore > 0) {
+				Utils::DrawCenteredText(TextFormat("Best recorded Score: %i", highScore),
+					{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .46) },
+					static_cast<int>(GetScreenWidth() * .03), SKYBLUE);
+			}
+		}
+		else {
+			Utils::DrawCenteredText("Congratulations, you've set a new record!!!",
+				{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .46) },
+				static_cast<int>(GetScreenWidth() * .03), ORANGE);
+		}
 	}
 
 	void Draw() {
@@ -99,5 +126,6 @@ namespace GameOver {
 
 	void Init() {
 		InitButtons();
+		isHighScore = ManageHighScore(Game::GetScore());
 	}
 }

@@ -3,29 +3,34 @@
 #include "raylib.h"
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
 namespace Saves {
-
-	const string folder = "saves";
-
-	const char* GetPath(string name);
-
-	// --
-
-	const char* GetPath(string name) {
-		return (folder + "/" + name + ".json").c_str;
-	}
-
 	// Global
-	const char* ReadFile(string name) {
-		const char* value;
-		value = LoadFileText(GetPath(name));
+	long GetHighScore() {
+		long value;
+		if (FileExists("saves/highscore.json")) {
+			value = atoi(LoadFileText("saves/highscore.json"));
+			std::cout << "[File Manager] File loaded!\n";
+		}
+		else {
+			std::cout << "[File Manager] There is no such High Score file!\n";
+			value = 0;
+		}
 		return value;
 	}
 
-	void WriteFile(string name, string value) {
-		SaveFileText(GetPath(name), value.c_str);
+	void SaveHighScore(long value) {
+		if (!DirectoryExists("saves"))
+			system("mkdir saves");
+		ofstream myFile("saves/highscore.json");
+		if (myFile.is_open()) {
+			myFile << value;
+			myFile.close();
+		}
+
+		std::cout << "[File Manager] File written!\n";
 	}
 }
