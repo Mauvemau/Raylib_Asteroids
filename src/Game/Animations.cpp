@@ -126,6 +126,9 @@ namespace Animations {
 		if (nextRotate < Game::GetGameTime()) {
 			rotation++;
 			nextRotate = Game::GetGameTime() + rotationSpeed;
+			if (rotation == 360) {
+				rotation = 0;
+			}
 		}
 	}
 

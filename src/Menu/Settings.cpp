@@ -53,14 +53,12 @@ namespace Settings {
 			res.height = GetMonitorHeight(monitor);
 			SetResolution(res);
 			Init();
-			buttons[static_cast<int>(Options::RESOLUTION)].col = DARKGRAY;
 		}
 		ToggleFullscreen();
 		if(!fullscreen) {
 			SetResolution(GetResolutionValue((Resolutions)currentResolution)); // Restaurar la resolucion a la actual si se sale de pantalla completa.
 			CenterWindow();
 			Init();
-			buttons[static_cast<int>(Options::RESOLUTION)].col = RAYWHITE;
 		}
 	}
 
@@ -256,6 +254,12 @@ namespace Settings {
 		for (int i = 0; i < amountButtons; i++) {
 			if (Buttons::Update(buttons[i]))
 				SelectOption((Options)buttons[i].id);
+		}
+		if (!fullscreen) {
+			buttons[static_cast<int>(Options::RESOLUTION)].col = RAYWHITE;
+		}
+		else {
+			buttons[static_cast<int>(Options::RESOLUTION)].col = DARKGRAY;
 		}
 
 		if(IsKeyPressed(KEY_ESCAPE))
