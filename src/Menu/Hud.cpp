@@ -9,6 +9,7 @@
 namespace Hud {
 	Button pauseButton;
 	Button playButton;
+	Button autoshootButton;
 
 	void DrawTutorial();
 	void DrawLives();
@@ -84,6 +85,12 @@ namespace Hud {
 			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .75) },
 			{ static_cast<float>(GetScreenWidth() * .3), static_cast<float>(GetScreenHeight() * .1) },
 			"Start Mission");
+
+		autoshootButton = Buttons::Create(2,
+			{ static_cast<float>(GetScreenWidth() * .86), static_cast<float>(GetScreenHeight() * .95) },
+			{ static_cast<float>(GetScreenWidth() * .25), static_cast<float>(GetScreenHeight() * .075) },
+			RED,
+			"Auto Shoot OFF");
 	}
 
 	// Global
@@ -91,6 +98,7 @@ namespace Hud {
 	void Draw() {
 		Buttons::Draw(pauseButton);
 		if (Game::GetHasStarted()) {
+			Buttons::Draw(autoshootButton);
 			DrawText();
 			DrawLives();
 		}
@@ -106,6 +114,18 @@ namespace Hud {
 		if (!Game::GetHasStarted()) {
 			if (Buttons::Update(playButton))
 				Game::StartGame();
+		}
+		else {
+			if (Buttons::Update(autoshootButton))
+				Game::SetAutoShoot(!Game::GetAutoshootActive());
+			if (Game::GetAutoshootActive()) {
+				autoshootButton.col = GREEN;
+				autoshootButton.text = "Auto Shoot ON";
+			}
+			else {
+				autoshootButton.col = RED;
+				autoshootButton.text = "Auto Shoot OFF";
+			}
 		}
 	}
 

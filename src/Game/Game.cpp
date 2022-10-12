@@ -28,6 +28,7 @@ namespace Game {
 
 	bool started;
 	bool paused;
+	bool autoshoot;
 
 	// Constantes
 	const float invaderInterval = 45.0f; // Cada cuanto aparece el invader.
@@ -134,7 +135,7 @@ namespace Game {
 			Spaceship::Accelerate(ship, GetMousePosition());
 
 		// Shooting
-		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && !GetIsHalted())
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && !GetIsHalted() || autoshoot && !GetIsHalted())
 			Spaceship::Shoot(ship);
 
 		// Pausing
@@ -183,6 +184,10 @@ namespace Game {
 	}
 
 	// Global
+
+	bool GetAutoshootActive() {
+		return autoshoot;
+	}
 
 	void OpenUpgradeMenu() {
 		if (!paused) {
@@ -240,6 +245,10 @@ namespace Game {
 
 	float GetHaltTime() {
 		return haltResumes;
+	}
+
+	void SetAutoShoot(bool val) {
+		autoshoot = val;
 	}
 
 	void SetInvader(bool active) {
@@ -315,8 +324,10 @@ namespace Game {
 		gameTime = 0;
 		haltResumes = 0;
 
+		autoshoot = false;
+
 		lives = 0;
-		AddLive(4);
+		AddLive(5);
 
 		// Stats
 		score = 0;

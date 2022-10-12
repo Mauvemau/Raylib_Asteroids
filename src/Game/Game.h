@@ -9,6 +9,7 @@ namespace Game {
 	void OpenUpgradeMenu();
 	void StartGame();
 
+	bool GetAutoshootActive(); // Devuelve si el autoshoot esta activo.
 	bool GetHasStarted(); // Devuelve si el juego comenzó o si el jugador sigue leyendo el tutorial.
 	bool GetInvaderActive();
 	long GetScore();
@@ -19,6 +20,7 @@ namespace Game {
 	bool GetIsHalted();
 	float GetHaltTime();
 
+	void SetAutoShoot(bool val);
 	void SetInvader(bool active);
 	void SetPaused(bool val);
 	void SetHalted();
