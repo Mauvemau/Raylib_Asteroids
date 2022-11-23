@@ -105,7 +105,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>$(SolutionDir)bat\post_build_commands.bat "$(SolutionDir)" "$(Configuration)"</Command>
+      <Command>"$(SolutionDir)bat\post_build_commands.bat" "$(SolutionDir)" "$(Configuration)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -141,7 +141,7 @@
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>$(SolutionDir)bat\post_build_commands.bat "$(SolutionDir)" "$(Configuration)"</Command>
+      <Command>"$(SolutionDir)bat\post_build_commands.bat" "$(SolutionDir)" "$(Configuration)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
