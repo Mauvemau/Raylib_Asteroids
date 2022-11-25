@@ -9,5 +9,3 @@ This is an asteroids-like game, built using Raylib by Ray.
 You can download the game from Itch!
 
 [Itch.io](https://mauvemau.itch.io/asteroids)
-
-(This is a college project.)
