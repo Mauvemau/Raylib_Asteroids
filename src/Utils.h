@@ -2,6 +2,8 @@
 #include "raylib.h"
 #include <iostream>
 
+#include <math.h>
+
 const double m_pi = 3.14159265358979323846;
 
 namespace Utils {

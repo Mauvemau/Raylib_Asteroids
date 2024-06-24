@@ -122,7 +122,7 @@ namespace Game {
 	void ManageInput() {
 		// Rotation
 		if (GetMouseX() < GetScreenWidth() && GetMouseX() > 0 &&
-			GetMouseY() < GetScreenHeight() && GetMouseY > 0 &&
+			GetMouseY() < GetScreenHeight() && GetMouseY() > 0 &&
 			Utils::GetDistance(ship.pos, GetMousePosition()) > static_cast<float>(ship.size.y * .25f) &&
 			!GetIsHalted())
 			Spaceship::Rotate(ship, Utils::CalculateRotationAngle(ship.pos, GetMousePosition()));
@@ -130,7 +130,7 @@ namespace Game {
 		// Acceleration
 		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT) &&
 			GetMouseX() < GetScreenWidth() && GetMouseX() > 0 &&
-			GetMouseY() < GetScreenHeight() && GetMouseY > 0 &&
+			GetMouseY() < GetScreenHeight() && GetMouseY() > 0 &&
 			!GetIsHalted())
 			Spaceship::Accelerate(ship, GetMousePosition());
 
