@@ -281,6 +281,14 @@ namespace Game {
 			haltResumes = GetGameTime() + haltTime;
 	}
 
+	void AdjustToRes() {
+		Hud::AdjustToRes();
+		Pause::AdjustToRes();
+		Spaceship::AdjustToRes(ship);
+		Spaceship::AdjustToRes(invader);
+		ObjManager::AdjustToRes();
+	}
+
 	void Update() {
 		TickTime();
 		if (!paused) {

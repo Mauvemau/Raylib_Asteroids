@@ -7,6 +7,7 @@
 #include "Menu/Credits.h"
 #include "Game/Game.h"
 #include "AssetLoader.h" // Para cargar los assets.
+#include "Utils.h"
 
 #include <iostream>
 
@@ -18,6 +19,7 @@ const int screenHeight = 768;
 
 static void InitRespectiveStatus(ProgramStatus status);
 static void CloseProgram();
+static void AdjustResolution();
 static void UpdateProgram();
 static void InitProgram();
 
@@ -52,6 +54,33 @@ void CloseProgram() {
 	CloseWindow();
 }
 
+void AdjustResolution(){
+	if(IsWindowResized()) {
+		switch (programStatus)
+		{
+			case ProgramStatus::MAINMENU:
+				MainMenu::AdjustToRes();
+				break;
+			case ProgramStatus::INGAME:
+				Game::AdjustToRes();
+				break;
+			case ProgramStatus::GAMEOVER:
+				GameOver::AdjustToRes();
+				break;
+			case ProgramStatus::CREDITS:
+				Credits::AdjustToRes();
+				break;
+			case ProgramStatus::SETTINGS:
+				Settings::AdjustToRes();
+				break;
+			default:
+				std::cout << "Invalid program Status! [ProgramManager.cpp - UpdateProgram()]\n";
+				break;
+		}
+		Utils::AdjustLastFrameSize(GetScreenWidth(), GetScreenHeight());
+	}
+}
+
 void UpdateProgram() {
 	while (!WindowShouldClose() && !gameShouldClose) {
 		switch (programStatus)
@@ -75,15 +104,19 @@ void UpdateProgram() {
 			std::cout << "Invalid program Status! [ProgramManager.cpp - UpdateProgram()]\n";
 			break;
 		}
+		AdjustResolution();
 	}
 }
 
 void InitProgram() {
+	SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
 	InitWindow(screenWidth, screenHeight, "Raylib Asteroids");
+	SetWindowMinSize(640, 360);
 	SetExitKey(KEY_NULL); // No queremos que la ventana se cierre con escape.
 	Assets::Init(); // Cargamos los assets.
 	Settings::InitSettings(); // Se inicializan las settings default cuando se ejecuta el programa.
 	SetProgramStatus(ProgramStatus::MAINMENU);
+	Utils::AdjustLastFrameSize(GetScreenWidth(), GetScreenHeight());
 }
 
 // Global

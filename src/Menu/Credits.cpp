@@ -14,7 +14,6 @@ namespace Credits {
 	const char* GetButtonName(Options option);
 	void SelectOption(Options option);
 	void InitButtons();
-	void DrawText();
 	void Draw();
 
 	// --
@@ -124,10 +123,6 @@ namespace Credits {
 		}
 	}
 
-	void DrawText() {
-
-	}
-
 	void Draw() {
 		BeginDrawing();
 		ClearBackground(BLACK);
@@ -135,8 +130,6 @@ namespace Credits {
 		for (int i = 0; i < amountButtons; i++) {
 			Buttons::Draw(buttons[i]);
 		}
-
-		DrawText();
 
 		EndDrawing();
 	}
@@ -155,7 +148,11 @@ namespace Credits {
 		Draw();
 	}
 
-	void Init() {
+	void AdjustToRes(){
 		InitButtons();
+	}
+
+	void Init() {
+		AdjustToRes();
 	}
 }

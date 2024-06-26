@@ -129,7 +129,11 @@ namespace Hud {
 		}
 	}
 
-	void Init() {
+	void AdjustToRes(){
 		InitButtons();
+	}
+
+	void Init() {
+		AdjustToRes();
 	}
 }

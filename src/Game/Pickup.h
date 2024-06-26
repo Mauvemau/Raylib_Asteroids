@@ -19,6 +19,7 @@ namespace Pickups {
 	void HandlePickup(PickupType pickup);
 
 	void Draw(Pickup pickup);
+	void AdjustToRes(Pickup& pickup);
 	void Update(Pickup& pickup);
 	Pickup Create();
 	void Init(Pickup& pickup, PickupType type);

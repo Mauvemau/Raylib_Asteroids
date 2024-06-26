@@ -1,6 +1,21 @@
 #include "Utils.h"
 
 namespace Utils {
+	int lastFrameWidth = 0;
+	int lastFrameHeight = 0;
+
+	Vector2 GetLastRelativePosition(Vector2 currentPos){
+		float relX = static_cast<float>(currentPos.x / lastFrameWidth);
+		float relY = static_cast<float>(currentPos.y / lastFrameHeight);
+		return {relX, relY};
+	}
+
+	Vector2 GetRelativePosition(Vector2 currentPos){
+		float relX = static_cast<float>(currentPos.x / GetScreenWidth());
+		float relY = static_cast<float>(currentPos.y / GetScreenHeight());
+		return {relX, relY};
+	}
+
 	Vector2 GetRandomSpawnPosition() {
 		Vector2 spawnPos = { 0, 0 };
 		if (GetRandomValue(0, 1)) {
@@ -50,5 +65,10 @@ namespace Utils {
 		float targetAng = atan2(targetVector.x, -targetVector.y);
 		targetAng = RadiansToDegrees(targetAng);
 		return targetAng;
+	}
+
+	void AdjustLastFrameSize(int width, int height){
+		lastFrameWidth = width;
+		lastFrameHeight = height;
 	}
 }

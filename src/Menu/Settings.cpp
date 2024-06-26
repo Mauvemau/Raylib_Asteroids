@@ -7,13 +7,14 @@
 
 #include <iostream>
 
+using namespace std;
+
 namespace Settings {
 	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
 	int currentResolution;
 	bool fullscreen;
-
 	bool IsResBiggerThanMonitor(Resolution res);
 	void CenterWindow();
 	void MyToggleFullscreen();
@@ -51,14 +52,12 @@ namespace Settings {
 			Resolution res;
 			res.width = GetMonitorWidth(monitor);
 			res.height = GetMonitorHeight(monitor);
-			SetResolution(res);
-			Init();
+			//SetResolution(res);
 		}
 		ToggleFullscreen();
 		if(!fullscreen) {
-			SetResolution(GetResolutionValue((Resolutions)currentResolution)); // Restaurar la resolucion a la actual si se sale de pantalla completa.
-			CenterWindow();
-			Init();
+			//SetResolution(GetResolutionValue((Resolutions)currentResolution)); // Restaurar la resolucion a la actual si se sale de pantalla completa.
+			//CenterWindow();
 		}
 	}
 
@@ -69,8 +68,7 @@ namespace Settings {
 
 	void ChangeResolution(Resolutions id) {
 		SetResolution(GetResolutionValue((Resolutions)id));
-		CenterWindow();
-		Init();
+		//CenterWindow();
 	}
 
 	const char* GetResolutionName(Resolutions id) {
@@ -273,7 +271,11 @@ namespace Settings {
 		fullscreen = false;
 	}
 
-	void Init() {
+	void AdjustToRes() {
 		InitButtons();
+	}
+
+	void Init() {
+		AdjustToRes();
 	}
 }

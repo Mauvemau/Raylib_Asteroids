@@ -32,6 +32,7 @@ namespace ObjManager {
 
 	// General
 	void Draw();
+	void AdjustToRes();
 	void Update();
 	void Init();
 }

@@ -10,5 +10,6 @@ namespace MainMenu {
 	};
 
 	void Update();
+	void AdjustToRes();
 	void Init();
 }

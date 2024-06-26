@@ -117,8 +117,13 @@ namespace Pause {
 		}
 	}
 
-	void Init() {
+	void AdjustToRes() {
 		InitButtons();
+		Upgrades::AdjustToRes();
+	}
+
+	void Init() {
+		AdjustToRes();
 		Upgrades::Init();
 		upgrading = false;
 	}

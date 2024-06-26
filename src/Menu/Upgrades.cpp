@@ -177,8 +177,12 @@ namespace Upgrades {
 		}
 	}
 
-	void Init() {
+	void AdjustToRes() {
 		InitButtons();
+	}
+
+	void Init() {
+		AdjustToRes();
 
 		maxFireRate = .085f;
 		maxCaliber = static_cast<float>(GetScreenHeight() * .015);

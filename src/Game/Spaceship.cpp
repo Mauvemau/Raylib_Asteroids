@@ -104,6 +104,12 @@ namespace Spaceship {
 				ship.rotation, WHITE);
 	}
 
+	void AdjustToRes(Ship& ship){
+		Vector2 relMulti = Utils::GetLastRelativePosition(ship.pos);
+		ship.pos = { static_cast<float>(GetScreenWidth() * relMulti.x), static_cast<float>(GetScreenHeight() * relMulti.y) };
+		ship.size = { static_cast<float>(GetScreenHeight() * .02), static_cast<float>(GetScreenHeight() * .02) };
+	}
+
 	void Update(Ship& ship) {
 		if (!Game::GetIsHalted()) {
 			Move(ship);
@@ -131,7 +137,7 @@ namespace Spaceship {
 	}
 	void Init(Ship& ship, Vector2 pos, float speed, float maxAccel) {
 		ship.pos = pos;
-		ship.size = { static_cast<float>(GetScreenWidth() * .02), static_cast<float>(GetScreenHeight() * .08) };
+		ship.size = { static_cast<float>(GetScreenHeight() * .02), static_cast<float>(GetScreenHeight() * .02) };
 		ship.speed = speed;
 		ship.maxAccel = maxAccel;
 		InitCannon(ship.cannon);

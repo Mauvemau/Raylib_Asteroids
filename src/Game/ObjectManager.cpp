@@ -185,6 +185,21 @@ namespace ObjManager {
 		}
 	}
 
+	void AdjustToRes(){
+		// Asteroids
+		for (int i = 0; i < activeAsteroids; i++) {
+			Asteroids::AdjustToRes(asteroids[i]);
+		}
+		// Bullets
+		for (int i = 0; i < activeBullets; i++) {
+			Bullets::AdjustToRes(bullets[i]);
+		}
+		// Pickups
+		for (int i = 0; i < activePickups; i++) {
+			Pickups::AdjustToRes(pickups[i]);
+		}
+	}
+
 	void Update() {
 		// Asteroids
 		for (int i = 0; i < activeAsteroids; i++) {

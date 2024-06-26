@@ -12,5 +12,6 @@ namespace Credits {
 	};
 
 	void Update();
+	void AdjustToRes();
 	void Init();
 }

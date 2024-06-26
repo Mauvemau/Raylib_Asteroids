@@ -122,8 +122,12 @@ namespace MainMenu {
 		Draw();
 	}
 
-	void Init() {
+	void AdjustToRes() {
 		InitButtons();
+	}
+
+	void Init() {
+		AdjustToRes();
 		highscore = Saves::GetHighScore();
 	}
 }

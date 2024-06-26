@@ -92,6 +92,11 @@ namespace Pickups {
 			Vector2{ static_cast<float>(size.x * .5), static_cast<float>(size.y * .5) }, rotation, WHITE);
 	}
 
+	void AdjustToRes(Pickup& pickup){
+		Vector2 relMulti = Utils::GetLastRelativePosition(pickup.pos);
+		pickup.pos = { static_cast<float>(GetScreenWidth() * relMulti.x), static_cast<float>(GetScreenHeight() * relMulti.y) };
+	}
+
 	void Update(Pickup& pickup) {
 		Move(pickup);
 		Collisions::Update(pickup);

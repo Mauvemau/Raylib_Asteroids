@@ -14,6 +14,7 @@ struct Bullet {
 namespace Bullets {
 
 	void Draw(Bullet bullet);
+	void AdjustToRes(Bullet& bullet);
 	void Update(Bullet& bullet);
 	Bullet Create();
 	void Init(Bullet& bullet, Vector2 pos, float size, float direction, float speed, float lifeTime, float spawnTime); // Sobrecarga, asume que son balas del jugador.

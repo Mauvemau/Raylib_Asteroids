@@ -8,5 +8,6 @@ namespace GameOver {
 	};
 
 	void Update();
+	void AdjustToRes();
 	void Init();
 }

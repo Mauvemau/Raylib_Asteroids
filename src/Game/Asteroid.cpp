@@ -89,6 +89,11 @@ namespace Asteroids {
 			0, WHITE);
 	}
 
+	void AdjustToRes(Asteroid& asteroid) {
+		Vector2 relMulti = Utils::GetLastRelativePosition(asteroid.pos);
+		asteroid.pos = { static_cast<float>(GetScreenWidth() * relMulti.x), static_cast<float>(GetScreenHeight() * relMulti.y) };
+	}
+
 	void Update(Asteroid& asteroid) {
 		Move(asteroid);
 		Collisions::Update(asteroid);

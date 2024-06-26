@@ -17,5 +17,6 @@ namespace Pause {
 
 	void Draw(); // Este menu tiene un draw publico, ya que funciona como una extension de Game.h
 	void Update();
+	void AdjustToRes();
 	void Init();
 }

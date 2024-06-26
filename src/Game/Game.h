@@ -27,6 +27,7 @@ namespace Game {
 	void SetPaused(bool val);
 	void SetHalted();
 
+	void AdjustToRes();
 	void Update();
 	void Init();
 }

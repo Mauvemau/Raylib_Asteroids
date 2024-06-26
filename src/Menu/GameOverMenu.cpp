@@ -128,8 +128,12 @@ namespace GameOver {
 		Draw();
 	}
 
-	void Init() {
+	void AdjustToRes(){
 		InitButtons();
+	}
+
+	void Init() {
+		AdjustToRes();
 		isHighScore = ManageHighScore(Game::GetScore());
 	}
 }

@@ -29,6 +29,7 @@ namespace Spaceship {
 	void Rotate(Ship& ship, float ang);
 
 	void Draw(Ship ship);
+	void AdjustToRes(Ship& ship);
 	void Update(Ship& ship);
 	Ship Create();
 	void Init(Ship& ship); // Sobrecarga, asigna a valores default.

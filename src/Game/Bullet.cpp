@@ -38,6 +38,11 @@ namespace Bullets {
 				Utils::RadiansToDegrees(bullet.direction), col);
 	}
 
+	void AdjustToRes(Bullet& bullet){
+		Vector2 relMulti = Utils::GetLastRelativePosition(bullet.pos);
+		bullet.pos = { static_cast<float>(GetScreenWidth() * relMulti.x), static_cast<float>(GetScreenHeight() * relMulti.y) };
+	}
+
 	void Update(Bullet& bullet) {
 		Move(bullet);
 		Collisions::Update(bullet);

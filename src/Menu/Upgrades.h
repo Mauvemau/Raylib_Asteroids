@@ -17,5 +17,6 @@ namespace Upgrades {
 
 	void Draw();
 	void Update();
+	void AdjustToRes();
 	void Init();
 }
