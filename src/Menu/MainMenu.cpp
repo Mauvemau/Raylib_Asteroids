@@ -27,9 +27,6 @@ namespace MainMenu {
 		case MainMenu::Options::PLAY:
 			return "Play";
 			break;
-		case MainMenu::Options::SETTINGS:
-			return "Settings";
-			break;
 		case MainMenu::Options::CREDITS:
 			return "Credits";
 			break;
@@ -48,9 +45,6 @@ namespace MainMenu {
 		{
 		case MainMenu::Options::PLAY:
 			SetProgramStatus(ProgramStatus::INGAME);
-			break;
-		case MainMenu::Options::SETTINGS:
-			SetProgramStatus(ProgramStatus::SETTINGS);
 			break;
 		case MainMenu::Options::CREDITS:
 			SetProgramStatus(ProgramStatus::CREDITS);
