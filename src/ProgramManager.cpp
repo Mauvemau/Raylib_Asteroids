@@ -110,7 +110,7 @@ void UpdateProgram() {
 
 void InitProgram() {
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
-	InitWindow(screenWidth, screenHeight, "Raylib Asteroids");
+	InitWindow(screenWidth, screenHeight, "Astray");
 	SetWindowMinSize(640, 360);
 	SetExitKey(KEY_NULL); // No queremos que la ventana se cierre con escape.
 	Assets::Init(); // Cargamos los assets.
