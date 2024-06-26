@@ -77,7 +77,7 @@ namespace MainMenu {
 	}
 
 	void DrawCredits() {
-		const char* text = "Game built by Salazar using Raylib by Ray";
+		const char* text = "Game by Mauvemau, powered by Raylib.";
 		int fontSize = static_cast<int>(GetScreenHeight() * .025f);
 		int textWide = MeasureText(text, fontSize);
 		DrawText(text, static_cast<int>((GetScreenWidth() * .99) - textWide), static_cast<int>((GetScreenHeight() * .99) - fontSize), fontSize, WHITE);

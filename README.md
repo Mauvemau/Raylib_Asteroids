@@ -1,6 +1,6 @@
 ## Astray
 
-This is an asteroids-like game, built using Raylib by Ray.
+This is an asteroids-like game, made with [Raylib](https://www.raylib.com/).
 
 [Gameplay Preview](https://www.youtube.com/watch?v=B59VnyCnYKw)
 

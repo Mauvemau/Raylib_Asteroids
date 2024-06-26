@@ -52,12 +52,12 @@ namespace Settings {
 			Resolution res;
 			res.width = GetMonitorWidth(monitor);
 			res.height = GetMonitorHeight(monitor);
-			//SetResolution(res);
+			SetResolution(res);
 		}
 		ToggleFullscreen();
 		if(!fullscreen) {
-			//SetResolution(GetResolutionValue((Resolutions)currentResolution)); // Restaurar la resolucion a la actual si se sale de pantalla completa.
-			//CenterWindow();
+			SetResolution(GetResolutionValue((Resolutions)currentResolution)); // Restaurar la resolucion a la actual si se sale de pantalla completa.
+			CenterWindow();
 		}
 	}
 
@@ -68,7 +68,7 @@ namespace Settings {
 
 	void ChangeResolution(Resolutions id) {
 		SetResolution(GetResolutionValue((Resolutions)id));
-		//CenterWindow();
+		CenterWindow();
 	}
 
 	const char* GetResolutionName(Resolutions id) {

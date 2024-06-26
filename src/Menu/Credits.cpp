@@ -59,7 +59,7 @@ namespace Credits {
 		switch (option)
 		{
 		case Credits::Options::RAYLIB:
-			return "Game Built using Raylib by Ray";
+			return "Game made with the Raylib library";
 			break;
 		case Credits::Options::MUSIC:
 			return "Game Music by HoliznaCC0";
