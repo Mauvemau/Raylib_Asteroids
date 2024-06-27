@@ -7,14 +7,13 @@
 
 #include <iostream>
 
-using namespace std;
-
 namespace Settings {
 	const int amountButtons = static_cast<int>(Options::COUNT);
 	Button buttons[amountButtons];
 
 	int currentResolution;
 	bool fullscreen;
+
 	bool IsResBiggerThanMonitor(Resolution res);
 	void CenterWindow();
 	void MyToggleFullscreen();
@@ -35,7 +34,7 @@ namespace Settings {
 		int monitor = GetCurrentMonitor();
 		return (res.width > GetMonitorWidth(monitor) || res.height > GetMonitorHeight(monitor));
 	}
-	
+
 	void CenterWindow() {
 		int monitor = GetCurrentMonitor();
 		Resolution monitorRes;
@@ -53,11 +52,13 @@ namespace Settings {
 			res.width = GetMonitorWidth(monitor);
 			res.height = GetMonitorHeight(monitor);
 			SetResolution(res);
+			Init();
 		}
 		ToggleFullscreen();
-		if(!fullscreen) {
+		if (!fullscreen) {
 			SetResolution(GetResolutionValue((Resolutions)currentResolution)); // Restaurar la resolucion a la actual si se sale de pantalla completa.
 			CenterWindow();
+			Init();
 		}
 	}
 
@@ -69,6 +70,7 @@ namespace Settings {
 	void ChangeResolution(Resolutions id) {
 		SetResolution(GetResolutionValue((Resolutions)id));
 		CenterWindow();
+		Init();
 	}
 
 	const char* GetResolutionName(Resolutions id) {
@@ -161,7 +163,7 @@ namespace Settings {
 			break;
 		}
 	}
-	
+
 	void SelectOption(Options option) {
 		switch (option)
 		{
@@ -227,7 +229,7 @@ namespace Settings {
 
 	void DrawText() {
 		Utils::DrawCenteredText("Settings",
-			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .2)},
+			{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .2) },
 			static_cast<int>(GetScreenHeight() * .07f), ORANGE);
 
 		DrawHeader("Click to switch resolution", Options::RESOLUTION);
@@ -260,7 +262,7 @@ namespace Settings {
 			buttons[static_cast<int>(Options::RESOLUTION)].col = DARKGRAY;
 		}
 
-		if(IsKeyPressed(KEY_ESCAPE))
+		if (IsKeyPressed(KEY_ESCAPE))
 			SetProgramStatus(ProgramStatus::MAINMENU);
 
 		Draw();

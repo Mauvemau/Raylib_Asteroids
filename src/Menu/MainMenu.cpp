@@ -27,6 +27,11 @@ namespace MainMenu {
 		case MainMenu::Options::PLAY:
 			return "Play";
 			break;
+#ifdef _WIN32
+		case MainMenu::Options::SETTINGS:
+			return "Settings";
+			break;
+#endif // _WIN32
 		case MainMenu::Options::CREDITS:
 			return "Credits";
 			break;
@@ -46,6 +51,11 @@ namespace MainMenu {
 		case MainMenu::Options::PLAY:
 			SetProgramStatus(ProgramStatus::INGAME);
 			break;
+#ifdef _WIN32
+		case MainMenu::Options::SETTINGS:
+			SetProgramStatus(ProgramStatus::SETTINGS);
+			break;
+#endif // _WIN32
 		case MainMenu::Options::CREDITS:
 			SetProgramStatus(ProgramStatus::CREDITS);
 			break;
