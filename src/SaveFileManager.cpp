@@ -12,6 +12,8 @@
 using namespace std;
 
 namespace Saves {
+	long lastSavedScore = 0;
+
 	// Global
 	long GetHighScore() {
 		long value;
@@ -21,7 +23,7 @@ namespace Saves {
 		}
 		else {
 			std::cout << "[File Manager] There is no such High Score file!\n";
-			value = 0;
+			value = lastSavedScore;
 		}
 		return value;
 	}
@@ -36,7 +38,7 @@ namespace Saves {
 		}
 		std::cout << "[File Manager] File written!\n";
 #ifdef PLATFORM_WEB
-
+		lastSavedScore = value;
 #endif
 	}
 
