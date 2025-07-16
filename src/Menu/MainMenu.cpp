@@ -35,9 +35,11 @@ namespace MainMenu {
 		case MainMenu::Options::CREDITS:
 			return "Credits";
 			break;
+#ifndef PLATFORM_WEB
 		case MainMenu::Options::EXIT:
 			return "Exit";
 			break;
+#endif
 		default:
 			std::cout << "Invalid Option! [MainMenu.cpp - GetButtonname]\n";
 			return "Error";
@@ -59,9 +61,11 @@ namespace MainMenu {
 		case MainMenu::Options::CREDITS:
 			SetProgramStatus(ProgramStatus::CREDITS);
 			break;
+#ifndef PLATFORM_WEB
 		case MainMenu::Options::EXIT:
 			SetGameShouldClose(true);
 			break;
+#endif
 		default:
 			std::cout << "Invalid Option! [MainMenu.cpp - SelectOption()]\n";
 			break;
@@ -73,10 +77,17 @@ namespace MainMenu {
 		for (int i = 0; i < amountButtons; i++) {
 			if (i > 0)
 				spacing += buttons[0].size.y + GetScreenHeight() * .025f;
+#ifdef PLATFORM_WEB
+			buttons[i] = Buttons::Create(i,
+				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .5) + spacing },
+				Vector2{ static_cast<float>(GetScreenWidth() * .3), static_cast<float>(GetScreenHeight() * .1) },
+				GetButtonName((Options)i));
+#else
 			buttons[i] = Buttons::Create(i,
 				Vector2{ static_cast<float>(GetScreenWidth() * .5), static_cast<float>(GetScreenHeight() * .45) + spacing },
 				Vector2{ static_cast<float>(GetScreenWidth() * .3), static_cast<float>(GetScreenHeight() * .1) },
 				GetButtonName((Options)i));
+#endif
 		}
 	}
 

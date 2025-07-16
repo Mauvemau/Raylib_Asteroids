@@ -7,7 +7,9 @@ namespace MainMenu {
 		SETTINGS,
 #endif // _WIN32
 		CREDITS,
+#ifndef PLATFORM_WEB
 		EXIT,
+#endif
 		COUNT
 	};
 

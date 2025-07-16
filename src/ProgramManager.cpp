@@ -11,6 +11,10 @@
 
 #include <iostream>
 
+#ifdef PLATFORM_WEB
+#include <emscripten/emscripten.h>
+#endif
+
 ProgramStatus programStatus; // El estado actual del juego.
 bool gameShouldClose; // Para salir del game loop.
 
@@ -109,7 +113,9 @@ void UpdateProgram() {
 }
 
 void InitProgram() {
+#ifndef PLATFORM_WEB
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
+#endif
 	InitWindow(screenWidth, screenHeight, "Astray");
 	SetWindowMinSize(640, 360);
 	SetExitKey(KEY_NULL); // No queremos que la ventana se cierre con escape.
