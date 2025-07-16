@@ -5,6 +5,10 @@
 #include <iostream>
 #include <fstream>
 
+#ifdef PLATFORM_WEB
+#include <emscripten/emscripten.h>
+#endif
+
 using namespace std;
 
 namespace Saves {
@@ -30,7 +34,16 @@ namespace Saves {
 			myFile << value;
 			myFile.close();
 		}
-
 		std::cout << "[File Manager] File written!\n";
+#ifdef PLATFORM_WEB
+
+#endif
 	}
+
+	void Init() {
+#ifdef PLATFORM_WEB
+
+#endif
+	}
+
 }

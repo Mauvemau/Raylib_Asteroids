@@ -7,6 +7,7 @@
 #include "Menu/Credits.h"
 #include "Game/Game.h"
 #include "AssetLoader.h" // Para cargar los assets.
+#include "SaveFileManager.h"
 #include "Utils.h"
 
 #include <iostream>
@@ -120,6 +121,7 @@ void InitProgram() {
 	SetWindowMinSize(640, 360);
 	SetExitKey(KEY_NULL); // No queremos que la ventana se cierre con escape.
 	Assets::Init(); // Cargamos los assets.
+	Saves::Init();
 	Settings::InitSettings(); // Se inicializan las settings default cuando se ejecuta el programa.
 	SetProgramStatus(ProgramStatus::MAINMENU);
 	Utils::AdjustLastFrameSize(GetScreenWidth(), GetScreenHeight());
@@ -138,6 +140,10 @@ void SetProgramStatus(ProgramStatus status) {
 
 void StartProgram() {
 	InitProgram();
+#ifdef PLATFORM_WEB
+	emscripten_set_main_loop(UpdateProgram, 0, 1);
+#else
 	UpdateProgram();
+#endif
 	CloseProgram();
 }

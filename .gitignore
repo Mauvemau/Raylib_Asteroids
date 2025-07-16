@@ -2,6 +2,9 @@
 .idea
 bin
 build
+build-web
+build-windows
+build-linux
 obj
 saves
 screenshot*
