@@ -8,4 +8,4 @@ This is an asteroids-like game, made with [Raylib](https://www.raylib.com/).
 
 You can download the game from Itch!
 
-[Itch.io](https://mauvemau.itch.io/asteroids)
+[Itch.io](https://mauvemau.itch.io/astray)
